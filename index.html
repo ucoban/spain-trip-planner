@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>España · the Çelik plan</title>
+<meta name="description" content="Eight days, two siblings: Barcelona and València, 22–29 September — tick things off as you go.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
+<link rel="stylesheet" href="styles.css">
+<script src="image-slot.js" defer></script>
+<script src="app.js" defer></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #f5ead8; }
+  a { color: var(--color-accent-700); } a:hover { color: var(--color-accent-800); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important; scroll-behavior: auto !important;
+    }
+  }
+  @media (max-width: 980px) {
+    [data-r="main"] { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 760px) {
+    [data-r="hero"] { grid-template-columns: 1fr !important; gap: 24px !important; padding: 36px 0 24px !important; }
+    [data-r="heroimg"] { justify-self: start !important; }
+    [data-r="heroimg"] image-slot { width: 164px !important; height: 164px !important; }
+    [data-r="h1"] { font-size: 38px !important; }
+  }
+  @media (max-width: 640px) {
+    [data-r="wrap"] { padding: 14px 16px 56px !important; }
+    [data-r="nav"] { flex-wrap: wrap !important; row-gap: 8px !important; }
+    [data-r="h1"] { font-size: 33px !important; }
+    [data-r="route"] { flex-direction: column !important; align-items: stretch !important; }
+    [data-r="arrow"] { flex-direction: row !important; align-self: flex-start !important; gap: 8px !important; padding: 2px 8px !important; }
+    [data-r="arrow"] svg { transform: rotate(90deg); }
+    [data-r="map"] { height: 340px !important; }
+    [data-r="daytitle"] { font-size: 27px !important; }
+    [data-r="actrow"] { gap: 10px !important; }
+    [data-r="check"] { width: 38px !important; height: 38px !important; line-height: 34px !important; }
+    [data-r="overlay"] { padding: 12px !important; }
+    [data-r="dialog"] { padding: 14px !important; }
+  }
+</style>
+</head>
+<body>
+<div id="app" style="min-height:100vh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)">
+  <div data-r="wrap" style="max-width:1180px;margin:0 auto;padding:24px 32px 72px">
+    <nav class="nav" data-r="nav" style="justify-content:space-between">
+      <span class="nav-brand">España · the Çelik plan</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="tag tag-neutral">22 – 29 Sep 2026</span>
+        <span class="tag tag-accent" id="navCount"></span>
+        <div role="group" aria-label="Show prices in" style="display:flex;gap:4px">
+          <button type="button" class="btn btn-primary" data-currency="GBP" style="font-size:12px;padding:5px 12px">£</button>
+          <button type="button" class="btn btn-secondary" data-currency="EUR" style="font-size:12px;padding:5px 12px">€</button>
+        </div>
+      </div>
+    </nav>
+    <header data-r="hero" style="display:grid;grid-template-columns:1fr 236px;gap:44px;align-items:center;padding:52px 8px 36px">
+      <div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+          <span class="tag tag-accent-2">8 days</span>
+          <span class="tag tag-outline">2 siblings</span>
+          <span class="tag tag-neutral">Sea still 23 °C</span>
+        </div>
+        <h1 data-r="h1" style="font-family:var(--font-heading);font-weight:400;font-size:54px;line-height:1.06;margin:0 0 14px">Wigston → Barcelona → València</h1>
+        <p style="font-size:17px;line-height:1.6;max-width:58ch;margin:0;color:var(--color-neutral-800)">Izem sketches the buildings, Ahmet rates the horchata. Three days of Gaudí and festival fire in Barcelona, then four of Calatrava, lagoon boats and proper swimming in València. Tick things off as you go — it remembers.</p>
+      </div>
+      <div data-r="heroimg" style="justify-self:end">
+        <image-slot id="siblings" shape="circle" style="width:224px;height:224px" placeholder="Drop a photo of you two"></image-slot>
+      </div>
+    </header>
+    <div data-r="route" style="display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-bottom:40px">
+      <div style="flex:1;min-width:180px;background:var(--color-neutral-100);border-radius:var(--radius-lg);padding:18px 22px">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:6px">Home base</div>
+        <div style="font-family:var(--font-heading);font-size:20px">Leicester · Wigston</div>
+        <div style="font-size:13px;color:var(--color-neutral-700);margin-top:4px">Kettle HQ, back by the 29th</div>
+      </div>
+      <div data-r="arrow" style="align-self:center;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-accent-700);padding:0 4px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        <span style="font-size:11.5px;font-weight:700">2h20 flight</span>
+      </div>
+      <div style="flex:1.2;min-width:200px;background:var(--color-accent-100);border-radius:var(--radius-lg);padding:18px 22px">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:6px">Nights 1 – 3</div>
+        <div style="font-family:var(--font-heading);font-size:20px">Barcelona</div>
+        <div style="font-size:13px;color:var(--color-neutral-800);margin-top:4px">Gaudí, harbour boats, La Mercè fire</div>
+      </div>
+      <div data-r="arrow" style="align-self:center;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-accent-2-700);padding:0 4px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        <span style="font-size:11.5px;font-weight:700">2h40 sea train</span>
+      </div>
+      <div style="flex:1.2;min-width:200px;background:var(--color-accent-2-100);border-radius:var(--radius-lg);padding:18px 22px">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent-2-800);margin-bottom:6px">Nights 4 – 7</div>
+        <div style="font-family:var(--font-heading);font-size:20px">València</div>
+        <div style="font-size:13px;color:var(--color-neutral-800);margin-top:4px">Calatrava, Albufera lagoon, beach days</div>
+      </div>
+    </div>
+    <section style="margin-bottom:40px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:30px;margin:0">The map</h2>
+        <a href="trip-map.html" target="_blank" style="font-size:13.5px;font-weight:700">Open full-screen ↗</a>
+      </div>
+      <p style="margin:0 0 16px;color:var(--color-neutral-700);font-size:14px">Every stop, pinned — dashed line is the flight, solid sage the coast train. Hover a pin for its name, tap for the when; the buttons zoom straight to a city.</p>
+      <iframe data-r="map" src="trip-map.html" title="Trip route map" loading="lazy" style="width:100%;height:480px;border:none;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);display:block"></iframe>
+    </section>
+    <div id="dayPills" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px"></div>
+    <div data-r="main" style="display:grid;grid-template-columns:1fr 316px;gap:30px;align-items:start">
+      <section>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 6px">
+          <h2 data-r="daytitle" id="dayTitle" style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0"></h2>
+          <span class="tag tag-accent" id="dayCity"></span>
+        </div>
+        <p id="daySub" style="margin:0 0 20px;color:var(--color-neutral-700);font-size:14px"></p>
+        <div id="filterRow" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px"></div>
+        <div id="actList" style="display:grid;gap:14px"></div>
+        <p id="emptyMsg" hidden style="margin:8px 0 0;padding:22px;border:1px dashed var(--color-neutral-400);border-radius:var(--radius-lg);color:var(--color-neutral-700);font-size:14px">Nothing in this category today — try another day, or set the filter back to Everything.</p>
+      </section>
+      <aside style="display:grid;gap:18px">
+        <div class="card">
+          <div class="card-kicker">Trip tracker</div>
+          <div id="pct" style="font-family:var(--font-heading);font-size:46px;line-height:1;margin-top:6px"></div>
+          <p id="trackerCount" style="margin:6px 0 14px;font-size:13.5px;color:var(--color-neutral-700)"></p>
+          <div style="height:10px;border-radius:999px;background:var(--color-neutral-200);overflow:hidden">
+            <div id="bar" style="height:100%;width:0%;background:var(--color-accent);border-radius:999px;transition:width .3s"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-kicker">Book before you fly</div>
+          <div id="bookingList" style="display:grid;gap:11px;margin-top:12px"></div>
+        </div>
+        <div class="card">
+          <div class="card-kicker">Travel wallet</div>
+          <p style="margin:8px 0 12px;font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Boarding passes, booking PDFs, insurance — pin each one to its stop, or keep it general.</p>
+          <button type="button" class="btn btn-secondary btn-block" id="uploadGeneral">Add a document</button>
+          <div id="walletList" style="display:none;gap:12px;margin-top:14px"></div>
+        </div>
+        <div class="card">
+          <div class="card-kicker">The travellers</div>
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-top:12px">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-900);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px;flex-shrink:0">I</div>
+            <div>
+              <div style="font-weight:700;font-size:14.5px">Izem Çelik</div>
+              <div style="font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Architect. Gaudí and Calatrava days are hers — sketchbook stops are flagged in sage.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-top:14px">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-900);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px;flex-shrink:0">A</div>
+            <div>
+              <div style="font-weight:700;font-size:14.5px">Ahmet Çelik</div>
+              <div style="font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Student. Carry the student ID everywhere — Picasso, the science museum and half of València knock money off.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--color-accent-2-100)">
+          <div class="card-kicker">Good to know</div>
+          <p style="margin:10px 0 0;font-size:13px;line-height:1.6;color:var(--color-neutral-800)">Late-September sea: 23 ° Barcelona, 24 ° València. Pack GHIC cards, cotton layers for the correfoc, and one empty bag for market loot.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+</body>
+</html>
