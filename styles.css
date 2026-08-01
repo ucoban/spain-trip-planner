@@ -108,6 +108,11 @@ figcaption {
   background: var(--color-divider);
 }
 
+/* Every component class below sets its own `display`, which would otherwise
+   win against the user-agent rule for [hidden] and leave the element on
+   screen. Toggling `.hidden` from script has to actually hide things. */
+[hidden] { display: none !important; }
+
 /* — buttons — */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;

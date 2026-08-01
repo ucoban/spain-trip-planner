@@ -95,7 +95,13 @@
     day: 0,
     filter: 'all',
     done: read('celik-spain-done', {}),
-    docs: read('celik-spain-docs', []),
+    // Ticks and currency stay in localStorage — they're trivial to redo and
+    // nobody needs them on another device. Documents don't: see the wallet
+    // section below.
+    docs: [],
+    locked: true,
+    walletMsg: null,
+    busy: false,
     currency: localStorage.getItem('celik-spain-currency') === 'EUR' ? 'EUR' : 'GBP'
   };
 
@@ -132,35 +138,122 @@
     try { localStorage.setItem('celik-spain-done', JSON.stringify(state.done)); } catch (e) {}
     render();
   }
-  function saveDocs(docs) {
-    try { localStorage.setItem('celik-spain-docs', JSON.stringify(docs)); }
-    catch (e) { alert('The wallet is full — remove a document to make room.'); return; }
-    state.docs = docs;
+  // — travel wallet ——————————————————————————————————————————————
+  // Documents used to sit in localStorage as base64 data URLs, which meant
+  // they never left the browser that uploaded them and the whole wallet had
+  // to fit in the 5 MB origin quota — one boarding-pass scan filled it. They
+  // now live in a private Vercel Blob store behind /api, unlocked with a
+  // shared passphrase. The unlock cookie is HttpOnly, which is what lets the
+  // preview <img>, <iframe> and download link fetch /api/file directly.
+  const MAX_UPLOAD = 4 * 1024 * 1024;
+  const fileUrl = (doc, download) =>
+    '/api/file?pathname=' + encodeURIComponent(doc.pathname) + (download ? '&download=1' : '');
+
+  async function apiSend(method, body) {
+    const res = await fetch('/api/docs', {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    return finishRequest(res);
+  }
+  async function finishRequest(res) {
+    let payload = {};
+    try { payload = await res.json(); } catch (e) { /* non-JSON error page */ }
+    // A 401 always means the cookie is gone or was never valid — but let the
+    // server say why, so a wrong passphrase reads as one rather than as an
+    // expired session.
+    if (res.status === 401) state.locked = true;
+    if (!res.ok) throw new Error(payload.error || 'That did not work. Try again.');
+    return payload;
+  }
+
+  // Every mutation re-reads the list from the store rather than patching the
+  // local copy, so two phones editing the wallet converge instead of drifting.
+  async function walletAction(run) {
+    state.busy = true; state.walletMsg = null; render();
+    try {
+      await run();
+      state.docs = (await finishRequest(await fetch('/api/docs'))).docs || [];
+    } catch (e) {
+      state.walletMsg = e.message;
+    } finally {
+      state.busy = false;
+      render();
+    }
+  }
+
+  async function refreshWallet() {
+    try {
+      const res = await fetch('/api/unlock');
+      const status = await res.json();
+      state.locked = !status.unlocked;
+      if (!status.configured) state.walletMsg = 'This deployment has no WALLET_PASSPHRASE set yet.';
+      if (state.locked) { render(); return; }
+      state.docs = (await finishRequest(await fetch('/api/docs'))).docs || [];
+    } catch (e) {
+      state.walletMsg = 'Could not reach the wallet.';
+    }
     render();
   }
+
+  async function unlock(passphrase) {
+    state.busy = true; state.walletMsg = null; render();
+    try {
+      await finishRequest(await fetch('/api/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passphrase })
+      }));
+      state.locked = false;
+      state.docs = (await finishRequest(await fetch('/api/docs'))).docs || [];
+    } catch (e) {
+      state.locked = true;
+      state.walletMsg = e.message;
+    } finally {
+      state.busy = false;
+      render();
+    }
+  }
+
   function upload(actId) {
     const input = el('input', { type: 'file', multiple: true });
     input.onchange = () => {
       const files = Array.from(input.files || []);
-      let pending = files.length;
-      if (!pending) return;
-      const added = [];
-      const finish = () => { if (--pending === 0 && added.length) saveDocs(state.docs.concat(added)); };
-      files.forEach(f => {
-        if (f.size > 3 * 1024 * 1024) { alert(f.name + ' is over 3 MB — too big for the wallet.'); finish(); return; }
-        const r = new FileReader();
-        r.onload = () => {
-          added.push({
-            id: 'f' + Date.now() + Math.random().toString(36).slice(2, 6),
-            name: f.name, size: f.size, act: actId || '', dataUrl: r.result
-          });
-          finish();
-        };
-        r.onerror = finish;
-        r.readAsDataURL(f);
+      if (!files.length) return;
+      // One request per file keeps every body well under the 4.5 MB ceiling
+      // Vercel puts on a Function request.
+      walletAction(async () => {
+        const rejected = [];
+        for (const f of files) {
+          if (f.size > MAX_UPLOAD) { rejected.push(f.name + ' is over 4 MB'); continue; }
+          const form = new FormData();
+          form.append('file', f);
+          form.append('act', actId || '');
+          await finishRequest(await fetch('/api/docs', { method: 'POST', body: form }));
+        }
+        if (rejected.length) throw new Error(rejected.join('; ') + ' — too big for the wallet.');
       });
     };
     input.click();
+  }
+
+  // Anything a previous visit stashed in localStorage is still the only copy
+  // of that document, so it's offered as a one-click move rather than being
+  // dropped on the floor.
+  const legacyDocs = read('celik-spain-docs', []).filter(d => d && d.dataUrl);
+  function migrateLegacy() {
+    walletAction(async () => {
+      for (const d of legacyDocs) {
+        const blob = await (await fetch(d.dataUrl)).blob();
+        const form = new FormData();
+        form.append('file', new File([blob], d.name || 'document', { type: blob.type }));
+        form.append('act', d.act || '');
+        await finishRequest(await fetch('/api/docs', { method: 'POST', body: form }));
+      }
+      localStorage.removeItem('celik-spain-docs');
+      legacyDocs.length = 0;
+    });
   }
   function fmt(eur) {
     if (eur == null) return null;
@@ -178,15 +271,13 @@
     const doc = state.docs.find(d => d.id === docId);
     if (!doc) return;
     lastFocus = document.activeElement;
-    const isImage = doc.dataUrl.indexOf('data:image/') === 0;
-    const isPdf = doc.dataUrl.indexOf('data:application/pdf') === 0;
     const meta = (doc.act ? ACT_INDEX[doc.act] : 'General — whole trip') + ' · ' + sizeLabel(doc.size);
 
-    const body = isImage
-      ? el('div', { role: 'img', 'aria-label': 'Preview of ' + doc.name,
-          style: 'width:100%;height:60vh;background-image:url("' + doc.dataUrl + '");background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:var(--radius-lg);background-color:var(--color-neutral-100)' })
-      : isPdf
-        ? el('iframe', { src: doc.dataUrl, title: 'Preview of ' + doc.name,
+    const body = doc.kind === 'image'
+      ? el('img', { src: fileUrl(doc), alt: 'Preview of ' + doc.name,
+          style: 'display:block;width:100%;height:60vh;object-fit:contain;border-radius:var(--radius-lg);background:var(--color-neutral-100)' })
+      : doc.kind === 'pdf'
+        ? el('iframe', { src: fileUrl(doc), title: 'Preview of ' + doc.name,
             style: 'width:100%;height:60vh;border:none;border-radius:var(--radius-lg);background:var(--color-neutral-100)' })
         : el('p', { text: 'No inline preview for this file type — use Download to open it.',
             style: 'margin:0;padding:28px;border:1px dashed var(--color-neutral-400);border-radius:var(--radius-lg);font-size:14px;color:var(--color-neutral-700);text-align:center' });
@@ -202,7 +293,7 @@
           el('div', { text: doc.name, style: 'font-family:var(--font-heading);font-size:19px;overflow-wrap:anywhere' }),
           el('div', { text: meta, style: 'font-size:12.5px;color:var(--color-neutral-700);margin-top:2px' })
         ),
-        el('a', { class: 'btn btn-secondary', href: doc.dataUrl, download: doc.name, text: 'Download' }),
+        el('a', { class: 'btn btn-secondary', href: fileUrl(doc, true), download: doc.name, text: 'Download' }),
         closeBtn
       ),
       body
@@ -279,7 +370,10 @@
         style: 'display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:12px;font-weight:700;background:var(--color-accent-100);color:var(--color-accent-900);border:none;border-radius:999px;padding:5px 12px;cursor:pointer'
       }, svg(11, LINK_ICON), el('span', { text: d.name }))),
       el('button', {
-        type: 'button', text: '+ ticket / doc', onclick: () => upload(a.id), 'data-key': 'attach-' + a.id,
+        type: 'button', 'data-key': 'attach-' + a.id, disabled: state.busy,
+        text: state.locked ? '+ ticket / doc (locked)' : '+ ticket / doc',
+        title: state.locked ? 'Unlock the travel wallet in the sidebar first' : null,
+        onclick: () => { if (state.locked) $('walletPass') && $('walletPass').focus(); else upload(a.id); },
         style: 'display:inline-flex;align-items:center;gap:5px;font-family:inherit;font-size:12px;font-weight:700;background:none;border:1px dashed var(--color-neutral-400);color:var(--color-neutral-700);border-radius:999px;padding:5px 12px;cursor:pointer'
       })
     );
@@ -346,14 +440,69 @@
     }));
   }
 
+  // The passphrase field is rebuilt on every render like everything else, so
+  // a failed attempt would otherwise clear what was typed.
+  let passDraft = '';
+
+  function renderWalletGate() {
+    const gate = $('walletGate');
+    // replaceChildren stringifies null into a literal "null" text node, so
+    // the conditional rows have to be filtered out rather than passed through.
+    const fill = (...kids) => gate.replaceChildren(...kids.filter(Boolean));
+    const note = msg => el('p', {
+      text: msg, role: 'status',
+      style: 'margin:10px 0 0;font-size:12.5px;line-height:1.45;color:var(--color-accent-2-900);background:var(--color-accent-2-100);border-radius:12px;padding:8px 12px'
+    });
+
+    if (state.locked) {
+      const field = el('input', {
+        type: 'password', id: 'walletPass', 'data-key': 'walletpass', autocomplete: 'current-password',
+        placeholder: 'Wallet passphrase', 'aria-label': 'Wallet passphrase', disabled: state.busy,
+        oninput: e => { passDraft = e.target.value; },
+        onkeydown: e => { if (e.key === 'Enter' && passDraft) unlock(passDraft); },
+        style: 'flex:1;min-width:0;font-family:inherit;font-size:13px;padding:8px 12px;border-radius:999px;border:1px solid var(--color-neutral-400);background:var(--color-bg);color:var(--color-text)'
+      });
+      field.value = passDraft;
+      fill(
+        el('div', { style: 'display:flex;gap:8px;align-items:center' },
+          field,
+          el('button', {
+            type: 'button', class: 'btn btn-primary', 'data-key': 'walletunlock', disabled: state.busy,
+            text: state.busy ? '…' : 'Unlock', onclick: () => passDraft && unlock(passDraft)
+          })
+        ),
+        state.walletMsg && note(state.walletMsg),
+        // Their only copy is still in this browser. Say so, or it looks lost.
+        legacyDocs.length && note(legacyDocs.length + ' document' + (legacyDocs.length > 1 ? 's' : '') +
+          ' saved on this device is waiting to be moved across — unlock to keep ' +
+          (legacyDocs.length > 1 ? 'them' : 'it') + '.')
+      );
+      return;
+    }
+
+    fill(
+      legacyDocs.length && el('button', {
+        type: 'button', class: 'btn btn-secondary btn-block', 'data-key': 'walletmigrate', disabled: state.busy,
+        text: 'Move ' + legacyDocs.length + ' document' + (legacyDocs.length > 1 ? 's' : '') + ' off this device',
+        onclick: migrateLegacy
+      }),
+      state.walletMsg && note(state.walletMsg)
+    );
+  }
+
   function renderWallet() {
+    renderWalletGate();
+    $('uploadGeneral').hidden = state.locked;
+    $('uploadGeneral').disabled = state.busy;
+    $('uploadGeneral').textContent = state.busy ? 'Working…' : 'Add a document';
+
     const list = $('walletList');
     if (!state.docs.length) { list.style.display = 'none'; list.replaceChildren(); return; }
     list.style.display = 'grid';
     list.replaceChildren(...state.docs.map(d => {
       const select = el('select', {
-        'aria-label': 'Pin ' + d.name + ' to a stop', 'data-key': 'pin-' + d.id,
-        onchange: e => saveDocs(state.docs.map(x => x.id === d.id ? Object.assign({}, x, { act: e.target.value }) : x)),
+        'aria-label': 'Pin ' + d.name + ' to a stop', 'data-key': 'pin-' + d.id, disabled: state.busy,
+        onchange: e => walletAction(() => apiSend('PATCH', { pathname: d.pathname, act: e.target.value })),
         style: 'flex:1;min-width:0;font-family:inherit;font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--color-neutral-400);background:var(--color-bg);color:var(--color-neutral-800)'
       },
         el('option', { value: '', text: 'General — whole trip' }),
@@ -369,7 +518,8 @@
           }),
           el('button', {
             type: 'button', text: '×', 'aria-label': 'Remove ' + d.name, 'data-key': 'walletdel-' + d.id,
-            onclick: () => saveDocs(state.docs.filter(x => x.id !== d.id)),
+            disabled: state.busy,
+            onclick: () => { if (confirm('Remove ' + d.name + ' from the wallet?')) walletAction(() => apiSend('DELETE', { pathname: d.pathname })); },
             style: 'background:none;border:none;cursor:pointer;font-size:17px;line-height:1;color:var(--color-neutral-600);padding:0 2px'
           })
         ),
@@ -418,4 +568,5 @@
   });
 
   render();
+  refreshWallet();
 })();

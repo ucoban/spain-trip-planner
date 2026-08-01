@@ -1,0 +1,10 @@
+{
+  "name": "spain-trip-planner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "España · the Çelik plan — trip planner with a Vercel Blob travel wallet",
+  "dependencies": {
+    "@vercel/blob": "^2.3.0"
+  }
+}
