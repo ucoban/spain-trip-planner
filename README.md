@@ -3,9 +3,15 @@
 A seven-day trip planner for Barcelona and València, 8-14 August. Pick a
 day, filter it down to the boat trips or the fiestas, tick things off as they
 happen, and keep boarding passes and booking PDFs pinned to the stop they
-belong to. The itinerary and its embedded tips are distilled from 21
-Barcelona and València travel vlogs (routes, prices, and warnings mined from
-their transcripts and comments).
+belong to. The itinerary and its embedded tips are distilled from 29
+travel vlogs and 22 blog articles (routes, prices, and warnings mined from
+their transcripts, comment sections, and pages).
+
+The plan picks a path; the **field guide** (`guide.html`) keeps the whole
+haul: every place the sources suggested (160, grouped by city, each linked
+to Google Maps and to the vlog moment or article that recommended it, and
+badged when it appears in the itinerary) plus all 133 merged tips by
+category, with the full source lists at the bottom.
 
 Ticked moments, the hero photo, and the chosen currency live in the browser's
 `localStorage` — they're cheap to redo and nobody needs them on a second
@@ -23,6 +29,9 @@ Safari's seven-day storage eviction).
 | `index.html` | The page itself — nav, hero, route, embedded map, day view, sidebar |
 | `i18n.js` | Every user-facing string, per language (English and Turkish) |
 | `app.js` | Itinerary skeleton, tick/filter/day state, travel wallet, document preview |
+| `guide.html` | The field guide page: every mined place, every tip, every source |
+| `guide.js` | Renders the field guide from `guide-data.js` and `i18n.js` |
+| `guide-data.js` | Generated guide skeleton: ids, groups, mention counts, links |
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |
 | `styles.css` | Design-system tokens and component classes |

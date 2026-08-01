@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>España · the field guide</title>
+<meta name="description" content="Every place and every piece of advice mined from 29 travel vlogs and 22 blog articles for the Barcelona and València trip.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
+<link rel="stylesheet" href="styles.css">
+<script src="i18n.js" defer></script>
+<script src="guide-data.js" defer></script>
+<script src="guide.js" defer></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #f5ead8; }
+  a { color: var(--color-accent-700); } a:hover { color: var(--color-accent-800); }
+  .g-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 700; letter-spacing: .01em;
+    border-radius: 999px; padding: 2px 9px; text-decoration: none; white-space: nowrap;
+  }
+  .g-place { padding: 12px 0; border-top: 1px solid var(--color-neutral-300); }
+  .g-place:first-child { border-top: none; }
+  .g-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 34px; }
+  @media (max-width: 860px) { .g-cols { grid-template-columns: 1fr; } }
+  .g-tip { padding: 9px 0 9px 0; border-top: 1px solid var(--color-neutral-300); font-size: 13.5px; line-height: 1.55; color: var(--color-neutral-800); }
+  .g-tip:first-child { border-top: none; }
+  @media (max-width: 640px) {
+    [data-r="wrap"] { padding: 14px 16px 56px !important; }
+    [data-r="nav"] { flex-wrap: wrap !important; row-gap: 8px !important; }
+    [data-r="h1"] { font-size: 32px !important; }
+  }
+</style>
+</head>
+<body>
+<div id="app" style="min-height:100vh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)">
+  <div data-r="wrap" style="max-width:1180px;margin:0 auto;padding:24px 32px 72px">
+    <nav class="nav" data-r="nav" style="justify-content:space-between">
+      <a id="brand" class="nav-brand" href="./" style="text-decoration:none;color:inherit">España · the Çelik plan</a>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <a id="backLink" class="tag tag-accent" href="./" style="text-decoration:none">← Back to the plan</a>
+        <div id="langGroup" role="group" aria-label="Language" style="display:flex;gap:4px">
+          <button type="button" class="btn btn-secondary" data-lang="en" lang="en" style="font-size:12px;padding:5px 12px">EN</button>
+          <button type="button" class="btn btn-secondary" data-lang="tr" lang="tr" style="font-size:12px;padding:5px 12px">TR</button>
+        </div>
+      </div>
+    </nav>
+    <header style="padding:46px 8px 10px;max-width:74ch">
+      <div id="kicker" class="card-kicker" style="margin-bottom:10px">Everything we mined</div>
+      <h1 id="pageTitle" data-r="h1" style="font-family:var(--font-heading);font-weight:400;font-size:46px;line-height:1.08;margin:0 0 14px">The field guide</h1>
+      <p id="pageIntro" style="font-size:16px;line-height:1.6;margin:0;color:var(--color-neutral-800)"></p>
+    </header>
+    <section style="margin-top:34px">
+      <h2 id="placesTitle" style="font-family:var(--font-heading);font-weight:400;font-size:31px;margin:0 0 6px"></h2>
+      <p id="placesIntro" style="margin:0 0 10px;max-width:74ch;color:var(--color-neutral-700);font-size:14px;line-height:1.55"></p>
+      <div id="placeGroups" style="display:grid;gap:26px;margin-top:18px"></div>
+    </section>
+    <section style="margin-top:48px">
+      <h2 id="tipsTitle" style="font-family:var(--font-heading);font-weight:400;font-size:31px;margin:0 0 6px"></h2>
+      <p id="tipsIntro" style="margin:0 0 10px;max-width:74ch;color:var(--color-neutral-700);font-size:14px;line-height:1.55"></p>
+      <div id="tipGroups" style="display:grid;gap:22px;margin-top:18px"></div>
+    </section>
+    <section style="margin-top:48px">
+      <h2 id="sourcesTitle" style="font-family:var(--font-heading);font-weight:400;font-size:31px;margin:0 0 6px"></h2>
+      <p id="sourcesIntro" style="margin:0 0 10px;max-width:74ch;color:var(--color-neutral-700);font-size:14px;line-height:1.55"></p>
+      <div id="sourceLists" class="g-cols" style="margin-top:18px"></div>
+    </section>
+  </div>
+</div>
+</body>
+</html>
