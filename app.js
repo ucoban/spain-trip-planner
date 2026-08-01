@@ -1,87 +1,80 @@
 /* España · the Çelik plan — itinerary state, wallet, and rendering.
    Everything the trip remembers (ticked moments, uploaded documents, the
-   chosen currency) lives in localStorage, so the plan survives a reload
-   without a backend. */
+   chosen currency and language) lives in localStorage, so the plan survives
+   a reload without a backend.
+
+   No words live in this file: every user-facing string — itinerary text
+   included — comes from window.I18N (i18n.js), which loads first. This file
+   keeps only the trip's skeleton: ids, times, prices, categories, colours. */
 (() => {
   'use strict';
 
+  const T = window.I18N.t;
+  const tpl = window.I18N.fmt;
+
   const CATS = {
-    travel: { label: 'Transit', bg: 'transparent', fg: 'var(--color-neutral-700)', bd: '1px solid var(--color-neutral-400)' },
-    sights: { label: 'Sights', bg: 'var(--color-accent-200)', fg: 'var(--color-accent-900)' },
-    museum: { label: 'Museum', bg: 'var(--color-accent-100)', fg: 'var(--color-accent-800)' },
-    boat: { label: 'Boat trip', bg: 'var(--color-accent-2-200)', fg: 'var(--color-accent-2-900)' },
-    swim: { label: 'Swim', bg: 'var(--color-accent-2-100)', fg: 'var(--color-accent-2-800)' },
-    food: { label: 'Food & drink', bg: 'var(--color-neutral-200)', fg: 'var(--color-neutral-800)' },
-    event: { label: 'Fiesta', bg: 'var(--color-accent-300)', fg: 'var(--color-accent-900)' }
+    travel: { bg: 'transparent', fg: 'var(--color-neutral-700)', bd: '1px solid var(--color-neutral-400)' },
+    sights: { bg: 'var(--color-accent-200)', fg: 'var(--color-accent-900)' },
+    museum: { bg: 'var(--color-accent-100)', fg: 'var(--color-accent-800)' },
+    boat: { bg: 'var(--color-accent-2-200)', fg: 'var(--color-accent-2-900)' },
+    swim: { bg: 'var(--color-accent-2-100)', fg: 'var(--color-accent-2-800)' },
+    food: { bg: 'var(--color-neutral-200)', fg: 'var(--color-neutral-800)' },
+    event: { bg: 'var(--color-accent-300)', fg: 'var(--color-accent-900)' }
   };
 
-  const FILTERS = [
-    ['all', 'Everything'], ['boat', 'Boat trips'], ['swim', 'Swimming'], ['sights', 'Sights'],
-    ['museum', 'Museums'], ['food', 'Food'], ['event', 'Fiestas']
-  ];
+  const FILTERS = ['all', 'boat', 'swim', 'sights', 'museum', 'food', 'event'];
 
   const DAYS = [
-    { dow: 'Sat', dom: '8', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Wigston → Barcelona', sub: 'Saturday 8 Aug · plane day, into the Gothic Quarter by dusk', acts: [
-      { id: 'd1b1', t: '07:30', cat: 'travel', title: 'Fly EMA → Barcelona', desc: 'Taxi from Wigston at 07:30, East Midlands is 45 minutes up the M1. Wheels up 10:35, wheels down 13:55. One cabin bag each.', eur: 95 },
-      { id: 'd1b2', t: '15:00', cat: 'travel', title: 'Airport train + check-in', desc: 'R2 Nord train, every half hour, straight to Passeig de Gràcia. Ten-minute walk to the Eixample apartment, bags down, cold shower, out by six.', tip: 'From the vlogs: the airport train beats the August bus queue and costs about a fiver.', eur: 5 },
-      { id: 'd1b3', t: '18:30', cat: 'sights', title: 'Gothic Quarter first wander', desc: 'Cathedral cloister (say hi to the thirteen geese), Plaça Sant Felip Neri, then the lampposts of Plaça Reial.', tip: 'Izem: the Reial lamps are Gaudí’s first ever commission. Student work, pre-everything.', eur: 0 },
-      { id: 'd1b4', t: '21:00', cat: 'food', title: 'Tapas crawl, Carrer de la Mercè', desc: 'Standing-room bars: bravas, pan con tomate, a vermut each. Order badly, point a lot, repeat.', tip: 'From the vlogs: locals eat after nine, and the old-town lanes are pickpocket turf. Phones zipped, bags worn in front.', eur: 25 }
+    { dom: '8', dot: 'var(--color-accent)', acts: [
+      { id: 'd1b1', t: '07:30', cat: 'travel', eur: 95 },
+      { id: 'd1b2', t: '15:00', cat: 'travel', eur: 5 },
+      { id: 'd1b3', t: '18:30', cat: 'sights', eur: 0 },
+      { id: 'd1b4', t: '21:00', cat: 'food', eur: 25 }
     ] },
-    { dow: 'Sun', dom: '9', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Gaudí, all day', sub: 'Sunday 9 Aug · the full pilgrimage, paced for the heat', acts: [
-      { id: 'd2b1', t: '09:00', cat: 'sights', title: 'Sagrada Família', desc: 'First slot of the day, before the crowds and the worst of the sun. Nativity façade outside, then the stone forest and the stained-glass wall of fire and sea.', tip: 'Izem: add the Passion tower, the spiral stair down is the drawing of the day.', eur: 26 },
-      { id: 'd2b2', t: '13:00', cat: 'food', title: 'Long shaded lunch, Eixample', desc: 'Casa Milà’s stone wave from across the street on the way there. Then the August rule the vlogs all land on: a slow indoor lunch while the city bakes, nobody moves before five.', eur: 18 },
-      { id: 'd2b3', t: '17:30', cat: 'sights', title: 'Park Güell', desc: 'The mosaic salamander, the wavy bench with the city behind it, the colonnade holding up a road. Timed entry, don’t be late.', tip: 'From the vlogs: go early or go late in August, never at two. The bench faces the evening light, and it’s metro L4 plus the escalators up.', eur: 13 },
-      { id: 'd2b4', t: '21:00', cat: 'event', title: 'Casa Batlló Magic Nights', desc: 'Twilight visit through the dragon house, then live music and a drink up on the scaled rooftop.', tip: 'Ahmet: yes, the drink is included.', eur: 45 }
+    { dom: '9', dot: 'var(--color-accent)', acts: [
+      { id: 'd2b1', t: '09:00', cat: 'sights', eur: 26 },
+      { id: 'd2b2', t: '13:00', cat: 'food', eur: 18 },
+      { id: 'd2b3', t: '17:30', cat: 'sights', eur: 13 },
+      { id: 'd2b4', t: '21:00', cat: 'event', eur: 45 }
     ] },
-    { dow: 'Mon', dom: '10', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Montserrat, then the sea', sub: 'Monday 10 Aug · the vloggers’ unanimous day trip, salt water by evening', acts: [
-      { id: 'd3b1', t: '08:15', cat: 'travel', title: 'R5 train + rack railway up', desc: 'R5 from Plaça d’Espanya, then the cremallera up the cliff face. About an hour and a quarter, door to mountain.', tip: 'From the vlogs: roughly €24 return, and the early train beats both the coach tours and the heat.', eur: 24 },
-      { id: 'd3b2', t: '10:00', cat: 'sights', title: 'Montserrat monastery + ridge walk', desc: 'The basilica and the Black Madonna, then the Sant Joan funicular to the ridge path: saw-tooth peaks with all of Catalonia below.', tip: 'From the vlogs: three separate creators called this the best thing they did near Barcelona, and all three gave the same advice. Early.', eur: 16 },
-      { id: 'd3b3', t: '18:00', cat: 'swim', title: 'Barceloneta evening swim', desc: 'The sea is 26 °C in August and evening is the local swim slot: cooler sand, golden light, croissant traded for a granizado.', tip: 'From the vlogs: never leave phones on the towel while you both swim. Take turns.', eur: 0 },
-      { id: 'd3b4', t: '20:30', cat: 'food', title: 'Dinner at Can Solé', desc: 'Open since 1903, two streets back from the sand. Get the arròs negre, braver than it looks.', tip: 'From the vlogs: locals treat paella strictly as a lunch dish, so tonight is the squid-ink cousin. The real paella happens lakeside on Thursday, at two.', eur: 35 }
+    { dom: '10', dot: 'var(--color-accent)', acts: [
+      { id: 'd3b1', t: '08:15', cat: 'travel', eur: 24 },
+      { id: 'd3b2', t: '10:00', cat: 'sights', eur: 16 },
+      { id: 'd3b3', t: '18:00', cat: 'swim', eur: 0 },
+      { id: 'd3b4', t: '20:30', cat: 'food', eur: 35 }
     ] },
-    { dow: 'Tue', dom: '11', dot: 'linear-gradient(135deg, var(--color-accent) 50%, var(--color-accent-2) 50%)', city: 'BCN → València', title: 'Born morning, then south', sub: 'Tuesday 11 Aug · Picasso and one brisk Rambla, then the coast train to city two', acts: [
-      { id: 'd4b1', t: '09:00', cat: 'food', title: 'Breakfast, Mercat de Santa Caterina', desc: 'The wavy-roofed market on the edge of El Born. Coffee, fruit and jamón at the counter.', tip: 'From the vlogs: same produce as La Boqueria, a fraction of the crush and the prices. One creator titled a whole chapter “a market BETTER than La Boqueria”. This is that market.', eur: 6 },
-      { id: 'd4b2', t: '09:45', cat: 'sights', title: 'Santa Maria del Mar + Born lanes', desc: 'The sailors’ basilica, one soaring stone room. Then the medieval lanes to the museum door.', eur: 0 },
-      { id: 'd4b3', t: '10:30', cat: 'museum', title: 'Museu Picasso', desc: 'Five Gothic palaces of early Picasso, ending in the room of Las Meninas he painted at seventy-six.', tip: 'Ahmet: student card = reduced entry.', eur: 12 },
-      { id: 'd4b4', t: '12:15', cat: 'sights', title: 'La Rambla, once, briskly', desc: 'Walk it once for the theatre of it, one fresh juice inside La Boqueria, done by one o’clock.', tip: 'From the vlogs: La Rambla has the highest pickpocket concentration in Barcelona, and Boqueria prices are tourist prices. Look, sip, move on.', eur: 4 },
-      { id: 'd4b5', t: '14:05', cat: 'travel', title: 'Euromed to València', desc: 'Bags from the apartment, then Sants → València Nord, around three hours down the coast. Sit on the left, the Mediterranean does the entertainment.', eur: 30 },
-      { id: 'd4b6', t: '18:30', cat: 'sights', title: 'Turia Gardens hello-walk', desc: 'Nine kilometres of park where the river used to be. Walk as far as the Gulliver playground and back.', tip: 'From the vlogs: the Turia is best by bike. If tonight’s walk wins you over, rent a pair on Thursday morning.', eur: 0 },
-      { id: 'd4b7', t: '21:00', cat: 'food', title: 'Dinner in Russafa', desc: 'València’s liveliest barrio, the one the vlogs call the trendy stay. Agua de València comes by the jug. One jug, shared, that’s the rule.', eur: 22 }
+    { dom: '11', dot: 'linear-gradient(135deg, var(--color-accent) 50%, var(--color-accent-2) 50%)', acts: [
+      { id: 'd4b1', t: '09:00', cat: 'food', eur: 6 },
+      { id: 'd4b2', t: '09:45', cat: 'sights', eur: 0 },
+      { id: 'd4b3', t: '10:30', cat: 'museum', eur: 12 },
+      { id: 'd4b4', t: '12:15', cat: 'sights', eur: 4 },
+      { id: 'd4b5', t: '14:05', cat: 'travel', eur: 30 },
+      { id: 'd4b6', t: '18:30', cat: 'sights', eur: 0 },
+      { id: 'd4b7', t: '21:00', cat: 'food', eur: 22 }
     ] },
-    { dow: 'Wed', dom: '12', dot: 'var(--color-accent-2)', city: 'València', title: 'Old town + first swim', sub: 'Wednesday 12 Aug · market breakfast, Gothic noon, beach evening', acts: [
-      { id: 'd5b1', t: '08:45', cat: 'food', title: 'Mercat Central, early', desc: 'One of Europe’s great iron-and-glass markets. Horchata and fartons at the counter, jamón and manchego for later. Ahmet’s new personality.', tip: 'From the vlogs: the single most-filmed stop in every València vlog we mined. It shuts at three and sleeps on Sunday, so it has to be a morning.', eur: 8 },
-      { id: 'd5b2', t: '10:00', cat: 'sights', title: 'La Lonja de la Seda', desc: 'The UNESCO silk exchange, Gothic columns twisted like rope pulled tight. Two euros, somehow.', tip: 'Izem: the Sala de Contratación. Fifteen minutes of just looking.', eur: 2 },
-      { id: 'd5b3', t: '11:30', cat: 'sights', title: 'Cathedral + El Miguelete', desc: '207 steps up the bell tower for the whole city in one slow turn. The cathedral also claims the Holy Grail. Sure.', eur: 9 },
-      { id: 'd5b4', t: '13:30', cat: 'food', title: 'Menú del día, old town', desc: 'Three courses and a glass of something cold for meal-deal money, the great weekday-lunch institution.', tip: 'From the vlogs: one creator called the menú del día the best thing about Spain, full stop. Look for the chalkboard, not the laminated menu.', eur: 15 },
-      { id: 'd5b5', t: '17:30', cat: 'swim', title: 'Malva-rosa beach', desc: 'The 1.50 € bus or a €10 taxi to the sand. Wide, flat, 27 °C water: proper swimming, then lying down professionally.', eur: 2 },
-      { id: 'd5b6', t: '20:45', cat: 'sights', title: 'Serranos Towers, golden hour', desc: 'Climb the medieval gate as the light goes honey-coloured over the old riverbed.', eur: 2 },
-      { id: 'd5b7', t: '21:30', cat: 'food', title: 'Dinner in El Carmen', desc: 'Street-art lanes and tapas tables in the oldest corner of the city.', tip: 'From the vlogs (the comments, actually): viewers kept pushing bunyols, pumpkin fritters with hot chocolate. Field-tested local knowledge.', eur: 20 }
+    { dom: '12', dot: 'var(--color-accent-2)', acts: [
+      { id: 'd5b1', t: '08:45', cat: 'food', eur: 8 },
+      { id: 'd5b2', t: '10:00', cat: 'sights', eur: 2 },
+      { id: 'd5b3', t: '11:30', cat: 'sights', eur: 9 },
+      { id: 'd5b4', t: '13:30', cat: 'food', eur: 15 },
+      { id: 'd5b5', t: '17:30', cat: 'swim', eur: 2 },
+      { id: 'd5b6', t: '20:45', cat: 'sights', eur: 2 },
+      { id: 'd5b7', t: '21:30', cat: 'food', eur: 20 }
     ] },
-    { dow: 'Thu', dom: '13', dot: 'var(--color-accent-2)', city: 'València', title: 'Calatrava + the lagoon', sub: 'Thursday 13 Aug · white city morning, rice country evening', acts: [
-      { id: 'd6b1', t: '09:00', cat: 'sights', title: 'City of Arts & Sciences', desc: 'The Hemisfèric eye, the Umbracle palm walk, white ribs against blue sky in every direction. By bike if Tuesday’s Turia walk converted you.', tip: 'Izem: sketchbook day. Morning light on the Hemisfèric is the shot.', eur: 0 },
-      { id: 'd6b2', t: '10:30', cat: 'sights', title: 'Oceanogràfic', desc: 'Europe’s biggest aquarium: the shark tunnel, belugas, and a jellyfish room built for standing very still in.', tip: 'From the vlogs: about €32 on the door, cheaper and queue-free booked online. The jellyfish room doubles as air conditioning at noon.', eur: 32 },
-      { id: 'd6b3', t: '14:15', cat: 'food', title: 'Paella at its birthplace', desc: 'Bus 24 or 25 south through the rice paddies to El Palmar, where paella is actually from. Rabbit-and-bean valenciana, or all i pebre eel stew for the brave.', tip: 'From the vlogs: paella is a lunch dish that takes 25 minutes and is ordered for two or more. At two o’clock in El Palmar you are doing it exactly right.', eur: 25 },
-      { id: 'd6b4', t: '19:00', cat: 'boat', title: 'Albufera lagoon boat', desc: 'A flat-bottomed albuferenc glides you through reeds and rice paddies, Europe’s rice bowl from water level.', eur: 8 },
-      { id: 'd6b5', t: '20:45', cat: 'event', title: 'Albufera sunset', desc: 'The sky show locals drive out for. Stay on the jetty until the last orange is gone.', eur: 0 }
+    { dom: '13', dot: 'var(--color-accent-2)', acts: [
+      { id: 'd6b1', t: '09:00', cat: 'sights', eur: 0 },
+      { id: 'd6b2', t: '10:30', cat: 'sights', eur: 32 },
+      { id: 'd6b3', t: '14:15', cat: 'food', eur: 25 },
+      { id: 'd6b4', t: '19:00', cat: 'boat', eur: 8 },
+      { id: 'd6b5', t: '20:45', cat: 'event', eur: 0 }
     ] },
-    { dow: 'Fri', dom: '14', dot: 'var(--color-neutral-500)', city: 'Home', title: 'Adiós, España', sub: 'Friday 14 Aug · last walk, fly home', acts: [
-      { id: 'd7b1', t: '09:00', cat: 'sights', title: 'Last loop of the Turia', desc: 'Under Calatrava’s white bridges one more time. Buy the fartons that will not survive the flight.', eur: 0 },
-      { id: 'd7b2', t: '12:30', cat: 'travel', title: 'Fly València → East Midlands', desc: 'Metro to the airport in 25 minutes. Land at EMA, taxi to Wigston, kettle on by six.', eur: 95 }
+    { dom: '14', dot: 'var(--color-neutral-500)', acts: [
+      { id: 'd7b1', t: '09:00', cat: 'sights', eur: 0 },
+      { id: 'd7b2', t: '12:30', cat: 'travel', eur: 95 }
     ] }
   ];
 
-  const BOOKINGS = [
-    { id: 'k1', label: 'Flights: EMA → Barcelona out, València → EMA home' },
-    { id: 'k2', label: 'Sagrada Família 09:00 slot, Sun 9 (vlogs: August sells out weeks ahead)' },
-    { id: 'k3', label: 'Park Güell timed entry, Sun 9 · 17:30' },
-    { id: 'k4', label: 'Casa Batlló Magic Nights, Sun 9' },
-    { id: 'k5', label: 'Montserrat: R5 + cremallera return, Mon 10' },
-    { id: 'k6', label: 'Can Solé table, Mon 10 evening (arrocerías book out in August)' },
-    { id: 'k7', label: 'Museu Picasso timed entry, Tue 11 (Ahmet: student rate)' },
-    { id: 'k8', label: 'Euromed 14:05, Tue 11, left-side seats' },
-    { id: 'k9', label: 'Oceanogràfic online tickets, Thu 13 (vlogs: skips the door queue)' },
-    { id: 'k10', label: 'Albufera sunset boat, Thu 13' }
-  ];
+  const BOOKINGS = ['k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
 
   const LINK_ICON = '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>';
 
@@ -105,7 +98,9 @@
 
   const ALL_ACTS = DAYS.flatMap(d => d.acts);
   const ACT_INDEX = {};
-  DAYS.forEach((d, i) => d.acts.forEach(a => { ACT_INDEX[a.id] = 'Day ' + (i + 1) + ' · ' + a.title; }));
+  DAYS.forEach((d, i) => d.acts.forEach(a => {
+    ACT_INDEX[a.id] = tpl(T.ui.dayN, { n: i + 1 }) + ' · ' + T.acts[a.id].title;
+  }));
 
   // — DOM helper —————————————————————————————————————————————————
   function el(tag, attrs, ...kids) {
@@ -129,6 +124,30 @@
     'aria-hidden': 'true', svg: path
   });
   const $ = id => document.getElementById(id);
+
+  // — static text ————————————————————————————————————————————————
+  // The markup ships with English as its fallback; this swaps every tagged
+  // node to the active language before the first render.
+  function applyStatic() {
+    document.title = T.htmlTitle;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', T.metaDesc);
+    document.querySelectorAll('[data-i18n]').forEach(n => {
+      const s = T.static[n.getAttribute('data-i18n')];
+      if (s != null) n.textContent = s;
+    });
+    const ATTRS = {
+      'data-i18n-placeholder': 'placeholder',
+      'data-i18n-title': 'title',
+      'data-i18n-aria-label': 'aria-label'
+    };
+    for (const dataAttr in ATTRS) {
+      document.querySelectorAll('[' + dataAttr + ']').forEach(n => {
+        const s = T.static[n.getAttribute(dataAttr)];
+        if (s != null) n.setAttribute(ATTRS[dataAttr], s);
+      });
+    }
+  }
 
   // — persistence ————————————————————————————————————————————————
   function toggle(id) {
@@ -160,9 +179,10 @@
     try { payload = await res.json(); } catch (e) { /* non-JSON error page */ }
     // A 401 always means the cookie is gone or was never valid — but let the
     // server say why, so a wrong passphrase reads as one rather than as an
-    // expired session.
+    // expired session. The server speaks English; I18N.server re-voices its
+    // known messages in the active language.
     if (res.status === 401) state.locked = true;
-    if (!res.ok) throw new Error(payload.error || 'That did not work. Try again.');
+    if (!res.ok) throw new Error(payload.error ? window.I18N.server(payload.error) : T.ui.requestFailed);
     return payload;
   }
 
@@ -186,11 +206,11 @@
       const res = await fetch('/api/unlock');
       const status = await res.json();
       state.locked = !status.unlocked;
-      if (!status.configured) state.walletMsg = 'This deployment has no WALLET_PASSPHRASE set yet.';
+      if (!status.configured) state.walletMsg = T.ui.noPassphrase;
       if (state.locked) { render(); return; }
       state.docs = (await finishRequest(await fetch('/api/docs'))).docs || [];
     } catch (e) {
-      state.walletMsg = 'Could not reach the wallet.';
+      state.walletMsg = T.ui.walletUnreachable;
     }
     render();
   }
@@ -224,13 +244,13 @@
       walletAction(async () => {
         const rejected = [];
         for (const f of files) {
-          if (f.size > MAX_UPLOAD) { rejected.push(f.name + ' is over 4 MB'); continue; }
+          if (f.size > MAX_UPLOAD) { rejected.push(tpl(T.ui.overSize, { name: f.name })); continue; }
           const form = new FormData();
           form.append('file', f);
           form.append('act', actId || '');
           await finishRequest(await fetch('/api/docs', { method: 'POST', body: form }));
         }
-        if (rejected.length) throw new Error(rejected.join('; ') + ' — too big for the wallet.');
+        if (rejected.length) throw new Error(rejected.join('; ') + T.ui.tooBig);
       });
     };
     input.click();
@@ -255,8 +275,8 @@
   }
   function fmt(eur) {
     if (eur == null) return null;
-    if (eur === 0) return 'Free';
-    return state.currency === 'GBP' ? '£' + Math.round(eur * 0.87) + ' pp' : '€' + eur + ' pp';
+    if (eur === 0) return T.ui.free;
+    return (state.currency === 'GBP' ? '£' + Math.round(eur * 0.87) : '€' + eur) + ' ' + T.ui.pp;
   }
   const sizeLabel = bytes => {
     const kb = bytes / 1024;
@@ -269,20 +289,20 @@
     const doc = state.docs.find(d => d.id === docId);
     if (!doc) return;
     lastFocus = document.activeElement;
-    const meta = (doc.act ? ACT_INDEX[doc.act] : 'General — whole trip') + ' · ' + sizeLabel(doc.size);
+    const meta = (doc.act ? ACT_INDEX[doc.act] : T.ui.generalTrip) + ' · ' + sizeLabel(doc.size);
 
     const body = doc.kind === 'image'
-      ? el('img', { src: fileUrl(doc), alt: 'Preview of ' + doc.name,
+      ? el('img', { src: fileUrl(doc), alt: tpl(T.ui.previewOf, { name: doc.name }),
           style: 'display:block;width:100%;height:60vh;object-fit:contain;border-radius:var(--radius-lg);background:var(--color-neutral-100)' })
       : doc.kind === 'pdf'
-        ? el('iframe', { src: fileUrl(doc), title: 'Preview of ' + doc.name,
+        ? el('iframe', { src: fileUrl(doc), title: tpl(T.ui.previewOf, { name: doc.name }),
             style: 'width:100%;height:60vh;border:none;border-radius:var(--radius-lg);background:var(--color-neutral-100)' })
-        : el('p', { text: 'No inline preview for this file type — use Download to open it.',
+        : el('p', { text: T.ui.noPreview,
             style: 'margin:0;padding:28px;border:1px dashed var(--color-neutral-400);border-radius:var(--radius-lg);font-size:14px;color:var(--color-neutral-700);text-align:center' });
 
-    const closeBtn = el('button', { type: 'button', class: 'btn btn-ghost btn-icon', 'aria-label': 'Close preview', text: '×', onclick: close });
+    const closeBtn = el('button', { type: 'button', class: 'btn btn-ghost btn-icon', 'aria-label': T.ui.closePreview, text: '×', onclick: close });
     const dialog = el('div', {
-      'data-r': 'dialog', class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Document preview',
+      'data-r': 'dialog', class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-label': T.ui.docPreview,
       style: 'max-width:760px;width:100%;max-height:88vh;display:flex;flex-direction:column;gap:14px;background:var(--color-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:20px 22px;overflow:auto',
       onclick: e => e.stopPropagation()
     },
@@ -291,7 +311,7 @@
           el('div', { text: doc.name, style: 'font-family:var(--font-heading);font-size:19px;overflow-wrap:anywhere' }),
           el('div', { text: meta, style: 'font-size:12.5px;color:var(--color-neutral-700);margin-top:2px' })
         ),
-        el('a', { class: 'btn btn-secondary', href: fileUrl(doc, true), download: doc.name, text: 'Download' }),
+        el('a', { class: 'btn btn-secondary', href: fileUrl(doc, true), download: doc.name, text: T.ui.download }),
         closeBtn
       ),
       body
@@ -336,17 +356,17 @@
           'color:' + (sel ? '#fff' : 'var(--color-text)')
       },
         el('span', { style: 'width:9px;height:9px;border-radius:50%;flex-shrink:0;background:' + (sel ? 'rgba(255,255,255,.85)' : d.dot) }),
-        el('span', { text: d.dow + ' ' + d.dom })
+        el('span', { text: tpl(T.pill, { dow: T.dows[i], dom: d.dom }) })
       );
     }));
   }
 
   function renderFilters() {
     const row = $('filterRow');
-    row.replaceChildren(...FILTERS.map(([key, label]) => {
+    row.replaceChildren(...FILTERS.map(key => {
       const sel = key === state.filter;
       return el('button', {
-        type: 'button', text: label, 'aria-pressed': String(sel), 'data-key': 'filter-' + key,
+        type: 'button', text: T.filters[key], 'aria-pressed': String(sel), 'data-key': 'filter-' + key,
         onclick: () => { state.filter = key; render(); },
         style: 'padding:6px 14px;border-radius:999px;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;' +
           'border:1px solid ' + (sel ? 'var(--color-accent-2-700)' : 'var(--color-neutral-400)') + ';' +
@@ -359,6 +379,7 @@
   function activityCard(a) {
     const isDone = !!state.done[a.id];
     const c = CATS[a.cat];
+    const x = T.acts[a.id];
     const cost = fmt(a.eur);
     const attached = state.docs.filter(d => d.act === a.id);
 
@@ -369,8 +390,8 @@
       }, svg(11, LINK_ICON), el('span', { text: d.name }))),
       el('button', {
         type: 'button', 'data-key': 'attach-' + a.id, disabled: state.busy,
-        text: state.locked ? '+ ticket / doc (locked)' : '+ ticket / doc',
-        title: state.locked ? 'Unlock the travel wallet in the sidebar first' : null,
+        text: state.locked ? T.ui.attachLocked : T.ui.attach,
+        title: state.locked ? T.ui.attachTitle : null,
         onclick: () => { if (state.locked) $('walletPass') && $('walletPass').focus(); else upload(a.id); },
         style: 'display:inline-flex;align-items:center;gap:5px;font-family:inherit;font-size:12px;font-weight:700;background:none;border:1px dashed var(--color-neutral-400);color:var(--color-neutral-700);border-radius:999px;padding:5px 12px;cursor:pointer'
       })
@@ -381,17 +402,17 @@
         el('div', { text: a.t, style: 'min-width:50px;font-weight:700;font-size:14px;padding-top:3px;color:var(--color-neutral-800)' }),
         el('div', { style: 'flex:1' },
           el('div', { style: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px' },
-            el('span', { text: a.title, style: 'font-family:var(--font-heading);font-size:19px;text-decoration:' + (isDone ? 'line-through' : 'none') }),
-            el('span', { text: c.label, style: 'font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:3px 11px;border-radius:999px;background:' + c.bg + ';color:' + c.fg + ';border:' + (c.bd || 'none') }),
+            el('span', { text: x.title, style: 'font-family:var(--font-heading);font-size:19px;text-decoration:' + (isDone ? 'line-through' : 'none') }),
+            el('span', { text: T.cats[a.cat], style: 'font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:3px 11px;border-radius:999px;background:' + c.bg + ';color:' + c.fg + ';border:' + (c.bd || 'none') }),
             cost && el('span', { class: 'tag tag-neutral', text: cost })
           ),
-          el('p', { text: a.desc, style: 'margin:0;font-size:14.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' }),
-          a.tip && el('p', { text: a.tip, style: 'margin:10px 0 0;font-size:13px;line-height:1.5;background:var(--color-accent-2-100);color:var(--color-accent-2-900);border-radius:14px;padding:8px 14px;display:inline-block' }),
+          el('p', { text: x.desc, style: 'margin:0;font-size:14.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' }),
+          x.tip && el('p', { text: x.tip, style: 'margin:10px 0 0;font-size:13px;line-height:1.5;background:var(--color-accent-2-100);color:var(--color-accent-2-900);border-radius:14px;padding:8px 14px;display:inline-block' }),
           docRow
         ),
         el('button', {
           type: 'button', 'data-r': 'check', text: isDone ? '✓' : '', 'data-key': 'check-' + a.id,
-          'aria-pressed': String(isDone), 'aria-label': (isDone ? 'Untick' : 'Tick off') + ' ' + a.title,
+          'aria-pressed': String(isDone), 'aria-label': tpl(isDone ? T.ui.untick : T.ui.tick, { title: x.title }),
           onclick: () => toggle(a.id),
           style: 'width:30px;height:30px;border-radius:50%;flex-shrink:0;cursor:pointer;padding:0;' +
             'border:2px solid var(--color-accent);background:' + (isDone ? 'var(--color-accent)' : 'transparent') + ';' +
@@ -403,9 +424,10 @@
 
   function renderDay() {
     const day = DAYS[state.day];
-    $('dayTitle').textContent = day.title;
-    $('dayCity').textContent = day.city;
-    $('daySub').textContent = day.sub;
+    const dt = T.days[state.day];
+    $('dayTitle').textContent = dt.title;
+    $('dayCity').textContent = dt.city;
+    $('daySub').textContent = dt.sub;
     const acts = day.acts.filter(a => state.filter === 'all' || a.cat === state.filter);
     $('actList').replaceChildren(...acts.map(activityCard));
     $('emptyMsg').hidden = acts.length > 0;
@@ -414,17 +436,18 @@
   function renderTracker() {
     const doneCount = ALL_ACTS.filter(a => state.done[a.id]).length;
     const pct = Math.round((doneCount / ALL_ACTS.length) * 100);
-    $('navCount').textContent = doneCount + ' of ' + ALL_ACTS.length + ' ticked';
+    const counts = { done: doneCount, total: ALL_ACTS.length };
+    $('navCount').textContent = tpl(T.ui.navCount, counts);
     $('pct').textContent = pct + '%';
-    $('trackerCount').textContent = doneCount + ' of ' + ALL_ACTS.length + ' moments ticked';
+    $('trackerCount').textContent = tpl(T.ui.trackerCount, counts);
     $('bar').style.width = pct + '%';
   }
 
   function renderBookings() {
-    $('bookingList').replaceChildren(...BOOKINGS.map(b => {
-      const isDone = !!state.done[b.id];
+    $('bookingList').replaceChildren(...BOOKINGS.map(id => {
+      const isDone = !!state.done[id];
       return el('button', {
-        type: 'button', 'aria-pressed': String(isDone), onclick: () => toggle(b.id), 'data-key': 'book-' + b.id,
+        type: 'button', 'aria-pressed': String(isDone), onclick: () => toggle(id), 'data-key': 'book-' + id,
         style: 'display:flex;gap:10px;align-items:flex-start;background:none;border:none;padding:0;cursor:pointer;text-align:left;font-family:inherit'
       },
         el('span', {
@@ -433,7 +456,7 @@
             'border:2px solid var(--color-accent-2-600);background:' + (isDone ? 'var(--color-accent-2-600)' : 'transparent') + ';' +
             'color:#fff;font-size:12px;font-weight:700;line-height:17px;text-align:center'
         }),
-        el('span', { text: b.label, style: 'font-size:13px;line-height:1.45;color:var(--color-neutral-800);text-decoration:' + (isDone ? 'line-through' : 'none') })
+        el('span', { text: T.bookings[id], style: 'font-size:13px;line-height:1.45;color:var(--color-neutral-800);text-decoration:' + (isDone ? 'line-through' : 'none') })
       );
     }));
   }
@@ -455,7 +478,7 @@
     if (state.locked) {
       const field = el('input', {
         type: 'password', id: 'walletPass', 'data-key': 'walletpass', autocomplete: 'current-password',
-        placeholder: 'Wallet passphrase', 'aria-label': 'Wallet passphrase', disabled: state.busy,
+        placeholder: T.ui.passPlaceholder, 'aria-label': T.ui.passPlaceholder, disabled: state.busy,
         oninput: e => { passDraft = e.target.value; },
         onkeydown: e => { if (e.key === 'Enter' && passDraft) unlock(passDraft); },
         style: 'flex:1;min-width:0;font-family:inherit;font-size:13px;padding:8px 12px;border-radius:999px;border:1px solid var(--color-neutral-400);background:var(--color-bg);color:var(--color-text)'
@@ -466,14 +489,14 @@
           field,
           el('button', {
             type: 'button', class: 'btn btn-primary', 'data-key': 'walletunlock', disabled: state.busy,
-            text: state.busy ? '…' : 'Unlock', onclick: () => passDraft && unlock(passDraft)
+            text: state.busy ? '…' : T.ui.unlock, onclick: () => passDraft && unlock(passDraft)
           })
         ),
         state.walletMsg && note(state.walletMsg),
         // Their only copy is still in this browser. Say so, or it looks lost.
-        legacyDocs.length && note(legacyDocs.length + ' document' + (legacyDocs.length > 1 ? 's' : '') +
-          ' saved on this device is waiting to be moved across — unlock to keep ' +
-          (legacyDocs.length > 1 ? 'them' : 'it') + '.')
+        legacyDocs.length && note(legacyDocs.length > 1
+          ? tpl(T.ui.legacyNoteMany, { n: legacyDocs.length })
+          : T.ui.legacyNoteOne)
       );
       return;
     }
@@ -481,7 +504,7 @@
     fill(
       legacyDocs.length && el('button', {
         type: 'button', class: 'btn btn-secondary btn-block', 'data-key': 'walletmigrate', disabled: state.busy,
-        text: 'Move ' + legacyDocs.length + ' document' + (legacyDocs.length > 1 ? 's' : '') + ' off this device',
+        text: legacyDocs.length > 1 ? tpl(T.ui.migrateMany, { n: legacyDocs.length }) : T.ui.migrateOne,
         onclick: migrateLegacy
       }),
       state.walletMsg && note(state.walletMsg)
@@ -492,18 +515,18 @@
     renderWalletGate();
     $('uploadGeneral').hidden = state.locked;
     $('uploadGeneral').disabled = state.busy;
-    $('uploadGeneral').textContent = state.busy ? 'Working…' : 'Add a document';
+    $('uploadGeneral').textContent = state.busy ? T.ui.working : T.ui.addDoc;
 
     const list = $('walletList');
     if (!state.docs.length) { list.style.display = 'none'; list.replaceChildren(); return; }
     list.style.display = 'grid';
     list.replaceChildren(...state.docs.map(d => {
       const select = el('select', {
-        'aria-label': 'Pin ' + d.name + ' to a stop', 'data-key': 'pin-' + d.id, disabled: state.busy,
+        'aria-label': tpl(T.ui.pinTo, { name: d.name }), 'data-key': 'pin-' + d.id, disabled: state.busy,
         onchange: e => walletAction(() => apiSend('PATCH', { pathname: d.pathname, act: e.target.value })),
         style: 'flex:1;min-width:0;font-family:inherit;font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--color-neutral-400);background:var(--color-bg);color:var(--color-neutral-800)'
       },
-        el('option', { value: '', text: 'General — whole trip' }),
+        el('option', { value: '', text: T.ui.generalTrip }),
         Object.keys(ACT_INDEX).map(k => el('option', { value: k, text: ACT_INDEX[k] }))
       );
       select.value = d.act || '';
@@ -515,9 +538,9 @@
             style: 'flex:1;min-width:0;font-family:inherit;font-size:13px;font-weight:700;overflow-wrap:anywhere;background:none;border:none;padding:0;cursor:pointer;text-align:left;color:var(--color-accent-700)'
           }),
           el('button', {
-            type: 'button', text: '×', 'aria-label': 'Remove ' + d.name, 'data-key': 'walletdel-' + d.id,
+            type: 'button', text: '×', 'aria-label': tpl(T.ui.removeDoc, { name: d.name }), 'data-key': 'walletdel-' + d.id,
             disabled: state.busy,
-            onclick: () => { if (confirm('Remove ' + d.name + ' from the wallet?')) walletAction(() => apiSend('DELETE', { pathname: d.pathname })); },
+            onclick: () => { if (confirm(tpl(T.ui.confirmRemove, { name: d.name }))) walletAction(() => apiSend('DELETE', { pathname: d.pathname })); },
             style: 'background:none;border:none;cursor:pointer;font-size:17px;line-height:1;color:var(--color-neutral-600);padding:0 2px'
           })
         ),
@@ -565,6 +588,16 @@
     btn.className = 'btn ' + (on ? 'btn-primary' : 'btn-secondary');
   });
 
+  // Switching language reloads the page — ticks, currency and the unlock
+  // cookie all survive, and the map iframe comes back in the new language.
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    const on = btn.dataset.lang === window.I18N.lang;
+    btn.setAttribute('aria-pressed', String(on));
+    btn.className = 'btn ' + (on ? 'btn-primary' : 'btn-secondary');
+    btn.addEventListener('click', () => window.I18N.set(btn.dataset.lang));
+  });
+
+  applyStatic();
   render();
   refreshWallet();
 })();

@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<!-- Loaded synchronously so window.I18N exists before the inline script below. -->
+<script src="i18n.js"></script>
 <style>
   html, body { margin: 0; height: 100%; background: var(--color-bg); font-family: var(--font-body); }
   #map { position: absolute; inset: 0; }
@@ -66,24 +68,37 @@
 <body>
 <div id="map"></div>
 <div class="panel">
-  <h1>The route</h1>
-  <p class="sub">Wigston → Barcelona → València<br>8-14 August</p>
+  <h1 id="panelTitle">The route</h1>
+  <p class="sub">Wigston → Barcelona → València<br><span id="panelDates">8-14 August</span></p>
   <div class="views">
     <button type="button" class="btn btn-primary" id="v-all">Full route</button>
     <button type="button" class="btn btn-secondary" id="v-bcn">Barcelona</button>
     <button type="button" class="btn btn-secondary" id="v-vlc">València</button>
   </div>
   <details class="legend-wrap" id="legendWrap">
-    <summary>Legend ▾</summary>
+    <summary id="legendLabel">Legend ▾</summary>
     <div class="legend" id="legend">
-      <div class="row"><span class="line"></span> Flight, 2h20</div>
-      <div class="row"><span class="line solid"></span> Coast train, 2h40</div>
+      <div class="row"><span class="line"></span> <span id="legFlight">Flight, 2h20</span></div>
+      <div class="row"><span class="line solid"></span> <span id="legTrain">Coast train, 2h40</span></div>
     </div>
   </details>
 </div>
 <script>
   const css = getComputedStyle(document.documentElement);
   const tok = n => css.getPropertyValue(n).trim();
+
+  // Words come from i18n.js; this file keeps only geometry and timings.
+  const T = window.I18N.t.map;
+  const DOWS = window.I18N.t.dows;
+  const dayN = n => window.I18N.fmt(window.I18N.t.ui.dayN, { n });
+
+  document.title = T.htmlTitle;
+  document.getElementById('panelTitle').textContent = T.panelTitle;
+  document.getElementById('panelDates').textContent = T.panelDates;
+  document.getElementById('v-all').textContent = T.viewAll;
+  document.getElementById('legendLabel').textContent = T.legendLabel;
+  document.getElementById('legFlight').textContent = T.flight;
+  document.getElementById('legTrain').textContent = T.train;
 
   const ICONS = {
     sights: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
@@ -92,10 +107,10 @@
     fiesta: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>'
   };
   const CAT = {
-    sights: [tok('--color-accent'), 'Sights & museums'],
-    sea:    [tok('--color-accent-2'), 'Boats & swims'],
-    food:   [tok('--color-neutral-700'), 'Food & drink'],
-    fiesta: [tok('--color-accent-800'), 'Fiestas & nights out']
+    sights: [tok('--color-accent'), T.catSights],
+    sea:    [tok('--color-accent-2'), T.catSea],
+    food:   [tok('--color-neutral-700'), T.catFood],
+    fiesta: [tok('--color-accent-800'), T.catFiesta]
   };
   const pinHTML = (cat, sm) =>
     '<div class="pin' + (sm ? ' sm' : '') + '" style="background:' + CAT[cat][0] + '">' +
@@ -135,38 +150,40 @@
     L.circleMarker(ll, { radius: small ? 6 : 7, color: '#fff', weight: 2.5, fillColor: tok('--color-text'), fillOpacity: 1 }).addTo(map)
       .bindTooltip(small ? label : longLabel, { permanent: true, direction: dir || 'right', offset: dir === 'left' ? [-10, 0] : [10, 0], className: 'city-label' });
   };
-  cityDot(WIG, 'Wigston', 'Wigston — home');
-  cityDot(BCN, 'Barcelona', 'Barcelona · nights 1-3', small ? 'left' : 'right');
-  cityDot(VLC, 'València', 'València · nights 4-6');
+  cityDot(WIG, 'Wigston', T.wigstonLong);
+  cityDot(BCN, 'Barcelona', T.bcnLong, small ? 'left' : 'right');
+  cityDot(VLC, 'València', T.vlcLong);
 
-  // [lat, lng, cat, title, when]
+  // [lat, lng, cat, spot key, day number, time, also-on-day]
   const SPOTS = [
-    [41.3839, 2.1760, 'sights', 'Gothic Quarter wander', 'Day 1 · Sat 18:30'],
-    [41.3799, 2.1745, 'food', 'Tapas, Carrer de la Mercè', 'Day 1 · Sat 21:00'],
-    [41.4036, 2.1744, 'sights', 'Sagrada Família', 'Day 2 · Sun 09:00'],
-    [41.4145, 2.1527, 'sights', 'Park Güell', 'Day 2 · Sun 17:30'],
-    [41.3917, 2.1650, 'fiesta', 'Casa Batlló Magic Nights', 'Day 2 · Sun 21:00'],
-    [41.5931, 1.8371, 'sights', 'Montserrat monastery', 'Day 3 · Mon 10:00'],
-    [41.3784, 2.1925, 'sea', 'Barceloneta evening swim', 'Day 3 · Mon 18:00'],
-    [41.3800, 2.1868, 'food', 'Dinner at Can Solé', 'Day 3 · Mon 20:30'],
-    [41.3853, 2.1794, 'food', 'Mercat de Santa Caterina', 'Day 4 · Tue 09:00'],
-    [41.3838, 2.1819, 'sights', 'Santa Maria del Mar', 'Day 4 · Tue 09:45'],
-    [41.3852, 2.1809, 'sights', 'Museu Picasso', 'Day 4 · Tue 10:30'],
-    [41.3817, 2.1716, 'sights', 'La Rambla + Boqueria, briskly', 'Day 4 · Tue 12:15'],
-    [39.4772, -0.3644, 'sights', 'Turia Gardens', 'Day 4 · Tue 18:30 + Day 7'],
-    [39.4630, -0.3760, 'food', 'Dinner in Russafa', 'Day 4 · Tue 21:00'],
-    [39.4738, -0.3790, 'food', 'Mercat Central + horchata', 'Day 5 · Wed 08:45'],
-    [39.4745, -0.3785, 'sights', 'La Lonja de la Seda', 'Day 5 · Wed 10:00'],
-    [39.4757, -0.3754, 'sights', 'Cathedral + El Miguelete', 'Day 5 · Wed 11:30'],
-    [39.4810, -0.3245, 'sea', 'Malva-rosa beach', 'Day 5 · Wed 17:30'],
-    [39.4793, -0.3757, 'sights', 'Serranos Towers, golden hour', 'Day 5 · Wed 20:45'],
-    [39.4785, -0.3800, 'food', 'Dinner in El Carmen', 'Day 5 · Wed 21:30'],
-    [39.4548, -0.3505, 'sights', 'City of Arts & Sciences', 'Day 6 · Thu 09:00'],
-    [39.4531, -0.3480, 'sights', 'Oceanogràfic', 'Day 6 · Thu 10:30'],
-    [39.3245, -0.3300, 'food', 'Paella in El Palmar', 'Day 6 · Thu 14:15'],
-    [39.3355, -0.3355, 'sea', 'Albufera boat + sunset', 'Day 6 · Thu 19:00']
+    [41.3839, 2.1760, 'sights', 'gothic', 1, '18:30'],
+    [41.3799, 2.1745, 'food', 'merce', 1, '21:00'],
+    [41.4036, 2.1744, 'sights', 'sagrada', 2, '09:00'],
+    [41.4145, 2.1527, 'sights', 'guell', 2, '17:30'],
+    [41.3917, 2.1650, 'fiesta', 'batllo', 2, '21:00'],
+    [41.5931, 1.8371, 'sights', 'montserrat', 3, '10:00'],
+    [41.3784, 2.1925, 'sea', 'barceloneta', 3, '18:00'],
+    [41.3800, 2.1868, 'food', 'cansole', 3, '20:30'],
+    [41.3853, 2.1794, 'food', 'caterina', 4, '09:00'],
+    [41.3838, 2.1819, 'sights', 'delmar', 4, '09:45'],
+    [41.3852, 2.1809, 'sights', 'picasso', 4, '10:30'],
+    [41.3817, 2.1716, 'sights', 'rambla', 4, '12:15'],
+    [39.4772, -0.3644, 'sights', 'turia', 4, '18:30', 7],
+    [39.4630, -0.3760, 'food', 'russafa', 4, '21:00'],
+    [39.4738, -0.3790, 'food', 'mercat', 5, '08:45'],
+    [39.4745, -0.3785, 'sights', 'lonja', 5, '10:00'],
+    [39.4757, -0.3754, 'sights', 'cathedral', 5, '11:30'],
+    [39.4810, -0.3245, 'sea', 'malvarosa', 5, '17:30'],
+    [39.4793, -0.3757, 'sights', 'serranos', 5, '20:45'],
+    [39.4785, -0.3800, 'food', 'carmen', 5, '21:30'],
+    [39.4548, -0.3505, 'sights', 'arts', 6, '09:00'],
+    [39.4531, -0.3480, 'sights', 'ocean', 6, '10:30'],
+    [39.3245, -0.3300, 'food', 'palmar', 6, '14:15'],
+    [39.3355, -0.3355, 'sea', 'albufera', 6, '19:00']
   ];
-  SPOTS.forEach(([lat, lng, cat, title, when]) => {
+  SPOTS.forEach(([lat, lng, cat, key, day, time, alsoDay]) => {
+    const title = T.spots[key];
+    const when = dayN(day) + ' · ' + DOWS[day - 1] + ' ' + time + (alsoDay ? ' + ' + dayN(alsoDay) : '');
     L.marker([lat, lng], {
       icon: L.divIcon({ className: '', html: pinHTML(cat), iconSize: [28, 28], iconAnchor: [14, 14] })
     }).addTo(map)
@@ -213,7 +230,9 @@
   if (window.self !== window.top && matchMedia('(pointer: coarse)').matches) {
     const lock = document.createElement('div');
     lock.className = 'map-lock';
-    lock.innerHTML = '<span>Tap to explore the map</span>';
+    const label = document.createElement('span');
+    label.textContent = T.lock;
+    lock.appendChild(label);
     document.body.appendChild(lock);
     lock.addEventListener('click', () => lock.remove());
   }

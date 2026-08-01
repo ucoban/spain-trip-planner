@@ -21,7 +21,8 @@ Safari's seven-day storage eviction).
 | File | What it does |
 | --- | --- |
 | `index.html` | The page itself — nav, hero, route, embedded map, day view, sidebar |
-| `app.js` | Itinerary data, tick/filter/day state, travel wallet, document preview |
+| `i18n.js` | Every user-facing string, per language (English and Turkish) |
+| `app.js` | Itinerary skeleton, tick/filter/day state, travel wallet, document preview |
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |
 | `styles.css` | Design-system tokens and component classes |
@@ -35,6 +36,16 @@ The page itself still has no build step and no client-side dependencies —
 Leaflet and the two Google fonts load from their CDNs, everything else is in
 the repo. Only the `api/` functions have an npm dependency, which Vercel
 installs at deploy time.
+
+## Languages
+
+The site speaks English and Turkish. The EN/TR toggle in the nav picks one
+(persisted as `celik-spain-lang` in `localStorage`); a first visit falls back
+to the browser language. Every word lives in `i18n.js` — static page text is
+swapped in via `data-i18n` attributes, everything rendered by `app.js`,
+`trip-map.html` and `image-slot.js` reads from `window.I18N`, and the known
+English error messages the `/api` functions return are re-voiced client-side.
+Adding a language is one more entry in `STRINGS` plus a nav button.
 
 ## How the travel wallet works
 
@@ -92,12 +103,18 @@ npx vercel dev       # then open http://localhost:3000
 
 ## Editing the trip
 
-The itinerary is one array at the top of `app.js`. Each day has a label, a city,
-a subtitle, and a list of activities:
+The itinerary's skeleton is one array at the top of `app.js` — ids, times,
+categories and prices only:
 
 ```js
-{ id: 'd2b1', t: '09:00', cat: 'sights', title: 'Sagrada Família',
-  desc: '…', tip: 'Izem: add the Passion tower…', eur: 26 }
+{ id: 'd2b1', t: '09:00', cat: 'sights', eur: 26 }
+```
+
+Its words (title, description, tip, plus the day's title and subtitle) live in
+`i18n.js` under the same id, once per language:
+
+```js
+d2b1: { title: 'Sagrada Família', desc: '…', tip: 'Izem: add the Passion tower…' }
 ```
 
 `cat` picks the colour and the filter chip it answers to (`travel`, `sights`,

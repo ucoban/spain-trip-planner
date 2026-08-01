@@ -22,11 +22,23 @@
   const MAX_DIM = 1200;
   const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
 
+  // Localized through window.I18N when the page provides it (i18n.js loads
+  // first on this site); the literals keep the component usable on its own.
+  const S = () => (window.I18N && window.I18N.t && window.I18N.t.slot) || {
+    browseHtml: 'or <u>browse files</u>',
+    replace: 'Replace',
+    remove: 'Remove',
+    badType: 'Drop a PNG, JPEG, WebP, or AVIF image.',
+    readFail: 'Could not read that image.',
+    storageFull: 'Storage is full — remove a wallet document to make room for the photo.',
+    dropImage: 'Drop an image'
+  };
+
   let slots = {};
   try { slots = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { slots = {}; }
   function persist() {
     try { localStorage.setItem(KEY, JSON.stringify(slots)); return true; }
-    catch (e) { alert('Storage is full — remove a wallet document to make room for the photo.'); return false; }
+    catch (e) { alert(S().storageFull); return false; }
   }
 
   // Encode through a canvas so storage carries resized bytes, not the raw
@@ -100,11 +112,11 @@
         '  <img alt="" draggable="false" style="display:none">' +
         '  <div class="empty">' + icon +
         '    <div class="cap"></div>' +
-        '    <div class="sub">or <u>browse files</u></div></div>' +
+        '    <div class="sub">' + S().browseHtml + '</div></div>' +
         '  <div class="ring"></div>' +
         '</div>' +
-        '<div class="ctl"><button type="button" data-act="replace">Replace</button>' +
-        '  <button type="button" data-act="remove">Remove</button></div>' +
+        '<div class="ctl"><button type="button" data-act="replace">' + S().replace + '</button>' +
+        '  <button type="button" data-act="remove">' + S().remove + '</button></div>' +
         '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
       this._frame = root.querySelector('.frame');
       this._img = root.querySelector('img');
@@ -168,7 +180,7 @@
     async _ingest(file) {
       this._setError(null);
       if (!file || ACCEPT.indexOf(file.type) < 0) {
-        this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
+        this._setError(S().badType);
         return;
       }
       try {
@@ -178,7 +190,7 @@
         if (persist()) this._render();
         else delete slots[this.id || ''];
       } catch (err) {
-        this._setError('Could not read that image.');
+        this._setError(S().readFail);
         console.warn('<image-slot> ingest failed:', err);
       }
     }
@@ -201,7 +213,7 @@
         : (parseFloat(this.getAttribute('radius')) || 12) + 'px';
       this._frame.style.borderRadius = radius;
       this.shadowRoot.querySelector('.ring').style.borderRadius = radius;
-      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      this._cap.textContent = this.getAttribute('placeholder') || S().dropImage;
       const url = slots[this.id || ''];
       if (url) {
         this._img.src = url;
