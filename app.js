@@ -21,68 +21,66 @@
   ];
 
   const DAYS = [
-    { dow: 'Tue', dom: '22', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Wigston → Barcelona', sub: 'Tuesday 22 Sep · plane day — into the Gothic Quarter by dusk', acts: [
-      { id: 'd1a1', t: '07:30', cat: 'travel', title: 'Fly EMA → Barcelona', desc: 'Taxi from Wigston at 07:30 — East Midlands is 45 minutes up the M1. Wheels up 10:35, wheels down 13:55. One cabin bag each.', eur: 95 },
-      { id: 'd1a2', t: '15:00', cat: 'travel', title: 'Aerobús + check-in', desc: 'A2 bus to Plaça de Catalunya, ten-minute walk to the Eixample apartment. Bags down, out again by four.', eur: 8 },
-      { id: 'd1a3', t: '17:30', cat: 'sights', title: 'Gothic Quarter first wander', desc: 'Cathedral cloister (say hi to the thirteen geese), Plaça Sant Felip Neri, then the lampposts of Plaça Reial.', tip: 'Izem: the Reial lamps are Gaudí’s first ever commission — student work, pre-everything.', eur: 0 },
-      { id: 'd1a4', t: '20:30', cat: 'food', title: 'Tapas crawl, Carrer de la Mercè', desc: 'Standing-room bars: bravas, pan con tomate, a vermut each. Order badly, point a lot, repeat.', eur: 25 }
+    { dow: 'Sat', dom: '8', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Wigston → Barcelona', sub: 'Saturday 8 Aug · plane day, into the Gothic Quarter by dusk', acts: [
+      { id: 'd1b1', t: '07:30', cat: 'travel', title: 'Fly EMA → Barcelona', desc: 'Taxi from Wigston at 07:30, East Midlands is 45 minutes up the M1. Wheels up 10:35, wheels down 13:55. One cabin bag each.', eur: 95 },
+      { id: 'd1b2', t: '15:00', cat: 'travel', title: 'Airport train + check-in', desc: 'R2 Nord train, every half hour, straight to Passeig de Gràcia. Ten-minute walk to the Eixample apartment, bags down, cold shower, out by six.', tip: 'From the vlogs: the airport train beats the August bus queue and costs about a fiver.', eur: 5 },
+      { id: 'd1b3', t: '18:30', cat: 'sights', title: 'Gothic Quarter first wander', desc: 'Cathedral cloister (say hi to the thirteen geese), Plaça Sant Felip Neri, then the lampposts of Plaça Reial.', tip: 'Izem: the Reial lamps are Gaudí’s first ever commission. Student work, pre-everything.', eur: 0 },
+      { id: 'd1b4', t: '21:00', cat: 'food', title: 'Tapas crawl, Carrer de la Mercè', desc: 'Standing-room bars: bravas, pan con tomate, a vermut each. Order badly, point a lot, repeat.', tip: 'From the vlogs: locals eat after nine, and the old-town lanes are pickpocket turf. Phones zipped, bags worn in front.', eur: 25 }
     ] },
-    { dow: 'Wed', dom: '23', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Gaudí, all day', sub: 'Wednesday 23 Sep · the full pilgrimage, ending on a rooftop with cava', acts: [
-      { id: 'd2a1', t: '09:00', cat: 'sights', title: 'Sagrada Família', desc: 'First slot of the day, before the crowds. Nativity façade outside, then the stone forest and the stained-glass wall of fire and sea.', tip: 'Izem: add the Passion tower — the spiral stair down is the drawing of the day.', eur: 26 },
-      { id: 'd2a2', t: '12:30', cat: 'food', title: 'Menú del día, Eixample', desc: 'Three courses and a glass of wine for meal-deal money. If arroz is on the board, it’s decided.', eur: 15 },
-      { id: 'd2a3', t: '15:00', cat: 'sights', title: 'Park Güell', desc: 'The mosaic salamander, the wavy bench with the city behind it, the colonnade holding up a road. Timed entry — don’t be late.', eur: 10 },
-      { id: 'd2a4', t: '18:45', cat: 'event', title: 'Casa Batlló — Magic Nights', desc: 'Twilight visit through the dragon house, then live music and a drink up on the scaled rooftop.', tip: 'Ahmet: yes, the drink is included.', eur: 45 }
+    { dow: 'Sun', dom: '9', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Gaudí, all day', sub: 'Sunday 9 Aug · the full pilgrimage, paced for the heat', acts: [
+      { id: 'd2b1', t: '09:00', cat: 'sights', title: 'Sagrada Família', desc: 'First slot of the day, before the crowds and the worst of the sun. Nativity façade outside, then the stone forest and the stained-glass wall of fire and sea.', tip: 'Izem: add the Passion tower, the spiral stair down is the drawing of the day.', eur: 26 },
+      { id: 'd2b2', t: '13:00', cat: 'food', title: 'Long shaded lunch, Eixample', desc: 'Casa Milà’s stone wave from across the street on the way there. Then the August rule the vlogs all land on: a slow indoor lunch while the city bakes, nobody moves before five.', eur: 18 },
+      { id: 'd2b3', t: '17:30', cat: 'sights', title: 'Park Güell', desc: 'The mosaic salamander, the wavy bench with the city behind it, the colonnade holding up a road. Timed entry, don’t be late.', tip: 'From the vlogs: go early or go late in August, never at two. The bench faces the evening light, and it’s metro L4 plus the escalators up.', eur: 13 },
+      { id: 'd2b4', t: '21:00', cat: 'event', title: 'Casa Batlló Magic Nights', desc: 'Twilight visit through the dragon house, then live music and a drink up on the scaled rooftop.', tip: 'Ahmet: yes, the drink is included.', eur: 45 }
     ] },
-    { dow: 'Thu', dom: '24', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Sea day + La Mercè', sub: 'Thursday 24 Sep · swim, sail, then Barcelona on fire (on purpose)', acts: [
-      { id: 'd3a1', t: '09:30', cat: 'swim', title: 'Barceloneta morning swim', desc: 'The sea is still about 23 °C in late September. Swim first, croissant after — the local order of operations.', eur: 0 },
-      { id: 'd3a2', t: '11:30', cat: 'boat', title: 'Las Golondrinas harbour cruise', desc: 'Ninety minutes out of Port Vell, past the breakwater and back along the beaches. The “swallow boats” have run since 1888.', eur: 12 },
-      { id: 'd3a3', t: '14:00', cat: 'food', title: 'Paella at Can Solé', desc: 'Open since 1903, two streets back from the sand. Get the arròs negre as well — braver than it looks.', eur: 30 },
-      { id: 'd3a4', t: '16:30', cat: 'museum', title: 'Museu Picasso', desc: 'Five Gothic palaces of early Picasso, ending in the room of Las Meninas he painted at seventy-six.', tip: 'Ahmet: student card = reduced entry.', eur: 12 },
-      { id: 'd3a5', t: '19:00', cat: 'event', title: 'La Mercè: castellers', desc: 'Human towers in Plaça de Sant Jaume — the city’s biggest festival happens to be this exact week. Free, packed, unforgettable.', eur: 0 },
-      { id: 'd3a6', t: '21:30', cat: 'event', title: 'Correfoc — the fire run', desc: 'Devils and dragons shower sparks down Via Laietana. Cotton clothes, stand at the edges, leave the nice jacket at home.', eur: 0 }
+    { dow: 'Mon', dom: '10', dot: 'var(--color-accent)', city: 'Barcelona', title: 'Montserrat, then the sea', sub: 'Monday 10 Aug · the vloggers’ unanimous day trip, salt water by evening', acts: [
+      { id: 'd3b1', t: '08:15', cat: 'travel', title: 'R5 train + rack railway up', desc: 'R5 from Plaça d’Espanya, then the cremallera up the cliff face. About an hour and a quarter, door to mountain.', tip: 'From the vlogs: roughly €24 return, and the early train beats both the coach tours and the heat.', eur: 24 },
+      { id: 'd3b2', t: '10:00', cat: 'sights', title: 'Montserrat monastery + ridge walk', desc: 'The basilica and the Black Madonna, then the Sant Joan funicular to the ridge path: saw-tooth peaks with all of Catalonia below.', tip: 'From the vlogs: three separate creators called this the best thing they did near Barcelona, and all three gave the same advice. Early.', eur: 16 },
+      { id: 'd3b3', t: '18:00', cat: 'swim', title: 'Barceloneta evening swim', desc: 'The sea is 26 °C in August and evening is the local swim slot: cooler sand, golden light, croissant traded for a granizado.', tip: 'From the vlogs: never leave phones on the towel while you both swim. Take turns.', eur: 0 },
+      { id: 'd3b4', t: '20:30', cat: 'food', title: 'Dinner at Can Solé', desc: 'Open since 1903, two streets back from the sand. Get the arròs negre, braver than it looks.', tip: 'From the vlogs: locals treat paella strictly as a lunch dish, so tonight is the squid-ink cousin. The real paella happens lakeside on Thursday, at two.', eur: 35 }
     ] },
-    { dow: 'Fri', dom: '25', dot: 'linear-gradient(135deg, var(--color-accent) 50%, var(--color-accent-2) 50%)', city: 'BCN → València', title: 'Montjuïc, then south', sub: 'Friday 25 Sep · one last hill, then the coast train to city two', acts: [
-      { id: 'd4a1', t: '09:00', cat: 'sights', title: 'Cable car up Montjuïc', desc: 'Over the port to the castle ramparts — the goodbye view of Barcelona, ships and all.', eur: 14 },
-      { id: 'd4a2', t: '11:00', cat: 'museum', title: 'MNAC in an hour', desc: 'The Romanesque fresco halls (nothing else like them), then coffee on the steps above the Magic Fountain.', eur: 12 },
-      { id: 'd4a3', t: '14:05', cat: 'travel', title: 'Euromed to València', desc: 'Sants → València Nord, 2h40 down the coast. Sit on the left — the Mediterranean does the entertainment.', eur: 30 },
-      { id: 'd4a4', t: '18:00', cat: 'sights', title: 'Turia Gardens hello-walk', desc: 'Nine kilometres of park where the river used to be. Walk as far as the Gulliver playground and back.', eur: 0 },
-      { id: 'd4a5', t: '21:00', cat: 'food', title: 'Dinner in Ruzafa', desc: 'València’s liveliest barrio. Agua de València comes by the jug — one jug, shared, that’s the rule.', eur: 22 }
+    { dow: 'Tue', dom: '11', dot: 'linear-gradient(135deg, var(--color-accent) 50%, var(--color-accent-2) 50%)', city: 'BCN → València', title: 'Born morning, then south', sub: 'Tuesday 11 Aug · Picasso and one brisk Rambla, then the coast train to city two', acts: [
+      { id: 'd4b1', t: '09:00', cat: 'food', title: 'Breakfast, Mercat de Santa Caterina', desc: 'The wavy-roofed market on the edge of El Born. Coffee, fruit and jamón at the counter.', tip: 'From the vlogs: same produce as La Boqueria, a fraction of the crush and the prices. One creator titled a whole chapter “a market BETTER than La Boqueria”. This is that market.', eur: 6 },
+      { id: 'd4b2', t: '09:45', cat: 'sights', title: 'Santa Maria del Mar + Born lanes', desc: 'The sailors’ basilica, one soaring stone room. Then the medieval lanes to the museum door.', eur: 0 },
+      { id: 'd4b3', t: '10:30', cat: 'museum', title: 'Museu Picasso', desc: 'Five Gothic palaces of early Picasso, ending in the room of Las Meninas he painted at seventy-six.', tip: 'Ahmet: student card = reduced entry.', eur: 12 },
+      { id: 'd4b4', t: '12:15', cat: 'sights', title: 'La Rambla, once, briskly', desc: 'Walk it once for the theatre of it, one fresh juice inside La Boqueria, done by one o’clock.', tip: 'From the vlogs: La Rambla has the highest pickpocket concentration in Barcelona, and Boqueria prices are tourist prices. Look, sip, move on.', eur: 4 },
+      { id: 'd4b5', t: '14:05', cat: 'travel', title: 'Euromed to València', desc: 'Bags from the apartment, then Sants → València Nord, around three hours down the coast. Sit on the left, the Mediterranean does the entertainment.', eur: 30 },
+      { id: 'd4b6', t: '18:30', cat: 'sights', title: 'Turia Gardens hello-walk', desc: 'Nine kilometres of park where the river used to be. Walk as far as the Gulliver playground and back.', tip: 'From the vlogs: the Turia is best by bike. If tonight’s walk wins you over, rent a pair on Thursday morning.', eur: 0 },
+      { id: 'd4b7', t: '21:00', cat: 'food', title: 'Dinner in Russafa', desc: 'València’s liveliest barrio, the one the vlogs call the trendy stay. Agua de València comes by the jug. One jug, shared, that’s the rule.', eur: 22 }
     ] },
-    { dow: 'Sat', dom: '26', dot: 'var(--color-accent-2)', city: 'València', title: 'Calatrava day', sub: 'Saturday 26 Sep · the white city, then Europe’s biggest aquarium', acts: [
-      { id: 'd5a1', t: '09:30', cat: 'sights', title: 'City of Arts & Sciences', desc: 'The Hemisfèric eye, the Umbracle palm walk, white ribs against blue sky in every direction.', tip: 'Izem: sketchbook day. Morning light on the Hemisfèric is the shot.', eur: 0 },
-      { id: 'd5a2', t: '11:00', cat: 'museum', title: 'Science Museum', desc: 'Príncipe Felipe — hands-on halls inside a concrete whale skeleton. Touching things is mandatory.', eur: 9 },
-      { id: 'd5a3', t: '13:30', cat: 'food', title: 'Lunch under the Umbracle', desc: 'Something cold and quick in the shade — the afternoon belongs to the fish.', eur: 15 },
-      { id: 'd5a4', t: '15:00', cat: 'sights', title: 'Oceanogràfic', desc: 'Europe’s biggest aquarium: the shark tunnel, belugas, and a jellyfish room built for standing very still in.', eur: 34 },
-      { id: 'd5a5', t: '19:30', cat: 'event', title: 'Sunset at Veles e Vents', desc: 'Vermut on the marina terraces, under the building that looks like it’s about to set sail.', eur: 8 }
+    { dow: 'Wed', dom: '12', dot: 'var(--color-accent-2)', city: 'València', title: 'Old town + first swim', sub: 'Wednesday 12 Aug · market breakfast, Gothic noon, beach evening', acts: [
+      { id: 'd5b1', t: '08:45', cat: 'food', title: 'Mercat Central, early', desc: 'One of Europe’s great iron-and-glass markets. Horchata and fartons at the counter, jamón and manchego for later. Ahmet’s new personality.', tip: 'From the vlogs: the single most-filmed stop in every València vlog we mined. It shuts at three and sleeps on Sunday, so it has to be a morning.', eur: 8 },
+      { id: 'd5b2', t: '10:00', cat: 'sights', title: 'La Lonja de la Seda', desc: 'The UNESCO silk exchange, Gothic columns twisted like rope pulled tight. Two euros, somehow.', tip: 'Izem: the Sala de Contratación. Fifteen minutes of just looking.', eur: 2 },
+      { id: 'd5b3', t: '11:30', cat: 'sights', title: 'Cathedral + El Miguelete', desc: '207 steps up the bell tower for the whole city in one slow turn. The cathedral also claims the Holy Grail. Sure.', eur: 9 },
+      { id: 'd5b4', t: '13:30', cat: 'food', title: 'Menú del día, old town', desc: 'Three courses and a glass of something cold for meal-deal money, the great weekday-lunch institution.', tip: 'From the vlogs: one creator called the menú del día the best thing about Spain, full stop. Look for the chalkboard, not the laminated menu.', eur: 15 },
+      { id: 'd5b5', t: '17:30', cat: 'swim', title: 'Malva-rosa beach', desc: 'The 1.50 € bus or a €10 taxi to the sand. Wide, flat, 27 °C water: proper swimming, then lying down professionally.', eur: 2 },
+      { id: 'd5b6', t: '20:45', cat: 'sights', title: 'Serranos Towers, golden hour', desc: 'Climb the medieval gate as the light goes honey-coloured over the old riverbed.', eur: 2 },
+      { id: 'd5b7', t: '21:30', cat: 'food', title: 'Dinner in El Carmen', desc: 'Street-art lanes and tapas tables in the oldest corner of the city.', tip: 'From the vlogs (the comments, actually): viewers kept pushing bunyols, pumpkin fritters with hot chocolate. Field-tested local knowledge.', eur: 20 }
     ] },
-    { dow: 'Sun', dom: '27', dot: 'var(--color-accent-2)', city: 'València', title: 'Old town Sunday', sub: 'Sunday 27 Sep · Gothic València, market breakfast, golden hour', acts: [
-      { id: 'd6a1', t: '09:30', cat: 'sights', title: 'La Lonja de la Seda', desc: 'The UNESCO silk exchange — Gothic columns twisted like rope pulled tight. Two euros, somehow.', tip: 'Izem: the Sala de Contratación. Fifteen minutes of just looking.', eur: 2 },
-      { id: 'd6a2', t: '11:00', cat: 'food', title: 'Central Market + horchata', desc: 'One of Europe’s great iron-and-glass markets, across the street. Horchata and fartons at the counter — Ahmet’s new personality.', eur: 6 },
-      { id: 'd6a3', t: '12:30', cat: 'sights', title: 'Cathedral + El Miguelete', desc: '207 steps up the bell tower for the whole city in one slow turn. The cathedral also claims the Holy Grail. Sure.', eur: 9 },
-      { id: 'd6a4', t: '17:00', cat: 'museum', title: 'Fallas Museum', desc: 'Every year since 1934 one giant ninot is pardoned from the March bonfires. This is where the survivors live.', eur: 2 },
-      { id: 'd6a5', t: '19:30', cat: 'sights', title: 'Serranos Towers, golden hour', desc: 'Climb the medieval gate as the light goes honey-coloured over the old riverbed.', eur: 2 }
+    { dow: 'Thu', dom: '13', dot: 'var(--color-accent-2)', city: 'València', title: 'Calatrava + the lagoon', sub: 'Thursday 13 Aug · white city morning, rice country evening', acts: [
+      { id: 'd6b1', t: '09:00', cat: 'sights', title: 'City of Arts & Sciences', desc: 'The Hemisfèric eye, the Umbracle palm walk, white ribs against blue sky in every direction. By bike if Tuesday’s Turia walk converted you.', tip: 'Izem: sketchbook day. Morning light on the Hemisfèric is the shot.', eur: 0 },
+      { id: 'd6b2', t: '10:30', cat: 'sights', title: 'Oceanogràfic', desc: 'Europe’s biggest aquarium: the shark tunnel, belugas, and a jellyfish room built for standing very still in.', tip: 'From the vlogs: about €32 on the door, cheaper and queue-free booked online. The jellyfish room doubles as air conditioning at noon.', eur: 32 },
+      { id: 'd6b3', t: '14:15', cat: 'food', title: 'Paella at its birthplace', desc: 'Bus 24 or 25 south through the rice paddies to El Palmar, where paella is actually from. Rabbit-and-bean valenciana, or all i pebre eel stew for the brave.', tip: 'From the vlogs: paella is a lunch dish that takes 25 minutes and is ordered for two or more. At two o’clock in El Palmar you are doing it exactly right.', eur: 25 },
+      { id: 'd6b4', t: '19:00', cat: 'boat', title: 'Albufera lagoon boat', desc: 'A flat-bottomed albuferenc glides you through reeds and rice paddies, Europe’s rice bowl from water level.', eur: 8 },
+      { id: 'd6b5', t: '20:45', cat: 'event', title: 'Albufera sunset', desc: 'The sky show locals drive out for. Stay on the jetty until the last orange is gone.', eur: 0 }
     ] },
-    { dow: 'Mon', dom: '28', dot: 'var(--color-accent-2)', city: 'València', title: 'Albufera + the beach', sub: 'Monday 28 Sep · beach morning, lagoon evening', acts: [
-      { id: 'd7a1', t: '10:30', cat: 'swim', title: 'Malvarosa beach', desc: 'Wide, flat, warm — proper swimming, then lying down professionally. Promenade horchata within arm’s reach.', eur: 0 },
-      { id: 'd7a2', t: '13:30', cat: 'food', title: 'Paella at its birthplace', desc: 'El Palmar village, where paella is actually from. Rabbit-and-bean valenciana, or all i pebre eel stew for the brave.', eur: 25 },
-      { id: 'd7a3', t: '16:30', cat: 'boat', title: 'Albufera lagoon boat trip', desc: 'A flat-bottomed albuferenc glides you through reeds and rice paddies — Europe’s rice bowl from water level.', eur: 8 },
-      { id: 'd7a4', t: '19:45', cat: 'event', title: 'Albufera sunset', desc: 'The sky show locals drive out for. Stay on the jetty until the last orange is gone.', eur: 0 }
-    ] },
-    { dow: 'Tue', dom: '29', dot: 'var(--color-neutral-500)', city: 'Home', title: 'Adiós, España', sub: 'Tuesday 29 Sep · last walk, fly home', acts: [
-      { id: 'd8a1', t: '09:00', cat: 'sights', title: 'Last loop of the Turia', desc: 'Under Calatrava’s white bridges one more time. Buy the fartons that will not survive the flight.', eur: 0 },
-      { id: 'd8a2', t: '12:30', cat: 'travel', title: 'Fly València → East Midlands', desc: 'Metro to the airport in 25 minutes. Land at EMA 16:05, taxi to Wigston, kettle on by six.', eur: 95 }
+    { dow: 'Fri', dom: '14', dot: 'var(--color-neutral-500)', city: 'Home', title: 'Adiós, España', sub: 'Friday 14 Aug · last walk, fly home', acts: [
+      { id: 'd7b1', t: '09:00', cat: 'sights', title: 'Last loop of the Turia', desc: 'Under Calatrava’s white bridges one more time. Buy the fartons that will not survive the flight.', eur: 0 },
+      { id: 'd7b2', t: '12:30', cat: 'travel', title: 'Fly València → East Midlands', desc: 'Metro to the airport in 25 minutes. Land at EMA, taxi to Wigston, kettle on by six.', eur: 95 }
     ] }
   ];
 
   const BOOKINGS = [
-    { id: 'b1', label: 'Flights: EMA → Barcelona out, València → EMA home' },
-    { id: 'b2', label: 'Sagrada Família — 09:00 slot, Wed 23' },
-    { id: 'b3', label: 'Park Güell timed entry, Wed 23' },
-    { id: 'b4', label: 'Casa Batlló Magic Nights, Wed 23' },
-    { id: 'b5', label: 'Museu Picasso (Ahmet: student rate)' },
-    { id: 'b6', label: 'Euromed train, Fri 25 — left-side seats' },
-    { id: 'b7', label: 'Arts & Sciences + Oceanogràfic combo ticket' },
-    { id: 'b8', label: 'Albufera boat — book for Monday evening' }
+    { id: 'k1', label: 'Flights: EMA → Barcelona out, València → EMA home' },
+    { id: 'k2', label: 'Sagrada Família 09:00 slot, Sun 9 (vlogs: August sells out weeks ahead)' },
+    { id: 'k3', label: 'Park Güell timed entry, Sun 9 · 17:30' },
+    { id: 'k4', label: 'Casa Batlló Magic Nights, Sun 9' },
+    { id: 'k5', label: 'Montserrat: R5 + cremallera return, Mon 10' },
+    { id: 'k6', label: 'Can Solé table, Mon 10 evening (arrocerías book out in August)' },
+    { id: 'k7', label: 'Museu Picasso timed entry, Tue 11 (Ahmet: student rate)' },
+    { id: 'k8', label: 'Euromed 14:05, Tue 11, left-side seats' },
+    { id: 'k9', label: 'Oceanogràfic online tickets, Thu 13 (vlogs: skips the door queue)' },
+    { id: 'k10', label: 'Albufera sunset boat, Thu 13' }
   ];
 
   const LINK_ICON = '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>';

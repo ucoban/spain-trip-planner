@@ -67,7 +67,7 @@
 <div id="map"></div>
 <div class="panel">
   <h1>The route</h1>
-  <p class="sub">Wigston → Barcelona → València<br>22–29 September</p>
+  <p class="sub">Wigston → Barcelona → València<br>8-14 August</p>
   <div class="views">
     <button type="button" class="btn btn-primary" id="v-all">Full route</button>
     <button type="button" class="btn btn-secondary" id="v-bcn">Barcelona</button>
@@ -136,38 +136,35 @@
       .bindTooltip(small ? label : longLabel, { permanent: true, direction: dir || 'right', offset: dir === 'left' ? [-10, 0] : [10, 0], className: 'city-label' });
   };
   cityDot(WIG, 'Wigston', 'Wigston — home');
-  cityDot(BCN, 'Barcelona', 'Barcelona · nights 1–3', small ? 'left' : 'right');
-  cityDot(VLC, 'València', 'València · nights 4–7');
+  cityDot(BCN, 'Barcelona', 'Barcelona · nights 1-3', small ? 'left' : 'right');
+  cityDot(VLC, 'València', 'València · nights 4-6');
 
   // [lat, lng, cat, title, when]
   const SPOTS = [
-    [41.4036, 2.1744, 'sights', 'Sagrada Família', 'Day 2 · Wed 09:00'],
-    [41.4145, 2.1527, 'sights', 'Park Güell', 'Day 2 · Wed 15:00'],
-    [41.3917, 2.1650, 'fiesta', 'Casa Batlló — Magic Nights', 'Day 2 · Wed 18:45'],
-    [41.3839, 2.1760, 'sights', 'Gothic Quarter wander', 'Day 1 · Tue 17:30'],
-    [41.3799, 2.1745, 'food', 'Tapas, Carrer de la Mercè', 'Day 1 · Tue 20:30'],
-    [41.3784, 2.1925, 'sea', 'Barceloneta swim', 'Day 3 · Thu 09:30'],
-    [41.3760, 2.1782, 'sea', 'Las Golondrinas cruise', 'Day 3 · Thu 11:30'],
-    [41.3800, 2.1868, 'food', 'Paella at Can Solé', 'Day 3 · Thu 14:00'],
-    [41.3852, 2.1809, 'sights', 'Museu Picasso', 'Day 3 · Thu 16:30'],
-    [41.3826, 2.1770, 'fiesta', 'La Mercè castellers', 'Day 3 · Thu 19:00'],
-    [41.3854, 2.1795, 'fiesta', 'Correfoc fire run', 'Day 3 · Thu 21:30'],
-    [41.3633, 2.1657, 'sights', 'Montjuïc cable car + castle', 'Day 4 · Fri 09:00'],
-    [41.3684, 2.1533, 'sights', 'MNAC', 'Day 4 · Fri 11:00'],
-    [39.4548, -0.3505, 'sights', 'City of Arts & Sciences', 'Day 5 · Sat 09:30'],
-    [39.4556, -0.3521, 'sights', 'Science Museum', 'Day 5 · Sat 11:00'],
-    [39.4531, -0.3480, 'sights', 'Oceanogràfic', 'Day 5 · Sat 15:00'],
-    [39.4620, -0.3250, 'fiesta', 'Sunset at Veles e Vents', 'Day 5 · Sat 19:30'],
-    [39.4745, -0.3785, 'sights', 'La Lonja de la Seda', 'Day 6 · Sun 09:30'],
-    [39.4738, -0.3790, 'food', 'Central Market + horchata', 'Day 6 · Sun 11:00'],
-    [39.4757, -0.3754, 'sights', 'Cathedral + El Miguelete', 'Day 6 · Sun 12:30'],
-    [39.4623, -0.3585, 'sights', 'Fallas Museum', 'Day 6 · Sun 17:00'],
-    [39.4793, -0.3757, 'sights', 'Serranos Towers, golden hour', 'Day 6 · Sun 19:30'],
-    [39.4810, -0.3245, 'sea', 'Malvarosa beach', 'Day 7 · Mon 10:30'],
-    [39.3245, -0.3300, 'food', 'Paella in El Palmar', 'Day 7 · Mon 13:30'],
-    [39.3355, -0.3355, 'sea', 'Albufera lagoon boat + sunset', 'Day 7 · Mon 16:30'],
-    [39.4772, -0.3644, 'sights', 'Turia Gardens', 'Day 4 · Fri 18:00 + Day 8'],
-    [39.4630, -0.3760, 'food', 'Dinner in Ruzafa', 'Day 4 · Fri 21:00']
+    [41.3839, 2.1760, 'sights', 'Gothic Quarter wander', 'Day 1 · Sat 18:30'],
+    [41.3799, 2.1745, 'food', 'Tapas, Carrer de la Mercè', 'Day 1 · Sat 21:00'],
+    [41.4036, 2.1744, 'sights', 'Sagrada Família', 'Day 2 · Sun 09:00'],
+    [41.4145, 2.1527, 'sights', 'Park Güell', 'Day 2 · Sun 17:30'],
+    [41.3917, 2.1650, 'fiesta', 'Casa Batlló Magic Nights', 'Day 2 · Sun 21:00'],
+    [41.5931, 1.8371, 'sights', 'Montserrat monastery', 'Day 3 · Mon 10:00'],
+    [41.3784, 2.1925, 'sea', 'Barceloneta evening swim', 'Day 3 · Mon 18:00'],
+    [41.3800, 2.1868, 'food', 'Dinner at Can Solé', 'Day 3 · Mon 20:30'],
+    [41.3853, 2.1794, 'food', 'Mercat de Santa Caterina', 'Day 4 · Tue 09:00'],
+    [41.3838, 2.1819, 'sights', 'Santa Maria del Mar', 'Day 4 · Tue 09:45'],
+    [41.3852, 2.1809, 'sights', 'Museu Picasso', 'Day 4 · Tue 10:30'],
+    [41.3817, 2.1716, 'sights', 'La Rambla + Boqueria, briskly', 'Day 4 · Tue 12:15'],
+    [39.4772, -0.3644, 'sights', 'Turia Gardens', 'Day 4 · Tue 18:30 + Day 7'],
+    [39.4630, -0.3760, 'food', 'Dinner in Russafa', 'Day 4 · Tue 21:00'],
+    [39.4738, -0.3790, 'food', 'Mercat Central + horchata', 'Day 5 · Wed 08:45'],
+    [39.4745, -0.3785, 'sights', 'La Lonja de la Seda', 'Day 5 · Wed 10:00'],
+    [39.4757, -0.3754, 'sights', 'Cathedral + El Miguelete', 'Day 5 · Wed 11:30'],
+    [39.4810, -0.3245, 'sea', 'Malva-rosa beach', 'Day 5 · Wed 17:30'],
+    [39.4793, -0.3757, 'sights', 'Serranos Towers, golden hour', 'Day 5 · Wed 20:45'],
+    [39.4785, -0.3800, 'food', 'Dinner in El Carmen', 'Day 5 · Wed 21:30'],
+    [39.4548, -0.3505, 'sights', 'City of Arts & Sciences', 'Day 6 · Thu 09:00'],
+    [39.4531, -0.3480, 'sights', 'Oceanogràfic', 'Day 6 · Thu 10:30'],
+    [39.3245, -0.3300, 'food', 'Paella in El Palmar', 'Day 6 · Thu 14:15'],
+    [39.3355, -0.3355, 'sea', 'Albufera boat + sunset', 'Day 6 · Thu 19:00']
   ];
   SPOTS.forEach(([lat, lng, cat, title, when]) => {
     L.marker([lat, lng], {

@@ -1,9 +1,11 @@
 # España · the Çelik plan
 
-An eight-day trip planner for Barcelona and València, 22–29 September. Pick a
+A seven-day trip planner for Barcelona and València, 8-14 August. Pick a
 day, filter it down to the boat trips or the fiestas, tick things off as they
 happen, and keep boarding passes and booking PDFs pinned to the stop they
-belong to.
+belong to. The itinerary and its embedded tips are distilled from 21
+Barcelona and València travel vlogs (routes, prices, and warnings mined from
+their transcripts and comments).
 
 Ticked moments, the hero photo, and the chosen currency live in the browser's
 `localStorage` — they're cheap to redo and nobody needs them on a second
@@ -94,7 +96,7 @@ The itinerary is one array at the top of `app.js`. Each day has a label, a city,
 a subtitle, and a list of activities:
 
 ```js
-{ id: 'd2a1', t: '09:00', cat: 'sights', title: 'Sagrada Família',
+{ id: 'd2b1', t: '09:00', cat: 'sights', title: 'Sagrada Família',
   desc: '…', tip: 'Izem: add the Passion tower…', eur: 26 }
 ```
 
