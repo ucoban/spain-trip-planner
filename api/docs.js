@@ -36,7 +36,8 @@ async function listDocs() {
   return docs;
 }
 
-export default async function handler(request) {
+// Named method exports — see api/unlock.js for why there's no default.
+async function handler(request) {
   if (!isUnlocked(request)) return locked();
 
   try {
@@ -92,3 +93,5 @@ export default async function handler(request) {
     return json({ error: 'The wallet is unreachable right now.' }, 502);
   }
 }
+
+export { handler as GET, handler as POST, handler as PATCH, handler as DELETE };

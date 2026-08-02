@@ -100,7 +100,8 @@ function cleanPlan(plan) {
   return JSON.stringify(clean).length > MAX_JSON ? null : clean;
 }
 
-export default async function handler(request) {
+// Named method exports — see api/unlock.js for why there's no default.
+async function handler(request) {
   try {
     if (request.method === 'GET') {
       const result = await get(PATH, { access: 'private' });
@@ -131,3 +132,5 @@ export default async function handler(request) {
     return json({ error: 'The plan is unreachable right now.' }, 502);
   }
 }
+
+export { handler as GET, handler as PUT };

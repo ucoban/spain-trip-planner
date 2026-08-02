@@ -5,7 +5,10 @@ import { checkPassphrase, clearCookie, configured, isUnlocked, issueCookie, json
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-export default async function handler(request) {
+// Exported per HTTP method (web `fetch`-style API): Vercel's Node runtime
+// hands the *default* export the legacy (req, res) pair, where a returned
+// Response is silently ignored. Named method exports get the web Request.
+async function handler(request) {
   if (request.method === 'GET') {
     return json({ unlocked: isUnlocked(request), configured: configured() });
   }
@@ -33,3 +36,5 @@ export default async function handler(request) {
 
   return json({ unlocked: true }, 200, { 'Set-Cookie': issueCookie() });
 }
+
+export { handler as GET, handler as POST, handler as DELETE };

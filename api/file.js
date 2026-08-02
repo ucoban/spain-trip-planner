@@ -18,7 +18,8 @@ const INLINE = new Set([
 const text = (body, status) =>
   new Response(body, { status, headers: { 'Content-Type': 'text/plain', 'Cache-Control': 'private, no-store' } });
 
-export default async function handler(request) {
+// Named method export — see api/unlock.js for why there's no default.
+async function handler(request) {
   if (!isUnlocked(request)) return text('Locked', 401);
 
   const { searchParams } = new URL(request.url);
@@ -62,3 +63,5 @@ export default async function handler(request) {
     }
   });
 }
+
+export { handler as GET };
