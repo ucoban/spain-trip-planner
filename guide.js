@@ -24,8 +24,16 @@
     return n;
   }
 
-  const mapsUrl = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+  const mapsUrl = window.PlaceLinks.url;
   const dayOf = act => Number(act.slice(1, act.indexOf('b')));
+
+  // Place references inside notes and tips open Google Maps too (places.js).
+  const withPlaces = text => window.PlaceLinks.split(text).map(p => typeof p === 'string' ? p : el('a', {
+    text: p.text, href: p.href, target: '_blank', rel: 'noopener',
+    title: tpl(G.mapsTitle, { name: p.text }),
+    style: 'color:inherit;text-decoration:underline;text-decoration-style:dotted;' +
+      'text-decoration-color:var(--color-accent-2-600);text-underline-offset:3px'
+  }));
 
   const chip = (text, opts) => el(opts && opts.href ? 'a' : 'span', {
     class: 'g-chip', text,
@@ -60,9 +68,8 @@
         badges
       ),
       el('p', {
-        text: G.notes[p.id] || '',
         style: 'margin:4px 0 0;font-size:13.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty'
-      }),
+      }, withPlaces(G.notes[p.id] || '')),
       (p.blogs && p.blogs.length) ? el('div', { style: 'display:flex;gap:6px;flex-wrap:wrap;margin-top:7px' }, blogChips(p.blogs)) : null
     );
   }
@@ -90,7 +97,7 @@
       ? chip(G.fromVlogs, { bg: 'var(--color-accent-100)', fg: 'var(--color-accent-900)' })
       : blogChips([s])[0]);
     return el('div', { class: 'g-tip' },
-      el('span', { text: G.tips[t.id] || '' }),
+      el('span', {}, withPlaces(G.tips[t.id] || '')),
       el('span', { style: 'display:inline-flex;gap:6px;flex-wrap:wrap;margin-left:8px;vertical-align:1px' }, srcChips)
     );
   }

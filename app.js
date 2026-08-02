@@ -28,19 +28,19 @@
 
   const DAYS = [
     { dom: '8', dot: 'var(--color-accent)', acts: [
-      { id: 'd1b1', t: '07:30', cat: 'travel', eur: 95 },
+      { id: 'd1b1', t: '07:30', cat: 'travel', eur: 89 },
       { id: 'd1b2', t: '15:00', cat: 'travel', eur: 5 },
       { id: 'd1b3', t: '18:30', cat: 'sights', eur: 0 },
       { id: 'd1b4', t: '21:00', cat: 'food', eur: 25 }
     ] },
     { dom: '9', dot: 'var(--color-accent)', acts: [
-      { id: 'd2b1', t: '09:00', cat: 'sights', eur: 26 },
+      { id: 'd2b1', t: '09:00', cat: 'sights', eur: 36 },
       { id: 'd2b2', t: '13:00', cat: 'food', eur: 18 },
-      { id: 'd2b3', t: '17:30', cat: 'sights', eur: 13 },
-      { id: 'd2b4', t: '21:00', cat: 'event', eur: 45 }
+      { id: 'd2b3', t: '17:30', cat: 'sights', eur: 18 },
+      { id: 'd2b4', t: '21:00', cat: 'event', eur: 59 }
     ] },
     { dom: '10', dot: 'var(--color-accent)', acts: [
-      { id: 'd3b1', t: '08:15', cat: 'travel', eur: 24 },
+      { id: 'd3b1', t: '08:15', cat: 'travel', eur: 50 },
       { id: 'd3b2', t: '10:00', cat: 'sights', eur: 16 },
       { id: 'd3b3', t: '18:00', cat: 'swim', eur: 0 },
       { id: 'd3b4', t: '20:30', cat: 'food', eur: 35 }
@@ -48,9 +48,9 @@
     { dom: '11', dot: 'linear-gradient(135deg, var(--color-accent) 50%, var(--color-accent-2) 50%)', acts: [
       { id: 'd4b1', t: '09:00', cat: 'food', eur: 6 },
       { id: 'd4b2', t: '09:45', cat: 'sights', eur: 0 },
-      { id: 'd4b3', t: '10:30', cat: 'museum', eur: 12 },
+      { id: 'd4b3', t: '10:30', cat: 'museum', eur: 14 },
       { id: 'd4b4', t: '12:15', cat: 'sights', eur: 4 },
-      { id: 'd4b5', t: '14:05', cat: 'travel', eur: 30 },
+      { id: 'd4b5', t: '14:05', cat: 'travel', eur: 74 },
       { id: 'd4b6', t: '18:30', cat: 'sights', eur: 0 },
       { id: 'd4b7', t: '21:00', cat: 'food', eur: 22 }
     ] },
@@ -65,20 +65,72 @@
     ] },
     { dom: '13', dot: 'var(--color-accent-2)', acts: [
       { id: 'd6b1', t: '09:00', cat: 'sights', eur: 0 },
-      { id: 'd6b2', t: '10:30', cat: 'sights', eur: 32 },
+      { id: 'd6b2', t: '10:30', cat: 'sights', eur: 43 },
       { id: 'd6b3', t: '14:15', cat: 'food', eur: 25 },
-      { id: 'd6b4', t: '19:00', cat: 'boat', eur: 8 },
+      { id: 'd6b4', t: '19:00', cat: 'boat', eur: 7 },
       { id: 'd6b5', t: '20:45', cat: 'event', eur: 0 }
     ] },
     { dom: '14', dot: 'var(--color-neutral-500)', acts: [
       { id: 'd7b1', t: '09:00', cat: 'sights', eur: 0 },
-      { id: 'd7b2', t: '12:30', cat: 'travel', eur: 95 }
+      { id: 'd7b2', t: '12:30', cat: 'travel', eur: 100 }
     ] }
   ];
 
-  const BOOKINGS = ['k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
+  const BOOKINGS = ['k1', 'k1b', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
+
+  // Where each stop is, as a Google Maps search query — a named place opens
+  // the place card (photos, hours, directions), which a bare lat/lng pin
+  // would not. Keyed by stop id like the words in i18n.js; the queries are
+  // place names, so one table serves every language.
+  const MAPS = {
+    d1b1: 'East Midlands Airport',
+    d1b2: 'Passeig de Gràcia station, Barcelona',
+    d1b3: 'Barri Gòtic, Barcelona',
+    d1b4: 'Carrer de la Mercè, Barcelona',
+    d2b1: 'Basílica de la Sagrada Família, Barcelona',
+    d2b2: 'Casa Milà, Barcelona',
+    d2b3: 'Park Güell, Barcelona',
+    d2b4: 'Casa Batlló, Barcelona',
+    d3b1: 'Plaça Espanya station, Barcelona',
+    d3b2: 'Santa Maria de Montserrat Abbey',
+    d3b3: 'Platja de la Barceloneta, Barcelona',
+    d3b4: 'Restaurant Can Solé, Barcelona',
+    d4b1: 'Mercat de Santa Caterina, Barcelona',
+    d4b2: 'Basílica de Santa Maria del Mar, Barcelona',
+    d4b3: 'Museu Picasso, Barcelona',
+    d4b4: 'La Rambla, Barcelona',
+    d4b5: 'Barcelona Sants railway station',
+    d4b6: 'Parc Gulliver, València',
+    d4b7: 'Russafa, València',
+    d5b1: 'Mercat Central, València',
+    d5b2: 'La Lonja de la Seda, València',
+    d5b3: 'València Cathedral',
+    d5b4: 'Ciutat Vella, València',
+    d5b5: 'Platja de la Malva-rosa, València',
+    d5b6: 'Torres de Serranos, València',
+    d5b7: 'Barrio del Carmen, València',
+    d6b1: 'Ciutat de les Arts i les Ciències, València',
+    d6b2: 'Oceanogràfic, València',
+    d6b3: 'El Palmar, València',
+    d6b4: 'La Albufera, València',
+    d6b5: 'El Palmar, València',
+    d7b1: 'Jardí del Túria, València',
+    d7b2: 'València Airport'
+  };
+  // For stops the table doesn't know (added or renamed while replanning),
+  // the link searches the stop's own title, steered towards the right city.
+  // Day 4 spans both cities, so it gets no hint rather than a wrong one.
+  const MAP_CITY = ['Barcelona', 'Barcelona', 'Barcelona', '', 'València', 'València', 'València'];
+  const mapsUrl = window.PlaceLinks.url;
+  function mapQuery(a, title) {
+    const baked = T.acts[a.id];
+    if (MAPS[a.id] && (!state.plan || (baked && baked.title === title))) return MAPS[a.id];
+    if (!title) return null;
+    return MAP_CITY[state.day] ? title + ', ' + MAP_CITY[state.day] : title;
+  }
 
   const LINK_ICON = '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>';
+  const PIN_ICON = '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>';
 
   const read = (key, fallback) => {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (e) { return fallback; }
@@ -178,12 +230,54 @@
     kids.flat().forEach(c => { if (c != null && c !== false) n.append(c); });
     return n;
   }
-  const svg = (size, path) => el('svg', {
-    width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor',
-    'stroke-width': '2.75', 'stroke-linecap': 'round', 'stroke-linejoin': 'round',
-    'aria-hidden': 'true', svg: path
-  });
+  // SVG needs its own namespace — createElement('svg') yields an inert
+  // HTMLUnknownElement that never draws.
+  const svg = (size, path) => {
+    const n = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const attrs = {
+      width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor',
+      'stroke-width': '2.75', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true'
+    };
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    n.innerHTML = path;
+    return n;
+  };
   const $ = id => document.getElementById(id);
+
+  // Booking lines and tips carry real booking URLs, and every kind of prose
+  // names places. Rendering through textContent would leave both dead, so
+  // split the text: https:// runs become booking anchors, and known place
+  // names (PlaceLinks, places.js) become Google Maps anchors — DOM nodes
+  // only, nothing parsed as HTML, so itinerary text can never inject markup.
+  const URL_RE = /https?:\/\/[^\s"<>]+/g;
+  const placeAnchor = p => el('a', {
+    href: p.href, target: '_blank', rel: 'noopener', text: p.text,
+    title: tpl(T.ui.openMap, { title: p.text }),
+    onclick: e => e.stopPropagation(),
+    style: 'color:inherit;text-decoration:underline;text-decoration-style:dotted;' +
+      'text-decoration-color:var(--color-accent-2-600);text-underline-offset:3px'
+  });
+  const withPlaces = seg => window.PlaceLinks.split(seg)
+    .map(p => typeof p === 'string' ? p : placeAnchor(p));
+  function withLinks(text) {
+    const parts = [];
+    let last = 0;
+    for (const m of String(text).matchAll(URL_RE)) {
+      if (m.index > last) parts.push(...withPlaces(text.slice(last, m.index)));
+      let url = m[0];
+      const trail = (url.match(/[.,;:)!?]+$/) || [''])[0];
+      if (trail) url = url.slice(0, url.length - trail.length);
+      parts.push(el('a', {
+        href: url, target: '_blank', rel: 'noopener noreferrer', text: url,
+        onclick: e => e.stopPropagation(),
+        style: 'color:inherit;font-weight:700;text-decoration:underline;overflow-wrap:anywhere'
+      }));
+      if (trail) parts.push(trail);
+      last = m.index + m[0].length;
+    }
+    parts.push(...withPlaces(text.slice(last)));
+    return parts;
+  }
 
   // — static text ————————————————————————————————————————————————
   // The markup ships with English as its fallback; this swaps every tagged
@@ -192,9 +286,16 @@
     document.title = T.htmlTitle;
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute('content', T.metaDesc);
+    // Prose blocks get their place references linked; everything else —
+    // buttons, labels, headings — stays plain text (no anchors inside
+    // interactive elements).
+    const PROSE = new Set(['heroText', 'vlogsText', 'ahmetDesc', 'izemDesc']);
     document.querySelectorAll('[data-i18n]').forEach(n => {
-      const s = T.static[n.getAttribute('data-i18n')];
-      if (s != null) n.textContent = s;
+      const key = n.getAttribute('data-i18n');
+      const s = T.static[key];
+      if (s == null) return;
+      if (PROSE.has(key)) n.replaceChildren(...withLinks(s));
+      else n.textContent = s;
     });
     const ATTRS = {
       'data-i18n-placeholder': 'placeholder',
@@ -724,6 +825,7 @@
     const c = CATS[a.cat];
     const x = actWords(a);
     const cost = fmt(a.eur);
+    const mapsQ = mapQuery(a, x.title);
     const attached = state.docs.filter(d => d.act === a.id);
 
     const docRow = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px' },
@@ -747,10 +849,17 @@
           el('div', { style: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px' },
             el('span', { text: x.title, style: 'font-family:var(--font-heading);font-size:19px;text-decoration:' + (isDone ? 'line-through' : 'none') }),
             el('span', { text: T.cats[a.cat], style: 'font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:3px 11px;border-radius:999px;background:' + c.bg + ';color:' + c.fg + ';border:' + (c.bd || 'none') }),
-            cost && el('span', { class: 'tag tag-neutral', text: cost })
+            cost && el('span', { class: 'tag tag-neutral', text: cost }),
+            mapsQ && el('a', {
+              href: mapsUrl(mapsQ), target: '_blank', rel: 'noopener', 'data-key': 'map-' + a.id,
+              'aria-label': tpl(T.ui.openMap, { title: x.title }),
+              style: 'display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.02em;' +
+                'padding:3px 11px;border-radius:999px;border:1px solid var(--color-accent-2-400);' +
+                'color:var(--color-accent-2-800);text-decoration:none'
+            }, svg(11, PIN_ICON), el('span', { text: T.ui.mapLink }))
           ),
-          x.desc && el('p', { text: x.desc, style: 'margin:0;font-size:14.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' }),
-          x.tip && el('p', { text: x.tip, style: 'margin:10px 0 0;font-size:13px;line-height:1.5;background:var(--color-accent-2-100);color:var(--color-accent-2-900);border-radius:14px;padding:8px 14px;display:inline-block' }),
+          x.desc && el('p', { style: 'margin:0;font-size:14.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' }, withLinks(x.desc)),
+          x.tip && el('p', { style: 'margin:10px 0 0;font-size:13px;line-height:1.5;background:var(--color-accent-2-100);color:var(--color-accent-2-900);border-radius:14px;padding:8px 14px;display:inline-block' }, withLinks(x.tip)),
           docRow
         ),
         state.editing ? editCluster(a, x, pos, total) : el('button', {
@@ -790,7 +899,7 @@
     const dt = dayWords(state.day);
     $('dayTitle').textContent = dt.title;
     $('dayCity').textContent = dt.city;
-    $('daySub').textContent = dt.sub;
+    $('daySub').replaceChildren(...withLinks(dt.sub));
     const acts = dayActs(state.day).filter(a => state.editing || state.filter === 'all' || a.cat === state.filter);
     const cards = acts.map((a, i) => activityCard(a, i, acts.length));
     if (state.editing) {
@@ -825,17 +934,22 @@
     });
     const rows = bookingRows().map(b => {
       const isDone = !!state.done[b.id];
-      const row = el('button', {
-        type: 'button', 'aria-pressed': String(isDone), onclick: () => toggle(b.id), 'data-key': 'book-' + b.id,
-        style: 'display:flex;gap:10px;align-items:flex-start;background:none;border:none;padding:0;cursor:pointer;text-align:left;font-family:inherit;flex:1;min-width:0'
+      // Booking lines hold live anchors, and an <a> can't sit inside a
+      // <button> — so the tick circle is the button and the row div toggles
+      // too, except when the click landed on a link.
+      const row = el('div', {
+        'data-key': 'book-' + b.id,
+        onclick: e => { if (!e.target.closest('a')) toggle(b.id); },
+        style: 'display:flex;gap:10px;align-items:flex-start;padding:0;cursor:pointer;text-align:left;font-family:inherit;flex:1;min-width:0'
       },
-        el('span', {
-          'aria-hidden': 'true', text: isDone ? '✓' : '',
-          style: 'width:21px;height:21px;border-radius:50%;flex-shrink:0;margin-top:1px;' +
+        el('button', {
+          type: 'button', text: isDone ? '✓' : '', 'aria-pressed': String(isDone),
+          'aria-label': tpl(isDone ? T.ui.untick : T.ui.tick, { title: bookingText(b) }),
+          style: 'width:21px;height:21px;border-radius:50%;flex-shrink:0;margin-top:1px;cursor:pointer;padding:0;' +
             'border:2px solid var(--color-accent-2-600);background:' + (isDone ? 'var(--color-accent-2-600)' : 'transparent') + ';' +
             'color:#fff;font-size:12px;font-weight:700;line-height:17px;text-align:center'
         }),
-        el('span', { text: bookingText(b), style: 'font-size:13px;line-height:1.45;color:var(--color-neutral-800);text-decoration:' + (isDone ? 'line-through' : 'none') })
+        el('span', { style: 'font-size:13px;line-height:1.45;color:var(--color-neutral-800);overflow-wrap:anywhere;text-decoration:' + (isDone ? 'line-through' : 'none') }, withLinks(bookingText(b)))
       );
       if (!state.editing) return row;
       return el('div', { style: 'display:flex;gap:6px;align-items:flex-start' },

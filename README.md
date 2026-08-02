@@ -34,6 +34,7 @@ eviction).
 | `guide.html` | The field guide page: every mined place, every tip, every source |
 | `guide.js` | Renders the field guide from `guide-data.js` and `i18n.js` |
 | `guide-data.js` | Generated guide skeleton: ids, groups, mention counts, links |
+| `places.js` | Place-name → Google Maps dictionary; turns place references in prose into links |
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |
 | `styles.css` | Design-system tokens and component classes |
@@ -163,3 +164,19 @@ document pinned to that stop.
 
 Map pins are a separate list in `trip-map.html` (`SPOTS`), since not every
 activity needs a pin and a few pins cover more than one day.
+
+Every stop also carries a **Google Maps link** (the pin pill next to its
+tags; the route map's popups have one too). The link's search query comes
+from `MAPS` in `app.js` — place name plus city, keyed by stop id, shared by
+every language. A stop the table doesn't know — added or retitled while
+replanning — falls back to searching its own title, steered towards that
+day's city.
+
+Place references in **prose** open Google Maps too: descriptions, tips, day
+subtitles, booking lines, the hero blurbs, the trip strip's city cards, and
+the field guide's notes and tips. `places.js` builds one dictionary for the
+whole site from the field guide's curated places (`guide-data.js`) plus
+aliases for the spellings the text actually uses — Turkish included, since
+place names are proper nouns in both languages. Matching is case-sensitive
+and word-bounded, so a rename in the prose simply stops linking rather than
+linking wrongly.
