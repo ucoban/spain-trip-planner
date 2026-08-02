@@ -116,9 +116,15 @@
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 6px">
           <h2 data-r="daytitle" id="dayTitle" style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0"></h2>
           <span class="tag tag-accent" id="dayCity"></span>
+          <button type="button" id="dayEdit" hidden style="width:30px;height:30px;border-radius:50%;flex-shrink:0;cursor:pointer;padding:0;border:1px dashed var(--color-neutral-500);background:transparent;color:var(--color-neutral-700);font-size:14px;line-height:1">✎</button>
+          <button type="button" id="replanBtn" class="btn btn-secondary" hidden style="margin-left:auto;font-size:13px;padding:6px 16px"></button>
         </div>
         <p id="daySub" style="margin:0 0 20px;color:var(--color-neutral-700);font-size:14px"></p>
         <div id="filterRow" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px"></div>
+        <div id="replanBar" hidden style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px;background:var(--color-accent-2-100);color:var(--color-accent-2-900);border-radius:var(--radius-lg);padding:12px 18px">
+          <span id="replanHint" style="font-size:13px;line-height:1.5;flex:1;min-width:200px"></span>
+          <button type="button" id="syncChip" hidden style="font-family:inherit;font-size:12px;font-weight:700;border:none;border-radius:999px;padding:5px 13px;cursor:default;background:var(--color-accent-2-200);color:var(--color-accent-2-900)"></button>
+        </div>
         <div id="actList" style="display:grid;gap:14px"></div>
         <p id="emptyMsg" data-i18n="emptyMsg" hidden style="margin:8px 0 0;padding:22px;border:1px dashed var(--color-neutral-400);border-radius:var(--radius-lg);color:var(--color-neutral-700);font-size:14px">Nothing in this category today — try another day, or set the filter back to Everything.</p>
       </section>

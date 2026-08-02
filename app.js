@@ -1,11 +1,13 @@
-/* España · the Çelik plan — itinerary state, wallet, and rendering.
-   Everything the trip remembers (ticked moments, uploaded documents, the
-   chosen currency and language) lives in localStorage, so the plan survives
-   a reload without a backend.
+/* España · the Çelik plan — itinerary state, wallet, replanning, rendering.
+   Cheap per-device state (ticked moments, currency, language) lives in
+   localStorage. What everyone must share — the documents and any replanned
+   itinerary — lives behind /api in the private Blob store.
 
    No words live in this file: every user-facing string — itinerary text
    included — comes from window.I18N (i18n.js), which loads first. This file
-   keeps only the trip's skeleton: ids, times, prices, categories, colours. */
+   keeps only the trip's skeleton: ids, times, prices, categories, colours.
+   Once someone replans, the skeleton and its words both come from the saved
+   plan document instead (see "the plan" below). */
 (() => {
   'use strict';
 
@@ -93,14 +95,72 @@
     locked: true,
     walletMsg: null,
     busy: false,
+    // The replanned itinerary, if anyone has replanned. null means the plan
+    // baked into this file and i18n.js still stands. See the plan section.
+    plan: null,
+    editing: false,
+    sync: 'idle', // 'saving' | 'saved' | 'error'
+    syncMsg: null,
     currency: localStorage.getItem('celik-spain-currency') === 'EUR' ? 'EUR' : 'GBP'
   };
 
-  const ALL_ACTS = DAYS.flatMap(d => d.acts);
-  const ACT_INDEX = {};
-  DAYS.forEach((d, i) => d.acts.forEach(a => {
-    ACT_INDEX[a.id] = tpl(T.ui.dayN, { n: i + 1 }) + ' · ' + T.acts[a.id].title;
-  }));
+  // — the plan: baked-in until somebody replans —————————————————————
+  // The itinerary ships in DAYS + i18n.js, but the first edit materialises
+  // all of it — every language at once — into one plan document that lives
+  // in the same private Blob store as the wallet, so a stop added on the
+  // laptop is on Izem's phone too. Every render below reads through these
+  // resolvers rather than touching DAYS or T directly.
+  const LANGS = window.I18N.langs;
+  const local = w => (w && (w[window.I18N.lang] || w.en || w[LANGS.find(l => w[l])])) || '';
+
+  const dayActs = i => (state.plan ? state.plan.days[i] : DAYS[i]).acts;
+  const allActs = () => DAYS.flatMap((d, i) => dayActs(i));
+  const actWords = a => state.plan
+    ? { title: local(a.title), desc: local(a.desc), tip: local(a.tip) }
+    : T.acts[a.id];
+  const dayWords = i => state.plan
+    ? { city: local(state.plan.days[i].city), title: local(state.plan.days[i].title), sub: local(state.plan.days[i].sub) }
+    : T.days[i];
+  const bookingRows = () => state.plan ? state.plan.bookings : BOOKINGS.map(id => ({ id }));
+  const bookingText = b => state.plan ? local(b.text) : T.bookings[b.id];
+
+  // Day + title labels for the wallet's pin select and the preview header,
+  // rebuilt each render because replanning changes titles and order.
+  let ACT_LABELS = {};
+  function indexActs() {
+    ACT_LABELS = {};
+    DAYS.forEach((d, i) => dayActs(i).forEach(a => {
+      ACT_LABELS[a.id] = tpl(T.ui.dayN, { n: i + 1 }) + ' · ' + actWords(a).title;
+    }));
+  }
+  indexActs();
+
+  // Ids end up in wallet pathnames (_wallet.js), so stick to its charset.
+  const newActId = () => 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+  function defaultPlan() {
+    const wordsOf = pick => {
+      const w = {};
+      LANGS.forEach(l => { w[l] = pick(window.I18N.pack(l)) || ''; });
+      return w;
+    };
+    return {
+      v: 1,
+      days: DAYS.map((d, i) => ({
+        title: wordsOf(p => p.days[i].title),
+        city: wordsOf(p => p.days[i].city),
+        sub: wordsOf(p => p.days[i].sub),
+        acts: d.acts.map(a => ({
+          id: a.id, t: a.t, cat: a.cat, eur: a.eur ?? null,
+          title: wordsOf(p => (p.acts[a.id] || {}).title),
+          desc: wordsOf(p => (p.acts[a.id] || {}).desc),
+          tip: wordsOf(p => (p.acts[a.id] || {}).tip)
+        }))
+      })),
+      bookings: BOOKINGS.map(id => ({ id, text: wordsOf(p => p.bookings[id]) }))
+    };
+  }
+  const ensurePlan = () => state.plan || (state.plan = defaultPlan());
 
   // — DOM helper —————————————————————————————————————————————————
   function el(tag, attrs, ...kids) {
@@ -234,6 +294,66 @@
     }
   }
 
+  // — replanning ————————————————————————————————————————————————
+  // Same convergence idea as the wallet, but for one JSON document: every
+  // change PUTs the whole plan. Writes go through the same unlock cookie;
+  // reads are public, like the itinerary itself.
+  let saveTimer = null, saveBusy = false, saveAgain = false;
+
+  async function loadPlan() {
+    try {
+      const res = await fetch('/api/itinerary');
+      if (!res.ok) return;
+      const payload = await res.json();
+      if (payload.plan) { state.plan = payload.plan; render(); }
+    } catch (e) { /* static server or offline — the baked-in plan stands */ }
+  }
+
+  function mutatePlan(change) {
+    change(ensurePlan());
+    state.sync = 'saving';
+    clearTimeout(saveTimer);
+    // Coalesce a burst of arrow-taps into one PUT.
+    saveTimer = setTimeout(savePlan, 700);
+    render();
+  }
+
+  async function savePlan() {
+    if (saveBusy) { saveAgain = true; return; }
+    if (!state.plan) return;
+    saveBusy = true;
+    state.sync = 'saving';
+    try {
+      await finishRequest(await fetch('/api/itinerary', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: state.plan })
+      }));
+      if (!saveAgain) state.sync = 'saved';
+    } catch (e) {
+      state.sync = 'error';
+      state.syncMsg = e.message;
+      // The cookie expired mid-edit: ask for the passphrase rather than
+      // leaving a retry chip that can only fail again.
+      if (state.locked && state.editing) openReplanUnlock(savePlan);
+    } finally {
+      saveBusy = false;
+      if (saveAgain) { saveAgain = false; savePlan(); }
+      render();
+    }
+  }
+
+  function toggleReplan() {
+    if (state.editing) {
+      state.editing = false;
+      if (state.sync === 'saved') state.sync = 'idle';
+      render();
+      return;
+    }
+    const enter = () => { state.editing = true; state.filter = 'all'; render(); };
+    if (state.locked) openReplanUnlock(enter); else enter();
+  }
+
   function upload(actId) {
     const input = el('input', { type: 'file', multiple: true });
     input.onchange = () => {
@@ -283,13 +403,43 @@
     return kb > 900 ? (kb / 1024).toFixed(1) + ' MB' : Math.max(1, Math.round(kb)) + ' KB';
   };
 
-  // — document preview ———————————————————————————————————————————
+  // — dialogs ————————————————————————————————————————————————————
+  // Overlay + focus trap shared by the document preview and every replan
+  // dialog. Returns the close function.
   let lastFocus = null;
+  function presentDialog(dialog, focusEl) {
+    lastFocus = document.activeElement;
+    const overlay = el('div', {
+      'data-r': 'overlay', onclick: close,
+      style: 'position:fixed;inset:0;z-index:2000;background:rgba(32,30,29,.45);display:flex;align-items:center;justify-content:center;padding:24px'
+    }, dialog);
+
+    function onKey(e) {
+      if (e.key === 'Escape') close();
+      if (e.key !== 'Tab') return;
+      const focusable = dialog.querySelectorAll('a[href],button:not(:disabled),input,select,textarea,iframe,[tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    function close() {
+      document.removeEventListener('keydown', onKey, true);
+      overlay.remove();
+      if (lastFocus && lastFocus.isConnected) lastFocus.focus();
+    }
+    document.addEventListener('keydown', onKey, true);
+    document.body.append(overlay);
+    (focusEl || dialog).focus();
+    return close;
+  }
+
   function openPreview(docId) {
     const doc = state.docs.find(d => d.id === docId);
     if (!doc) return;
-    lastFocus = document.activeElement;
-    const meta = (doc.act ? ACT_INDEX[doc.act] : T.ui.generalTrip) + ' · ' + sizeLabel(doc.size);
+    // A doc can stay pinned to a stop that was since replanned away; it
+    // reads as general rather than as a blank.
+    const meta = ((doc.act && ACT_LABELS[doc.act]) || T.ui.generalTrip) + ' · ' + sizeLabel(doc.size);
 
     const body = doc.kind === 'image'
       ? el('img', { src: fileUrl(doc), alt: tpl(T.ui.previewOf, { name: doc.name }),
@@ -300,7 +450,8 @@
         : el('p', { text: T.ui.noPreview,
             style: 'margin:0;padding:28px;border:1px dashed var(--color-neutral-400);border-radius:var(--radius-lg);font-size:14px;color:var(--color-neutral-700);text-align:center' });
 
-    const closeBtn = el('button', { type: 'button', class: 'btn btn-ghost btn-icon', 'aria-label': T.ui.closePreview, text: '×', onclick: close });
+    let close;
+    const closeBtn = el('button', { type: 'button', class: 'btn btn-ghost btn-icon', 'aria-label': T.ui.closePreview, text: '×', onclick: () => close() });
     const dialog = el('div', {
       'data-r': 'dialog', class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-label': T.ui.docPreview,
       style: 'max-width:760px;width:100%;max-height:88vh;display:flex;flex-direction:column;gap:14px;background:var(--color-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:20px 22px;overflow:auto',
@@ -316,29 +467,218 @@
       ),
       body
     );
+    close = presentDialog(dialog, closeBtn);
+  }
 
-    const overlay = el('div', {
-      'data-r': 'overlay', id: 'previewOverlay', onclick: close,
-      style: 'position:fixed;inset:0;z-index:2000;background:rgba(32,30,29,.45);display:flex;align-items:center;justify-content:center;padding:24px'
-    }, dialog);
+  // — replan dialogs —————————————————————————————————————————————
+  const fieldWrap = (labelText, control) => el('div', { class: 'field', style: 'min-width:0' },
+    el('label', { text: labelText }), control);
 
-    function onKey(e) {
-      if (e.key === 'Escape') close();
-      if (e.key !== 'Tab') return;
-      const focusable = dialog.querySelectorAll('a[href],button,iframe,[tabindex]:not([tabindex="-1"])');
-      if (!focusable.length) return;
-      const first = focusable[0], last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  // One control per language, in side-by-side EN/TR columns. read() borrows
+  // a blank language from the filled one, so the two versions of the plan
+  // never drift apart silently.
+  function langFields(defs) {
+    const controls = {};
+    const cols = LANGS.map(l => {
+      const kids = [el('span', { class: 'tag tag-neutral', text: l.toUpperCase(), style: 'justify-self:start' })];
+      defs.forEach(d => {
+        const label = d.label + ' · ' + l.toUpperCase();
+        const c = d.kind === 'area'
+          ? el('textarea', { class: 'input', rows: d.rows || 4, 'aria-label': label, style: 'border-radius:var(--radius-md)' })
+          : el('input', { type: 'text', class: 'input', 'aria-label': label });
+        c.value = (d.value && d.value[l]) || '';
+        (controls[d.key] = controls[d.key] || {})[l] = c;
+        kids.push(fieldWrap(label, c));
+      });
+      return el('div', { style: 'display:grid;gap:12px;align-content:start' }, kids);
+    });
+    return {
+      node: el('div', { style: 'display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px' }, cols),
+      read(key) {
+        const w = {};
+        LANGS.forEach(l => { w[l] = controls[key][l].value.trim(); });
+        const donor = LANGS.map(l => w[l]).find(Boolean) || '';
+        LANGS.forEach(l => { if (!w[l]) w[l] = donor; });
+        return w;
+      }
+    };
+  }
+
+  function editDialog(titleText, bodyKids, onSave) {
+    let close;
+    const dialog = el('div', {
+      'data-r': 'dialog', class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-label': titleText,
+      style: 'max-width:680px;width:100%;max-height:90vh;overflow:auto;background:var(--color-bg);box-shadow:var(--shadow-lg)',
+      onclick: e => e.stopPropagation()
+    },
+      el('div', { class: 'dialog-title', text: titleText }),
+      bodyKids,
+      el('p', { text: T.ui.langNote, style: 'margin:0;font-size:12px;color:var(--color-neutral-600)' }),
+      el('div', { class: 'dialog-actions' },
+        el('button', { type: 'button', class: 'btn btn-secondary', text: T.ui.cancel, onclick: () => close() }),
+        el('button', { type: 'button', class: 'btn btn-primary', text: T.ui.save, onclick: () => { onSave(); close(); } })
+      )
+    );
+    close = presentDialog(dialog, null);
+    const first = dialog.querySelector('input,select,textarea');
+    if (first) first.focus();
+  }
+
+  function openActDialog(dayIdx, actId) {
+    const plan = ensurePlan();
+    const src = actId ? plan.days[dayIdx].acts.find(a => a.id === actId) : null;
+    if (actId && !src) return;
+
+    const timeIn = el('input', { type: 'time', class: 'input', 'aria-label': T.ui.fTime });
+    timeIn.value = src ? src.t : '12:00';
+    const catSel = el('select', { class: 'input', 'aria-label': T.ui.fCat },
+      Object.keys(CATS).map(k => el('option', { value: k, text: T.cats[k] })));
+    catSel.value = src ? src.cat : 'sights';
+    const eurIn = el('input', { type: 'number', min: '0', step: '0.5', class: 'input', 'aria-label': T.ui.fPrice, title: T.ui.fPriceHint });
+    eurIn.value = src && src.eur != null ? src.eur : '';
+    const daySel = el('select', { class: 'input', 'aria-label': T.ui.fDay },
+      plan.days.map((d, i) => el('option', { value: String(i), text: tpl(T.ui.dayOption, { n: i + 1, title: local(d.title) }) })));
+    daySel.value = String(dayIdx);
+
+    const texts = langFields([
+      { key: 'title', label: T.ui.fTitle, kind: 'input', value: src && src.title },
+      { key: 'desc', label: T.ui.fDesc, kind: 'area', rows: 5, value: src && src.desc },
+      { key: 'tip', label: T.ui.fTip, kind: 'area', rows: 3, value: src && src.tip }
+    ]);
+
+    editDialog(src ? T.ui.editStopTitle : T.ui.newStop, [
+      el('div', { style: 'display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px' },
+        fieldWrap(T.ui.fTime, timeIn),
+        fieldWrap(T.ui.fCat, catSel),
+        fieldWrap(T.ui.fPrice, eurIn),
+        fieldWrap(T.ui.fDay, daySel)
+      ),
+      texts.node
+    ], () => {
+      const title = texts.read('title');
+      LANGS.forEach(l => { if (!title[l]) title[l] = window.I18N.pack(l).ui.newStop; });
+      const t = /^\d{2}:\d{2}$/.test(timeIn.value) ? timeIn.value : (src ? src.t : '12:00');
+      const eur = eurIn.value === '' ? null : Math.max(0, Number(eurIn.value) || 0);
+      const target = Math.min(DAYS.length - 1, Math.max(0, Number(daySel.value) || 0));
+      state.day = target;
+      mutatePlan(p => {
+        const fields = { t, cat: catSel.value, eur, title, desc: texts.read('desc'), tip: texts.read('tip') };
+        const from = p.days[dayIdx].acts;
+        const i = src ? from.findIndex(a => a.id === src.id) : -1;
+        // Staying put keeps its hand-arranged position; a new or moved stop
+        // slots in where its time belongs.
+        if (i >= 0 && target === dayIdx) { Object.assign(from[i], fields); return; }
+        const act = i >= 0 ? Object.assign(from.splice(i, 1)[0], fields) : { id: newActId(), ...fields };
+        const into = p.days[target].acts;
+        const at = into.findIndex(x => x.t > act.t);
+        if (at < 0) into.push(act); else into.splice(at, 0, act);
+      });
+    });
+  }
+
+  function moveAct(dayIdx, id, delta) {
+    mutatePlan(p => {
+      const acts = p.days[dayIdx].acts;
+      const i = acts.findIndex(x => x.id === id);
+      const j = i + delta;
+      if (i < 0 || j < 0 || j >= acts.length) return;
+      acts.splice(j, 0, acts.splice(i, 1)[0]);
+    });
+  }
+
+  function removeAct(dayIdx, id) {
+    const act = dayActs(dayIdx).find(x => x.id === id);
+    if (!act) return;
+    const pinned = state.docs.some(d => d.act === id);
+    if (!confirm(tpl(pinned ? T.ui.confirmRemoveStopDocs : T.ui.confirmRemoveStop, { title: actWords(act).title }))) return;
+    mutatePlan(p => {
+      const acts = p.days[dayIdx].acts;
+      const i = acts.findIndex(x => x.id === id);
+      if (i >= 0) acts.splice(i, 1);
+    });
+  }
+
+  function openDayDialog(i) {
+    const day = ensurePlan().days[i];
+    const texts = langFields([
+      { key: 'title', label: T.ui.fTitle, kind: 'input', value: day.title },
+      { key: 'city', label: T.ui.fCity, kind: 'input', value: day.city },
+      { key: 'sub', label: T.ui.fSub, kind: 'area', rows: 2, value: day.sub }
+    ]);
+    editDialog(T.ui.dayWordsTitle, [texts.node], () => {
+      mutatePlan(p => {
+        const d = p.days[i];
+        const title = texts.read('title');
+        // A day keeps its old name rather than going blank.
+        LANGS.forEach(l => { if (!title[l]) title[l] = d.title[l]; });
+        d.title = title;
+        d.city = texts.read('city');
+        d.sub = texts.read('sub');
+      });
+    });
+  }
+
+  function openBookingDialog(id) {
+    const row = id ? ensurePlan().bookings.find(b => b.id === id) : null;
+    if (id && !row) return;
+    const texts = langFields([
+      { key: 'text', label: T.ui.fTitle, kind: 'area', rows: 2, value: row && row.text }
+    ]);
+    editDialog(row ? T.ui.editBookingTitle : T.ui.newBookingTitle, [texts.node], () => {
+      const text = texts.read('text');
+      if (!LANGS.some(l => text[l])) return; // nothing written, nothing to keep
+      mutatePlan(p => {
+        if (row) row.text = text;
+        else p.bookings.push({ id: newActId(), text });
+      });
+    });
+  }
+
+  function removeBooking(id) {
+    if (!confirm(T.ui.confirmRemoveBooking)) return;
+    mutatePlan(p => {
+      const i = p.bookings.findIndex(b => b.id === id);
+      if (i >= 0) p.bookings.splice(i, 1);
+    });
+  }
+
+  function openReplanUnlock(then) {
+    let close;
+    const note = el('p', {
+      role: 'status', hidden: true,
+      style: 'margin:0;font-size:12.5px;line-height:1.45;color:var(--color-accent-2-900);background:var(--color-accent-2-100);border-radius:12px;padding:8px 12px'
+    });
+    const pass = el('input', {
+      type: 'password', class: 'input', autocomplete: 'current-password',
+      placeholder: T.ui.passPlaceholder, 'aria-label': T.ui.passPlaceholder,
+      onkeydown: e => { if (e.key === 'Enter') go(); }
+    });
+    const goBtn = el('button', { type: 'button', class: 'btn btn-primary', text: T.ui.unlock, onclick: go });
+    async function go() {
+      if (!pass.value || state.busy) return;
+      goBtn.disabled = true;
+      goBtn.textContent = T.ui.working;
+      await unlock(pass.value);
+      if (!state.locked) { close(); then(); return; }
+      goBtn.disabled = false;
+      goBtn.textContent = T.ui.unlock;
+      note.textContent = state.walletMsg || T.ui.requestFailed;
+      note.hidden = false;
+      pass.focus();
     }
-    function close() {
-      document.removeEventListener('keydown', onKey, true);
-      overlay.remove();
-      if (lastFocus && lastFocus.isConnected) lastFocus.focus();
-    }
-    document.addEventListener('keydown', onKey, true);
-    document.body.append(overlay);
-    closeBtn.focus();
+    const dialog = el('div', {
+      'data-r': 'dialog', class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-label': T.ui.replanLockedTitle,
+      style: 'background:var(--color-bg);box-shadow:var(--shadow-lg)', onclick: e => e.stopPropagation()
+    },
+      el('div', { class: 'dialog-title', text: T.ui.replanLockedTitle }),
+      el('p', { class: 'dialog-body', text: T.ui.replanLockedBody, style: 'margin:0' }),
+      pass, note,
+      el('div', { class: 'dialog-actions' },
+        el('button', { type: 'button', class: 'btn btn-secondary', text: T.ui.cancel, onclick: () => close() }),
+        goBtn
+      )
+    );
+    close = presentDialog(dialog, pass);
   }
 
   // — render —————————————————————————————————————————————————————
@@ -363,6 +703,9 @@
 
   function renderFilters() {
     const row = $('filterRow');
+    // Replanning always works on the whole day — a filter would make the
+    // reorder arrows jump over stops it had hidden.
+    row.hidden = state.editing;
     row.replaceChildren(...FILTERS.map(key => {
       const sel = key === state.filter;
       return el('button', {
@@ -376,10 +719,10 @@
     }));
   }
 
-  function activityCard(a) {
+  function activityCard(a, pos, total) {
     const isDone = !!state.done[a.id];
     const c = CATS[a.cat];
-    const x = T.acts[a.id];
+    const x = actWords(a);
     const cost = fmt(a.eur);
     const attached = state.docs.filter(d => d.act === a.id);
 
@@ -406,11 +749,11 @@
             el('span', { text: T.cats[a.cat], style: 'font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:3px 11px;border-radius:999px;background:' + c.bg + ';color:' + c.fg + ';border:' + (c.bd || 'none') }),
             cost && el('span', { class: 'tag tag-neutral', text: cost })
           ),
-          el('p', { text: x.desc, style: 'margin:0;font-size:14.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' }),
+          x.desc && el('p', { text: x.desc, style: 'margin:0;font-size:14.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' }),
           x.tip && el('p', { text: x.tip, style: 'margin:10px 0 0;font-size:13px;line-height:1.5;background:var(--color-accent-2-100);color:var(--color-accent-2-900);border-radius:14px;padding:8px 14px;display:inline-block' }),
           docRow
         ),
-        el('button', {
+        state.editing ? editCluster(a, x, pos, total) : el('button', {
           type: 'button', 'data-r': 'check', text: isDone ? '✓' : '', 'data-key': 'check-' + a.id,
           'aria-pressed': String(isDone), 'aria-label': tpl(isDone ? T.ui.untick : T.ui.tick, { title: x.title }),
           onclick: () => toggle(a.id),
@@ -422,21 +765,51 @@
     );
   }
 
+  // Replaces the tick while replanning: you're arranging the day, not
+  // living it. Same round-pill geometry as the tick it stands in for.
+  function editCluster(a, x, pos, total) {
+    const ctl = (glyph, label, onclick, opts) => el('button', {
+      type: 'button', text: glyph, 'aria-label': label, 'data-key': (opts.key || glyph) + '-' + a.id,
+      disabled: opts.disabled, onclick,
+      style: 'width:32px;height:32px;border-radius:50%;flex-shrink:0;padding:0;font-family:inherit;' +
+        'border:1px solid var(--color-neutral-400);background:var(--color-neutral-100);' +
+        'color:var(--color-neutral-800);font-size:14px;line-height:1;' +
+        (opts.disabled ? 'opacity:.35;cursor:default' : 'cursor:pointer') + (opts.style || '')
+    });
+    return el('div', { style: 'display:flex;flex-direction:column;gap:6px;flex-shrink:0' },
+      ctl('↑', tpl(T.ui.moveEarlier, { title: x.title }), () => moveAct(state.day, a.id, -1), { key: 'up', disabled: pos === 0 }),
+      ctl('↓', tpl(T.ui.moveLater, { title: x.title }), () => moveAct(state.day, a.id, 1), { key: 'down', disabled: pos === total - 1 }),
+      ctl('✎', tpl(T.ui.editStop, { title: x.title }), () => openActDialog(state.day, a.id), { key: 'edit' }),
+      ctl('×', tpl(T.ui.removeStop, { title: x.title }), () => removeAct(state.day, a.id), {
+        key: 'del', style: ';color:var(--color-accent-700);border-color:var(--color-accent-400)'
+      })
+    );
+  }
+
   function renderDay() {
-    const day = DAYS[state.day];
-    const dt = T.days[state.day];
+    const dt = dayWords(state.day);
     $('dayTitle').textContent = dt.title;
     $('dayCity').textContent = dt.city;
     $('daySub').textContent = dt.sub;
-    const acts = day.acts.filter(a => state.filter === 'all' || a.cat === state.filter);
-    $('actList').replaceChildren(...acts.map(activityCard));
-    $('emptyMsg').hidden = acts.length > 0;
+    const acts = dayActs(state.day).filter(a => state.editing || state.filter === 'all' || a.cat === state.filter);
+    const cards = acts.map((a, i) => activityCard(a, i, acts.length));
+    if (state.editing) {
+      cards.push(el('button', {
+        type: 'button', 'data-key': 'addstop', text: T.ui.addStop,
+        onclick: () => openActDialog(state.day, null),
+        style: 'font-family:var(--font-heading);font-size:15px;color:var(--color-neutral-700);background:none;cursor:pointer;' +
+          'border:2px dashed var(--color-neutral-400);border-radius:calc(var(--radius-lg) * 1.15);padding:18px;text-align:center'
+      }));
+    }
+    $('actList').replaceChildren(...cards);
+    $('emptyMsg').hidden = acts.length > 0 || state.editing;
   }
 
   function renderTracker() {
-    const doneCount = ALL_ACTS.filter(a => state.done[a.id]).length;
-    const pct = Math.round((doneCount / ALL_ACTS.length) * 100);
-    const counts = { done: doneCount, total: ALL_ACTS.length };
+    const acts = allActs();
+    const doneCount = acts.filter(a => state.done[a.id]).length;
+    const pct = Math.round((doneCount / (acts.length || 1)) * 100);
+    const counts = { done: doneCount, total: acts.length };
     $('navCount').textContent = tpl(T.ui.navCount, counts);
     $('pct').textContent = pct + '%';
     $('trackerCount').textContent = tpl(T.ui.trackerCount, counts);
@@ -444,11 +817,17 @@
   }
 
   function renderBookings() {
-    $('bookingList').replaceChildren(...BOOKINGS.map(id => {
-      const isDone = !!state.done[id];
-      return el('button', {
-        type: 'button', 'aria-pressed': String(isDone), onclick: () => toggle(id), 'data-key': 'book-' + id,
-        style: 'display:flex;gap:10px;align-items:flex-start;background:none;border:none;padding:0;cursor:pointer;text-align:left;font-family:inherit'
+    const smallCtl = (glyph, label, key, onclick, extra) => el('button', {
+      type: 'button', text: glyph, 'aria-label': label, 'data-key': key, onclick,
+      style: 'width:24px;height:24px;border-radius:50%;flex-shrink:0;cursor:pointer;padding:0;font-family:inherit;' +
+        'border:1px solid var(--color-neutral-400);background:var(--color-neutral-100);' +
+        'color:var(--color-neutral-800);font-size:12px;line-height:1' + (extra || '')
+    });
+    const rows = bookingRows().map(b => {
+      const isDone = !!state.done[b.id];
+      const row = el('button', {
+        type: 'button', 'aria-pressed': String(isDone), onclick: () => toggle(b.id), 'data-key': 'book-' + b.id,
+        style: 'display:flex;gap:10px;align-items:flex-start;background:none;border:none;padding:0;cursor:pointer;text-align:left;font-family:inherit;flex:1;min-width:0'
       },
         el('span', {
           'aria-hidden': 'true', text: isDone ? '✓' : '',
@@ -456,9 +835,25 @@
             'border:2px solid var(--color-accent-2-600);background:' + (isDone ? 'var(--color-accent-2-600)' : 'transparent') + ';' +
             'color:#fff;font-size:12px;font-weight:700;line-height:17px;text-align:center'
         }),
-        el('span', { text: T.bookings[id], style: 'font-size:13px;line-height:1.45;color:var(--color-neutral-800);text-decoration:' + (isDone ? 'line-through' : 'none') })
+        el('span', { text: bookingText(b), style: 'font-size:13px;line-height:1.45;color:var(--color-neutral-800);text-decoration:' + (isDone ? 'line-through' : 'none') })
       );
-    }));
+      if (!state.editing) return row;
+      return el('div', { style: 'display:flex;gap:6px;align-items:flex-start' },
+        row,
+        smallCtl('✎', T.ui.editBooking, 'bedit-' + b.id, () => openBookingDialog(b.id)),
+        smallCtl('×', T.ui.removeBooking, 'bdel-' + b.id, () => removeBooking(b.id),
+          ';color:var(--color-accent-700);border-color:var(--color-accent-400)')
+      );
+    });
+    if (state.editing) {
+      rows.push(el('button', {
+        type: 'button', 'data-key': 'addbooking', text: T.ui.addBooking,
+        onclick: () => openBookingDialog(null),
+        style: 'font-family:inherit;font-size:12.5px;font-weight:700;color:var(--color-neutral-700);background:none;cursor:pointer;' +
+          'border:1px dashed var(--color-neutral-400);border-radius:999px;padding:7px 12px;text-align:center'
+      }));
+    }
+    $('bookingList').replaceChildren(...rows);
   }
 
   // The passphrase field is rebuilt on every render like everything else, so
@@ -527,7 +922,7 @@
         style: 'flex:1;min-width:0;font-family:inherit;font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--color-neutral-400);background:var(--color-bg);color:var(--color-neutral-800)'
       },
         el('option', { value: '', text: T.ui.generalTrip }),
-        Object.keys(ACT_INDEX).map(k => el('option', { value: k, text: ACT_INDEX[k] }))
+        Object.keys(ACT_LABELS).map(k => el('option', { value: k, text: ACT_LABELS[k] }))
       );
       select.value = d.act || '';
       return el('div', { style: 'display:grid;gap:7px;padding:10px 12px;background:var(--color-neutral-100);border-radius:14px' },
@@ -552,6 +947,29 @@
     }));
   }
 
+  function renderReplan() {
+    const btn = $('replanBtn');
+    btn.hidden = false;
+    btn.textContent = state.editing ? T.ui.replanDone : T.ui.replan;
+    btn.className = 'btn ' + (state.editing ? 'btn-primary' : 'btn-secondary');
+    const pencil = $('dayEdit');
+    pencil.hidden = !state.editing;
+    pencil.setAttribute('aria-label', T.ui.editDay);
+    pencil.title = T.ui.editDay;
+    $('replanBar').hidden = !state.editing;
+    $('replanHint').textContent = T.ui.replanHint;
+
+    const chip = $('syncChip');
+    chip.hidden = state.sync === 'idle';
+    chip.textContent = state.sync === 'saving' ? T.ui.syncSaving
+      : state.sync === 'saved' ? T.ui.syncSaved
+      : T.ui.syncError;
+    chip.title = state.sync === 'error' ? (state.syncMsg || '') : '';
+    chip.style.cursor = state.sync === 'error' ? 'pointer' : 'default';
+    chip.style.background = state.sync === 'error' ? 'var(--color-accent-200)' : 'var(--color-accent-2-200)';
+    chip.style.color = state.sync === 'error' ? 'var(--color-accent-900)' : 'var(--color-accent-2-900)';
+  }
+
   // Every list is rebuilt from scratch on each render, which would throw
   // away the focused control — ticking an activity with the keyboard would
   // drop you back to the top of the page. Each control carries a stable
@@ -559,6 +977,8 @@
   function render() {
     const active = document.activeElement;
     const key = active && active.getAttribute ? active.getAttribute('data-key') : null;
+    indexActs();
+    renderReplan();
     renderDayPills();
     renderFilters();
     renderDay();
@@ -572,6 +992,15 @@
   }
 
   $('uploadGeneral').addEventListener('click', () => upload(''));
+  $('replanBtn').addEventListener('click', toggleReplan);
+  $('dayEdit').addEventListener('click', () => openDayDialog(state.day));
+  $('syncChip').addEventListener('click', () => {
+    if (state.sync === 'error') { clearTimeout(saveTimer); savePlan(); }
+  });
+  // A tab closed inside the debounce window would lose the newest edit.
+  window.addEventListener('beforeunload', e => {
+    if (state.sync === 'saving' || saveBusy) { e.preventDefault(); e.returnValue = ''; }
+  });
   document.querySelectorAll('[data-currency]').forEach(btn => {
     btn.addEventListener('click', () => {
       state.currency = btn.dataset.currency;
@@ -600,4 +1029,5 @@
   applyStatic();
   render();
   refreshWallet();
+  loadPlan();
 })();

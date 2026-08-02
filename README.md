@@ -5,7 +5,8 @@ day, filter it down to the boat trips or the fiestas, tick things off as they
 happen, and keep boarding passes and booking PDFs pinned to the stop they
 belong to. The itinerary and its embedded tips are distilled from 29
 travel vlogs and 22 blog articles (routes, prices, and warnings mined from
-their transcripts, comment sections, and pages).
+their transcripts, comment sections, and pages). And none of it is fixed:
+**Replan** in the day header turns the whole plan editable in place.
 
 The plan picks a path; the **field guide** (`guide.html`) keeps the whole
 haul: every place the sources suggested (160, grouped by city, each linked
@@ -15,10 +16,11 @@ category, with the full source lists at the bottom.
 
 Ticked moments, the hero photo, and the chosen currency live in the browser's
 `localStorage` — they're cheap to redo and nobody needs them on a second
-device. **Documents don't:** they live in a private [Vercel Blob][blob] store
-behind `/api`, so a boarding pass uploaded on the laptop opens on Izem's phone
-too, and the wallet isn't capped by the ~5 MB `localStorage` quota (or wiped by
-Safari's seven-day storage eviction).
+device. **Documents and replanned itineraries don't:** they live in a private
+[Vercel Blob][blob] store behind `/api`, so a boarding pass uploaded (or a stop
+added) on the laptop opens on Izem's phone too, and the wallet isn't capped by
+the ~5 MB `localStorage` quota (or wiped by Safari's seven-day storage
+eviction).
 
 [blob]: https://vercel.com/docs/vercel-blob
 
@@ -35,6 +37,7 @@ Safari's seven-day storage eviction).
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |
 | `styles.css` | Design-system tokens and component classes |
+| `api/itinerary.js` | Read the replanned itinerary (public), save it (passphrase-gated) |
 | `api/docs.js` | List, upload, re-pin and delete wallet documents |
 | `api/file.js` | Stream one private document to the browser |
 | `api/unlock.js` | Exchange the shared passphrase for an unlock cookie |
@@ -110,10 +113,36 @@ npx vercel env pull  # fetches WALLET_PASSPHRASE and the Blob credentials
 npx vercel dev       # then open http://localhost:3000
 ```
 
-## Editing the trip
+## Replanning on the site
 
-The itinerary's skeleton is one array at the top of `app.js` — ids, times,
-categories and prices only:
+**Replan** (next to the day title) is the everyday way to change the trip:
+add a stop, remove one, rewrite a title, description or tip, change its
+time, category, price or day, nudge it earlier or later with the arrows,
+edit a day's heading, and add or strike booking lines. Editing asks for the
+same shared passphrase as the wallet — a change lands on everyone's plan,
+so it takes the family key.
+
+There's still no database. The first edit materialises the built-in
+itinerary (every language at once) into one JSON document,
+`itinerary/plan.json` in the same private Blob store, and from then on the
+site renders from that document instead of the baked-in data. Reading it is
+public — the itinerary already ships in the page source — but `PUT
+/api/itinerary` checks the unlock cookie and re-validates the whole plan
+shape server-side before storing it (`api/itinerary.js`).
+
+Every text field exists once per language. The edit dialogs show EN and TR
+side by side, and a field left blank borrows from the other language, so
+the two versions never drift apart silently. Two housekeeping notes: map
+pins (`SPOTS` in `trip-map.html`) and the field guide's "in the itinerary"
+badges are still generated from the baked-in plan, so a brand-new stop
+won't appear on the map; and documents pinned to a since-removed stop stay
+in the wallet, listed as general.
+
+## Editing the trip in the source
+
+The built-in itinerary — what the site shows until someone replans, and the
+seed for the first edit — lives in the repo. Its skeleton is one array at
+the top of `app.js` — ids, times, categories and prices only:
 
 ```js
 { id: 'd2b1', t: '09:00', cat: 'sights', eur: 26 }
