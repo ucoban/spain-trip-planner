@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>España · where we sleep</title>
+<meta name="description" content="Six nights in two cities, searched live on Booking.com: every stay that fit the £100-150 band, and the two we picked.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
+<link rel="stylesheet" href="styles.css">
+<!-- Loaded synchronously so window.I18N exists before the inline script below. -->
+<script src="i18n.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #f5ead8; }
+  a { color: var(--color-accent-700); } a:hover { color: var(--color-accent-800); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  }
+
+  /* — the budget band rail: £90 → £190, stripe marks £100-150 — */
+  .s-meter { position: relative; height: 6px; border-radius: 999px; background: var(--color-neutral-300); margin-top: 10px; }
+  .s-meter .s-band { position: absolute; top: 0; bottom: 0; left: 10%; width: 50%; border-radius: 999px; background: var(--band-tint, var(--color-accent-200)); }
+  .s-meter b { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; transform: translate(-50%, -50%); box-sizing: border-box; background: var(--color-bg); border: 2.5px solid var(--band-ink, var(--color-accent-600)); }
+  .s-meter b.s-solid { background: var(--band-ink, var(--color-accent-600)); }
+  .s-scale { display: flex; position: relative; height: 15px; font-size: 10.5px; font-weight: 700; color: var(--color-neutral-600); }
+  .s-scale span { position: absolute; transform: translateX(-50%); }
+
+  .s-score { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; padding: 3px 7px; border-radius: 9px 9px 9px 2px; background: var(--color-neutral-800); color: var(--color-neutral-100); font-size: 12.5px; font-weight: 700; }
+  .s-row { display: grid; grid-template-columns: 1fr 228px; gap: 8px 30px; padding: 15px 0; border-top: 1px solid var(--color-neutral-300); align-items: start; }
+  .s-row:first-child { border-top: none; padding-top: 4px; }
+  .s-price { text-align: right; }
+  .s-night { font-family: var(--font-heading); font-size: 19px; }
+  .s-chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .s-chip { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: .02em; border-radius: 999px; padding: 2px 9px; background: var(--color-neutral-200); color: var(--color-neutral-800); white-space: nowrap; }
+  .s-pickgrid { display: grid; grid-template-columns: 1fr 250px; gap: 18px 36px; }
+  @media (max-width: 760px) {
+    .s-row, .s-pickgrid { grid-template-columns: 1fr; }
+    .s-price { text-align: left; }
+    [data-r="wrap"] { padding: 14px 16px 56px !important; }
+    [data-r="nav"] { flex-wrap: wrap !important; row-gap: 8px !important; }
+    [data-r="h1"] { font-size: 32px !important; }
+  }
+</style>
+</head>
+<body>
+<div id="app" style="min-height:100vh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body)">
+  <div data-r="wrap" style="max-width:1180px;margin:0 auto;padding:24px 32px 72px">
+    <nav class="nav" data-r="nav" style="justify-content:space-between">
+      <a id="brand" class="nav-brand" href="./" style="text-decoration:none;color:inherit">España · the Çelik plan</a>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <a id="backLink" class="tag tag-accent" href="./" style="text-decoration:none">← Back to the plan</a>
+        <a id="mapLink" class="tag tag-accent-2" href="trip-map.html" target="_blank" style="text-decoration:none">Route map ↗</a>
+        <div id="langGroup" role="group" aria-label="Language" style="display:flex;gap:4px">
+          <button type="button" class="btn btn-secondary" data-lang="en" lang="en" style="font-size:12px;padding:5px 12px">EN</button>
+          <button type="button" class="btn btn-secondary" data-lang="tr" lang="tr" style="font-size:12px;padding:5px 12px">TR</button>
+        </div>
+      </div>
+    </nav>
+    <header style="padding:46px 8px 10px;max-width:78ch">
+      <div id="kicker" class="card-kicker" style="margin-bottom:10px"></div>
+      <h1 id="pageTitle" data-r="h1" style="font-family:var(--font-heading);font-weight:400;font-size:46px;line-height:1.08;margin:0 0 14px"></h1>
+      <p id="pageIntro" style="font-size:16px;line-height:1.6;margin:0;color:var(--color-neutral-800)"></p>
+      <p id="bandNote" style="font-size:13.5px;line-height:1.55;margin:14px 0 0;color:var(--color-neutral-700)"></p>
+    </header>
+    <div id="cities" style="display:grid;gap:34px;margin-top:30px"></div>
+    <div id="totals" style="margin-top:34px"></div>
+    <p id="method" style="margin:26px 8px 0;max-width:82ch;font-size:12.5px;line-height:1.6;color:var(--color-neutral-600)"></p>
+    <p id="updated" style="margin:8px 8px 0;max-width:82ch;font-size:12.5px;line-height:1.6;color:var(--color-neutral-600)"></p>
+  </div>
+</div>
+<script>
+/* España · the Çelik plan: where we sleep.
+   Skeleton only — names, numbers, coordinates of the Booking.com search
+   (run live 2 Aug 2026, 2 adults, 1 room, score 8+, £60-150/night, GBP).
+   Every word comes from i18n.js under stays.*. */
+(() => {
+  'use strict';
+
+  const S = window.I18N.t.stays;
+  const tpl = window.I18N.fmt;
+  const isTR = window.I18N.lang === 'tr';
+
+  // Nightly figures fold all taxes in; `total` + `tax` mirror what Booking
+  // itself quoted for the exact dates (some quotes arrive tax-inclusive).
+  const CITIES = [
+    { key: 'bcn', tint: 'var(--color-accent-100)', band: 'var(--color-accent-200)', ink: 'var(--color-accent-600)',
+      title: () => S.bcnTitle, sub: () => S.bcnSub,
+      q: '?checkin=2026-08-08&checkout=2026-08-11&group_adults=2&no_rooms=1&selected_currency=GBP',
+      pick: { id: 'taber', name: 'HCC Taber', url: 'https://www.booking.com/hotel/es/taber.html',
+        area: 'Eixample · Carrer d’Aragó 256', km: 0.7, score: 8.7, rev: 1578, loc: 9.6,
+        total: 439, tax: 39, night: 159, was: null, cancel: false, payLater: false, why: () => S.whyTaber },
+      alts: [
+        { id: 'bcn40', name: 'Acta BCN 40', url: 'https://www.booking.com/hotel/es/40.html', area: 'Ciutat Vella', km: 0.6, score: 8.6, rev: 2900, loc: null, total: 325, tax: 33, night: 119, was: null, cancel: false, payLater: false },
+        { id: 'nhsants', name: 'NH Sants Barcelona', url: 'https://www.booking.com/hotel/es/nh-sants-barcelona.html', area: 'Sants · Les Corts', km: 2.7, score: 8.6, rev: 2511, loc: null, total: 352, tax: 47, night: 133, was: 455, cancel: false, payLater: false },
+        { id: 'city47', name: 'Acta CITY47', url: 'https://www.booking.com/hotel/es/citypark.html', area: 'Sants-Montjuïc', km: 2.4, score: 8.4, rev: 5051, loc: null, total: 394, tax: 47, night: 147, was: 625, cancel: true, payLater: true },
+        { id: 'monumental', name: 'Eurostars Monumental', url: 'https://www.booking.com/hotel/es/eurostars-monumental.html', area: 'Eixample', km: 1.7, score: 8.6, rev: 1719, loc: 9.4, total: 423, tax: 47, night: 157, was: 705, cancel: false, payLater: false },
+        { id: 'dante', name: 'Best Western Premier Hotel Dante', url: 'https://www.booking.com/hotel/es/bestwesterndantebarcelona.html', area: 'Eixample', km: 1.2, score: 8.9, rev: 1688, loc: null, total: 433, tax: 47, night: 160, was: 509, cancel: false, payLater: false },
+        { id: 'granvia', name: 'Catalonia Gran Via BCN', url: 'https://www.booking.com/hotel/es/catalonia-gran-via-bcn.html', area: 'Eixample', km: 0.9, score: 9.0, rev: 2287, loc: 9.3, total: 496, tax: 47, night: 181, was: null, cancel: true, payLater: true }
+      ] },
+    { key: 'vlc', tint: 'var(--color-accent-2-100)', band: 'var(--color-accent-2-200)', ink: 'var(--color-accent-2-600)',
+      title: () => S.vlcTitle, sub: () => S.vlcSub,
+      q: '?checkin=2026-08-11&checkout=2026-08-14&group_adults=2&no_rooms=1&selected_currency=GBP',
+      pick: { id: 'easy', name: 'easyHotel València Ciutat Vella', url: 'https://www.booking.com/hotel/es/easyhotel-valencia.html',
+        area: 'Extramurs · Plaça Rojas Clemente 7-8', km: 0.8, score: 8.2, rev: 527, loc: null,
+        total: 345, tax: 0, night: 115, was: null, cancel: false, payLater: false, why: () => S.whyEasy },
+      alts: [
+        { id: 'domino', name: 'Hotel Original Domino House', url: 'https://www.booking.com/hotel/es/original-domino-house.html', area: 'Camins al Grau', km: 1.9, score: 8.7, rev: 1127, loc: null, total: 395, tax: 0, night: 132, was: 439, cancel: false, payLater: false },
+        { id: 'blanq', name: 'Blanq Marina Suites', url: 'https://www.booking.com/hotel/es/blanq-marina.html', area: 'Camins al Grau · marina', km: 3.3, score: 9.0, rev: 2803, loc: null, total: 406, tax: 0, night: 135, was: 451, cancel: false, payLater: false },
+        { id: 'littlevillage', name: 'The Little Village Apartments', url: 'https://www.booking.com/hotel/es/the-little-village-apartments.html', area: 'Campanar', km: 2.5, score: 9.0, rev: 2033, loc: null, total: 408, tax: 0, night: 136, was: 453, cancel: true, payLater: false },
+        { id: 'mythic', name: 'Mythic Valencia', url: 'https://www.booking.com/hotel/es/mythic-boutique.html', area: 'La Saïdia', km: 1.5, score: 8.8, rev: 802, loc: null, total: 423, tax: 0, night: 141, was: 470, cancel: true, payLater: false },
+        { id: 'nhcenter', name: 'NH Valencia Center', url: 'https://www.booking.com/hotel/es/nhcenter.html', area: 'Campanar', km: 1.5, score: 8.6, rev: 3415, loc: null, total: 435, tax: 0, night: 145, was: 531, cancel: false, payLater: false },
+        { id: 'clarita', name: 'Casa Clarita', url: 'https://www.booking.com/hotel/es/casa-clarita-by-sh-hoteles.html', area: 'Ciutat Vella', km: 0.5, score: 9.0, rev: 1003, loc: 9.9, total: 477, tax: 0, night: 159, was: null, cancel: true, payLater: true }
+      ] }
+  ];
+
+  const $ = id => document.getElementById(id);
+  function el(tag, attrs, ...kids) {
+    const n = document.createElement(tag);
+    for (const k in (attrs || {})) {
+      const v = attrs[k];
+      if (v == null || v === false) continue;
+      if (k === 'style') n.style.cssText = v;
+      else if (k === 'class') n.className = v;
+      else if (k === 'text') n.textContent = v;
+      else n.setAttribute(k, v);
+    }
+    kids.flat().forEach(c => { if (c != null && c !== false) n.append(c); });
+    return n;
+  }
+
+  // 8.7 → “8,7” and 1578 → “1.578” under the Turkish pack.
+  const num = x => isTR ? String(x).replace('.', ',') : String(x);
+  const score = x => num(x.toFixed(1));
+  const count = x => x.toLocaleString(isTR ? 'tr-TR' : 'en-GB');
+
+  // The rail runs £90 → £190 so the £100-150 stripe sits inset and every
+  // quoted night (115-181) lands on it.
+  const pos = night => Math.min(98, Math.max(2, (night - 90))) + '%';
+  const meter = (city, s, solid) => el('div', { class: 's-meter', 'aria-hidden': 'true', style: '--band-tint:' + city.band + ';--band-ink:' + city.ink },
+    el('i', { class: 's-band' }),
+    el('b', { class: solid ? 's-solid' : '', style: 'left:' + pos(s.night) }));
+  const scale = () => el('div', { class: 's-scale', 'aria-hidden': 'true' },
+    el('span', { text: '£100', style: 'left:10%' }),
+    el('span', { text: '£150', style: 'left:60%' }));
+
+  const chips = (s, opts) => {
+    const out = [
+      el('span', { class: 's-score', text: score(s.score) }),
+      el('span', { class: 's-chip', style: 'background:transparent;padding-inline:0;color:var(--color-neutral-600);font-weight:600', text: tpl(S.reviews, { n: count(s.rev) }) })
+    ];
+    if (s.loc != null) out.push(el('span', { class: 's-chip', text: tpl(S.locChip, { n: score(s.loc) }) }));
+    out.push(el('span', { class: 's-chip', text: S.beds[s.id] }));
+    if (s.cancel) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-2-100);color:var(--color-accent-2-900)', text: S.freeCancel }));
+    if (s.payLater) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-2-100);color:var(--color-accent-2-900)', text: S.payLater }));
+    if (s.night > 150) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-200);color:var(--color-accent-900)', text: S.overBand }));
+    return out;
+  };
+
+  const priceBlock = (city, s, solid) => el('div', { class: 's-price' },
+    el('div', { style: 'display:flex;gap:8px;justify-content:flex-end;align-items:baseline;flex-wrap:wrap' },
+      s.was && el('span', { text: tpl(S.was, { n: s.was }), style: 'font-size:12px;color:var(--color-neutral-600);text-decoration:line-through' }),
+      el('span', { class: 's-night', text: tpl(S.perNight, { n: s.night }) })
+    ),
+    el('div', { text: tpl(S.total3, { n: s.total }) + ' · ' + (s.tax > 0 ? tpl(S.plusTax, { n: s.tax }) : S.taxIn), style: 'font-size:12.5px;color:var(--color-neutral-700);margin-top:2px' }),
+    meter(city, s, solid),
+    scale()
+  );
+
+  const nameLink = (city, s, size) => el('a', {
+    text: s.name, href: s.url + city.q, target: '_blank', rel: 'noopener',
+    style: 'font-family:var(--font-heading);font-size:' + size + 'px;text-decoration:none;color:var(--color-text)'
+  });
+
+  function pickCard(city) {
+    const s = city.pick;
+    return el('div', { class: 'card elev-sm', style: 'background:' + city.tint + ';padding:22px 26px' },
+      el('div', { class: 'card-kicker', text: S.pickKicker + ' ★' }),
+      el('div', { class: 's-pickgrid', style: 'margin-top:6px' },
+        el('div', {},
+          el('div', { style: 'display:flex;gap:12px;align-items:baseline;flex-wrap:wrap' },
+            nameLink(city, s, 27),
+            el('span', { text: s.area + ' · ' + tpl(S.centerKm, { km: num(s.km) }), style: 'font-size:13px;color:var(--color-neutral-700)' })
+          ),
+          el('div', { class: 's-chips', style: 'margin-top:9px' }, chips(s)),
+          el('div', { style: 'margin-top:13px' },
+            el('div', { class: 'card-kicker', text: S.whyTitle, style: 'color:var(--color-neutral-600)' }),
+            el('ul', { style: 'margin:7px 0 0;padding-left:19px;display:grid;gap:7px' },
+              s.why().map(w => el('li', { text: w, style: 'font-size:13.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty' })))
+          )
+        ),
+        el('div', {},
+          priceBlock(city, s, true),
+          el('a', { class: 'btn btn-primary btn-block', text: S.bookBtn, href: s.url + city.q, target: '_blank', rel: 'noopener', style: 'margin-top:14px' })
+        )
+      )
+    );
+  }
+
+  const altRow = city => s => el('div', { class: 's-row' },
+    el('div', {},
+      el('div', { style: 'display:flex;gap:10px;align-items:baseline;flex-wrap:wrap' },
+        nameLink(city, s, 18),
+        el('span', { text: s.area + ' · ' + tpl(S.centerKm, { km: num(s.km) }), style: 'font-size:12.5px;color:var(--color-neutral-700)' })
+      ),
+      el('div', { class: 's-chips', style: 'margin-top:7px' }, chips(s)),
+      S.notes[s.id] && el('p', { text: S.notes[s.id], style: 'margin:7px 0 0;font-size:13px;line-height:1.55;color:var(--color-neutral-800);max-width:64ch;text-wrap:pretty' })
+    ),
+    priceBlock(city, s, false)
+  );
+
+  function citySection(city) {
+    return el('section', {},
+      el('h2', { text: city.title(), style: 'font-family:var(--font-heading);font-weight:400;font-size:31px;margin:0 0 6px' }),
+      el('p', { text: city.sub(), style: 'margin:0 0 16px;max-width:78ch;color:var(--color-neutral-700);font-size:14px;line-height:1.55' }),
+      pickCard(city),
+      el('div', { class: 'card', style: 'margin-top:14px;padding:18px 26px' },
+        el('div', { class: 'card-kicker', text: S.altTitle, style: 'margin-bottom:6px' }),
+        el('div', {}, city.alts.map(altRow(city)))
+      )
+    );
+  }
+
+  function renderTotals() {
+    $('totals').append(el('div', { class: 'card', style: 'background:var(--color-neutral-800);color:var(--color-neutral-100);padding:22px 26px' },
+      el('div', { class: 'card-kicker', text: S.totalKicker, style: 'color:var(--color-accent-300)' }),
+      el('div', { text: S.totalLine, style: 'font-family:var(--font-heading);font-size:24px;margin-top:6px' }),
+      el('p', { text: S.totalNote, style: 'margin:9px 0 0;font-size:13.5px;line-height:1.6;color:var(--color-neutral-300);max-width:72ch' })
+    ));
+  }
+
+  document.title = S.htmlTitle;
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.setAttribute('content', S.metaDesc);
+  $('brand').textContent = window.I18N.t.static.brand;
+  $('backLink').textContent = S.backToPlan;
+  $('mapLink').textContent = S.onMap;
+  $('kicker').textContent = S.kicker;
+  $('pageTitle').textContent = S.title;
+  $('pageIntro').textContent = S.intro;
+  $('bandNote').textContent = S.bandNote;
+  $('method').textContent = S.method;
+  $('updated').textContent = S.updated;
+  $('langGroup').setAttribute('aria-label', window.I18N.t.static.langIn);
+  CITIES.forEach(c => $('cities').append(citySection(c)));
+  renderTotals();
+
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    const on = btn.dataset.lang === window.I18N.lang;
+    btn.setAttribute('aria-pressed', String(on));
+    btn.className = 'btn ' + (on ? 'btn-primary' : 'btn-secondary');
+    btn.addEventListener('click', () => window.I18N.set(btn.dataset.lang));
+  });
+})();
+</script>
+</body>
+</html>

@@ -109,13 +109,15 @@
     sights: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
     sea: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
     food: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
-    fiesta: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>'
+    fiesta: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+    stay: '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/>'
   };
   const CAT = {
     sights: [tok('--color-accent'), T.catSights],
     sea:    [tok('--color-accent-2'), T.catSea],
     food:   [tok('--color-neutral-700'), T.catFood],
-    fiesta: [tok('--color-accent-800'), T.catFiesta]
+    fiesta: [tok('--color-accent-800'), T.catFiesta],
+    stay:   [tok('--color-text'), T.catStay]
   };
   const pinHTML = (cat, sm) =>
     '<div class="pin' + (sm ? ' sm' : '') + '" style="background:' + CAT[cat][0] + '">' +
@@ -161,6 +163,8 @@
 
   // [lat, lng, cat, spot key, day number, time, also-on-day]
   const SPOTS = [
+    [41.3906, 2.1631, 'stay', 'staybcn', 1, '16:00'],
+    [39.4730, -0.3855, 'stay', 'stayvlc', 4, '17:30'],
     [41.3839, 2.1760, 'sights', 'gothic', 1, '18:30'],
     [41.3799, 2.1745, 'food', 'merce', 1, '21:00'],
     [41.4036, 2.1744, 'sights', 'sagrada', 2, '09:00'],

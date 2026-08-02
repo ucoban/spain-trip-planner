@@ -21,7 +21,8 @@
     boat: { bg: 'var(--color-accent-2-200)', fg: 'var(--color-accent-2-900)' },
     swim: { bg: 'var(--color-accent-2-100)', fg: 'var(--color-accent-2-800)' },
     food: { bg: 'var(--color-neutral-200)', fg: 'var(--color-neutral-800)' },
-    event: { bg: 'var(--color-accent-300)', fg: 'var(--color-accent-900)' }
+    event: { bg: 'var(--color-accent-300)', fg: 'var(--color-accent-900)' },
+    stay: { bg: 'var(--color-neutral-800)', fg: 'var(--color-neutral-100)' }
   };
 
   const FILTERS = ['all', 'boat', 'swim', 'sights', 'museum', 'food', 'event'];
@@ -30,6 +31,7 @@
     { dom: '8', dot: 'var(--color-accent)', acts: [
       { id: 'd1b1', t: '07:30', cat: 'travel', eur: 89 },
       { id: 'd1b2', t: '15:00', cat: 'travel', eur: 5 },
+      { id: 'd1s1', t: '16:00', cat: 'stay', eur: null },
       { id: 'd1b3', t: '18:30', cat: 'sights', eur: 0 },
       { id: 'd1b4', t: '21:00', cat: 'food', eur: 25 }
     ] },
@@ -51,6 +53,7 @@
       { id: 'd4b3', t: '10:30', cat: 'museum', eur: 14 },
       { id: 'd4b4', t: '12:15', cat: 'sights', eur: 4 },
       { id: 'd4b5', t: '14:05', cat: 'travel', eur: 74 },
+      { id: 'd4s1', t: '17:30', cat: 'stay', eur: null },
       { id: 'd4b6', t: '18:30', cat: 'sights', eur: 0 },
       { id: 'd4b7', t: '21:00', cat: 'food', eur: 22 }
     ] },
@@ -76,7 +79,7 @@
     ] }
   ];
 
-  const BOOKINGS = ['k1', 'k1b', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
+  const BOOKINGS = ['k1', 'k1b', 'k11', 'k12', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
 
   // Where each stop is, as a Google Maps search query — a named place opens
   // the place card (photos, hours, directions), which a bare lat/lng pin
@@ -85,6 +88,7 @@
   const MAPS = {
     d1b1: 'East Midlands Airport',
     d1b2: 'Passeig de Gràcia station, Barcelona',
+    d1s1: 'Hotel HCC Taber, Carrer d\'Aragó 256, Barcelona',
     d1b3: 'Barri Gòtic, Barcelona',
     d1b4: 'Carrer de la Mercè, Barcelona',
     d2b1: 'Basílica de la Sagrada Família, Barcelona',
@@ -100,6 +104,7 @@
     d4b3: 'Museu Picasso, Barcelona',
     d4b4: 'La Rambla, Barcelona',
     d4b5: 'Barcelona Sants railway station',
+    d4s1: 'easyHotel Valencia Ciutat Vella, València',
     d4b6: 'Parc Gulliver, València',
     d4b7: 'Russafa, València',
     d5b1: 'Mercat Central, València',

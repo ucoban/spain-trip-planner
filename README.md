@@ -14,6 +14,13 @@ to Google Maps and to the vlog moment or article that recommended it, and
 badged when it appears in the itinerary) plus all 133 merged tips by
 category, with the full source lists at the bottom.
 
+**Where we sleep** (`stays.html`) is the accommodation file: a live
+Booking.com search (2 Aug 2026, 2 adults, score 8+, £60-150 a night) boiled
+down to seven candidates per city, each plotted on the £100-150 budget band.
+The two picks — HCC Taber in Barcelona, easyHotel Ciutat Vella in València —
+are check-in stops in the itinerary, lines in "Book before you fly", and
+bed-icon pins on the route map.
+
 Ticked moments, the hero photo, and the chosen currency live in the browser's
 `localStorage` — they're cheap to redo and nobody needs them on a second
 device. **Documents and replanned itineraries don't:** they live in a private
@@ -34,6 +41,7 @@ eviction).
 | `guide.html` | The field guide page: every mined place, every tip, every source |
 | `guide.js` | Renders the field guide from `guide-data.js` and `i18n.js` |
 | `guide-data.js` | Generated guide skeleton: ids, groups, mention counts, links |
+| `stays.html` | Where we sleep: the Booking.com shortlist per city, the two picks, the budget band |
 | `places.js` | Place-name → Google Maps dictionary; turns place references in prose into links |
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |

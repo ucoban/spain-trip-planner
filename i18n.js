@@ -595,6 +595,71 @@
         }
       },
 
+      stays: {
+        htmlTitle: 'España · where we sleep',
+        metaDesc: 'Six nights in two cities, searched live on Booking.com: every stay that fit the £100-150 band, and the two we picked.',
+        kicker: 'The accommodation file',
+        title: 'Where we sleep',
+        intro: 'Searched live on Booking.com on 2 August: one room, two adults, guest score 8+ only, budget £100 a night stretching to £150. Barcelona had 185 in-budget candidates for our Saturday-to-Tuesday, València 39 — these are the ones worth arguing about. The headline price is the room for all three nights as Booking quotes it for our exact dates; the nightly figure beside it folds every tax in. Names open the property on Booking.com with our dates filled.',
+        backToPlan: '← Back to the plan',
+        onMap: 'Both picks are pinned on the route map ↗',
+        updated: 'Prices checked 2 Aug 2026 — they move; the itinerary and its wallet keep the booked truth.',
+        bcnTitle: 'Barcelona · nights 1-3',
+        bcnSub: 'Sat 8 → Tue 11 Aug. The base has to work for Gaudí days in the Eixample, evenings in the Gothic Quarter, the early Montserrat start from Plaça d’Espanya, and the Tuesday train out of Sants.',
+        vlcTitle: 'València · nights 4-6',
+        vlcSub: 'Tue 11 → Fri 14 Aug. Off the coast train, then old-town mornings, a beach evening, and the lagoon — the plan lives in and around the Ciutat Vella.',
+        pickKicker: 'The pick',
+        altTitle: 'The alternatives',
+        bandNote: 'Each rail plots the stay’s nightly price, taxes in, on the budget band: the shaded stripe runs £100 (the brief) to £150 (the stretch).',
+        perNight: '£{n} a night',
+        total3: '£{n} · 3 nights',
+        plusTax: '+£{n} taxes',
+        taxIn: 'taxes in',
+        was: 'was £{n}',
+        reviews: '{n} reviews',
+        locChip: 'location {n}',
+        freeCancel: 'free cancellation',
+        payLater: 'pay at the hotel',
+        overBand: 'over the band',
+        centerKm: '{km} km from the centre',
+        bookBtn: 'Book on Booking.com ↗',
+        whyTitle: 'Why this one',
+        whyTaber: [
+          'The airport train stops at Passeig de Gràcia; the hotel is 250 m up the same street — day-1 check-in is a three-minute walk with the bags.',
+          'Casa Batlló is around the corner, so the Sunday Gaudí day starts and ends on foot. Montserrat Monday is three metro stops to Plaça d’Espanya; the Tuesday València train, one Rodalies stop to Sants.',
+          'Location scored 9.6 by 1,556 guests — the best of every in-budget candidate — with twin beds and an 8.7 overall. It costs the top of the band, and earns it.'
+        ],
+        whyEasy: [
+          'The old town on foot: Mercat Central, Wednesday’s anchor, is eight minutes; La Lonja, the Carmen dinners and the Túria park all sit inside a ten-minute circle.',
+          '£115 a night with taxes in — the cheapest twin room of every 8+ candidate in the city — which buys back most of what Barcelona’s nights cost: the two picks together average £137.',
+          'No-frills on purpose: beds, air-con, shower. The plan keeps everyone out from market-open to lagoon-sunset anyway.'
+        ],
+        beds: {
+          taber: '2 twin beds', monumental: 'double or twins', granvia: '2 twin beds', city47: '2 twin beds',
+          nhsants: 'double or twins, XL', bcn40: '1 double bed', dante: '2 twin beds',
+          easy: '2 twin beds', blanq: 'studio, 35 m²', littlevillage: 'studio + kitchen', mythic: '1 queen bed',
+          nhcenter: 'double or twins', clarita: '1 double bed', domino: '1 double bed'
+        },
+        notes: {
+          monumental: 'The near-miss: same 8.6, location 9.4, and a 40% Getaway deal off £705. Twenty minutes on foot to Sagrada Família, but 1.7 km back from the Gothic evenings.',
+          granvia: 'The comfort upgrade: 9.0 from 2,287 guests, twins, free cancellation, pay at the hotel — and £181 a night, £31 over the stretch. Kept on file in case the budget moves.',
+          city47: 'The flexible fallback: free cancellation and pay-at-the-hotel at £147. Out by Sants — right for the Montserrat and train mornings, a metro ride from everything else.',
+          nhsants: 'A solid 8.6 at £133, glued to Sants station — the wrong end of town for three evenings out of three.',
+          bcn40: 'Cheapest central bed of the search at £119, scoring 8.6 in the Ciutat Vella — but one double bed for two siblings is where it loses.',
+          dante: 'The highest hotel score near the stretch, 8.9, with twins in the Eixample — £160 a night just tips over, and it beats the pick on nothing else.',
+          blanq: 'The comfort counter-offer: 9.0 from 2,803 guests for a 35 m² studio at £135 — but out by the marina, a tram ride from every old-town morning.',
+          littlevillage: 'The same 9.0 idea in Campanar, with a kitchen — 2.5 km from the plan’s centre of gravity.',
+          mythic: 'An 8.8 boutique just across the Túria from the Carmen dinners — one queen bed rules it out for two.',
+          nhcenter: 'The chain-hotel middle: 8.6, £145, fifteen minutes’ walk in. Fine — and beaten on both price and position.',
+          clarita: 'Location 9.9 in the dead centre of the old town, 9.0 overall — £159 a night for one double bed.',
+          domino: 'An 8.7 at £132 near the Túria’s midpoint — a double bed only at this rate.'
+        },
+        totalKicker: 'The two picks together',
+        totalLine: '£823 for all six nights — £137 a night, inside the band.',
+        totalNote: 'Barcelona takes the stretch end (£159) for the 9.6 location; València’s £115 nights pay it back. Both rooms are twins, and both booking lines are waiting in “Book before you fly”.',
+        method: 'How this list was made: Booking.com searched live for 8-11 and 11-14 Aug 2026, one room, two adults, filtered to guest score 8+ and £60-150 a night, sorted by top reviewed & lowest price, GBP throughout. Location quality was judged against this itinerary, not the tourist-brochure centre.'
+      },
+
       slot: {
         browseHtml: 'or <u>browse files</u>',
         replace: 'Replace',
@@ -645,6 +710,7 @@
         vlogsKicker: 'Vlogların öğrettikleri',
         vlogsMore: 'Saha rehberini aç: madenden çıkan her yer ve her tavsiye ↗',
         navGuide: 'Saha rehberi',
+        navStays: 'Nerede uyuyoruz',
         vlogsText: '21 Barcelona ve València vlogundan damıtıldı: Sagrada’yı ve Park Güell’i uçmadan önce ayırt (ağustosta biletler tükenir), La Rambla’ya yankesicilik şampiyonası finali muamelesi yap, öğlen menú del día ye, paellayı yalnızca öğlen ye, pazarlar üçte kapanır, geri kalan her şeyi horchata çözer. Ağustos denizi: Barcelona 26°, València 27°. Yanına GHIC kartlarını, gerçek güneş kremini ve pazar ganimeti için bir boş çanta al.',
         emptyMsg: 'Bugün bu kategoride bir şey yok — başka bir güne bak ya da filtreyi Hepsi’ne geri al.'
       },
@@ -727,7 +793,7 @@
 
       cats: {
         travel: 'Ulaşım', sights: 'Gezilecek yer', museum: 'Müze', boat: 'Tekne turu',
-        swim: 'Yüzme', food: 'Yeme içme', event: 'Fiesta'
+        swim: 'Yüzme', food: 'Yeme içme', event: 'Fiesta', stay: 'Konaklama'
       },
       filters: {
         all: 'Hepsi', boat: 'Tekne turları', swim: 'Yüzme', sights: 'Gezilecek yerler',
@@ -746,7 +812,8 @@
 
       acts: {
         d1b1: { title: 'EMA → Barcelona uçuşu', desc: '07:30’da Wigston’dan taksiyle çıkış; East Midlands havalimanı M1 üzerinden yaklaşık 45 dakika. Uçak 10:35’te kalkıyor, yerel saatle 13:55’te Barcelona’ya iniyor. Herkese birer kabin çantası; bekleyecek valiz yok.', tip: 'Gerçek durum: 8 Cmt günü tek aktarmasız uçuş 17:30’da kalkan Ryanair FR9388, iniş 20:45 — £77,49 ve bu fiyata tek koltuk kaldı; varış akşamını yeniden planlamak gerekecek. Bilet: https://www.ryanair.com/gb/en/trip/flights/select?adults=1&dateOut=2026-08-08&originIata=EMA&destinationIata=BCN&isReturn=false' },
-        d1b2: { title: 'Havalimanı treni + yerleşme', desc: 'Havalimanından R2 Nord treni (yarım saatte bir kalkıyor) doğruca Passeig de Gràcia istasyonuna götürüyor. Oradan Eixample semtindeki daireye on dakikalık yürüyüş. Çantaları bırak, soğuk bir duş al; sıcak gevşemeye başladığında, altı gibi, yeniden dışarı çık.', tip: 'Vloglardan: ağustosta havalimanı treni otobüs kuyruğundan daha hızlı, bileti de beş euro civarı.' },
+        d1b2: { title: 'Havalimanı treni + yerleşme', desc: 'Havalimanından R2 Nord treni (yarım saatte bir kalkıyor) doğruca Passeig de Gràcia istasyonuna götürüyor. Oradan Carrer d’Aragó’daki otelimiz HCC Taber’e üç dakikalık yürüyüş. Çantaları bırak, soğuk bir duş al; sıcak gevşemeye başladığında, altı gibi, yeniden dışarı çık.', tip: 'Vloglardan: ağustosta havalimanı treni otobüs kuyruğundan daha hızlı, bileti de beş euro civarı.' },
+        d1s1: { title: 'Yerleşme: HCC Taber', desc: 'Barcelona gecelerinin evi: Carrer d’Aragó 256’daki HCC Taber, havalimanı treninin durduğu yerden yürüyerek üç dakika; Casa Batlló köşeyi dönünce. İki tek kişilik yataklı oda; üç gece £439 artı £39 vergi — misafir puanı 8,7, konum puanı 9,6.', tip: 'Bütçeye giren 185 Booking.com adayı arasından seçildi; altı alternatif Nerede uyuyoruz sayfasında. Rezervasyon: https://www.booking.com/hotel/es/taber.html' },
         d1b3: { title: 'Gotik Mahalle’de ilk tur', desc: 'Ortaçağdan kalma eski şehirde ilk rahat yürüyüş. On üç kazın yaşadığı katedral avlusunu ve küçük, sessiz Plaça Sant Felip Neri meydanını gör; yürüyüşü Plaça Reial’in süslü sokak lambaları altında bitir.', tip: 'Izem: Plaça Reial’deki lambalar Gaudí’nin aldığı ilk sipariş; henüz öğrenciyken tasarlamış.' },
         d1b4: { title: 'Tapas turu, Carrer de la Mercè', desc: 'Akşam yemeği, küçük ayakta tapas barlarıyla dolu Carrer de la Mercè boyunca bar bar gezerek. Her birinde patatas bravas, pan con tomate (domates ve zeytinyağı sürülmüş kızarmış ekmek) ve birer bardak vermut söyle, sonra bir sonrakine geç.', tip: 'Vloglardan: yerliler dokuzdan önce sofraya oturmaz; eski şehir sokakları da bilinen yankesici bölgesi. Telefonlar fermuarlı cepte, çantalar önde.' },
         d2b1: { title: 'Sagrada Família', desc: 'Gaudí’nin bazilikası, günün ilk giriş seansına ayırtıldı; kalabalık ve öğle güneşi gelmeden içeride oluyorsunuz. Önce dışarıdan Doğuş Cephesi’ne bak, sonra içeride taştan sütun ormanına ve kilisenin bir yanında turuncu, öbür yanında mavi-yeşil parlayan vitray pencerelere.', tip: 'Izem: bilete Tutku Kulesi’ni de ekle. Asansörle çıkıyorsun, sarmal merdivenle iniyorsun; kuleler arasından bütün şehir görünüyor. Kuleli bilet €36, 30 yaş altı/öğrenci €34 — bilet: https://sagradafamilia.org/en/sagrada-familia-and-tower' },
@@ -762,6 +829,7 @@
         d4b3: { title: 'Museu Picasso', desc: 'Picasso müzesi birbirine bağlı beş Gotik sarayı dolduruyor ve erken dönem işlerine odaklanıyor; salon salon, resim yapmayı öğrenişini izliyorsun. Final, yetmiş altı yaşında yaptığı Las Meninas çeşitlemeleri odası.', tip: 'Ahmet: öğrenci kartını getir, girişte indirim yaptırıyor. İnternetten €14, indirimli €7,50 — bilet: https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours' },
         d4b4: { title: 'La Rambla, bir kez, hızlıca', desc: 'Meşhur ağaçlı bulvar La Rambla’yı, şovu için tam bir kez yürü. La Boqueria pazarına girip bir taze meyve suyu al; çantaları almaya vakit kalsın diye saat birde işini bitir.', tip: 'Vloglardan: La Rambla, Barcelona’nın en yoğun yankesici noktası; Boqueria tezgâhları da turist fiyatı yazıyor. Bak, suyunu iç, yola devam et.' },
         d4b5: { title: 'Euromed ile València’ya', desc: 'Çantaları al, Barcelona Sants’tan València Nord’a giden Euromed trenine bin; Akdeniz kıyısı boyunca yaklaşık üç saat. Vagonun sol tarafına otur: yolun büyük kısmında deniz manzarası o tarafta.', tip: 'Renfe’de kontrol ettik: 11 Ağustos’ta 14:05 treni yok, öğle trenleri de şimdiden dolu — hâlâ açık olanlar 07:15 (€68,65), 08:15 (€74,35), 18:15 (€74,35) ve 20:15 (€62,90); varış Nord değil, València Joaquín Sorolla. Bugün al: https://www.renfe.com/es/en' },
+        d4s1: { title: 'Yerleşme: easyHotel Ciutat Vella', desc: 'València üssü: eski şehrin batı kıyısında, Plaça Rojas Clemente’deki easyHotel Ciutat Vella — Mercat Central yürüyerek sekiz dakika, Túria parkı iki sokak kuzeyde. Joaquín Sorolla garından on dakikalık taksi ya da üç metro durağı (Jesús → Túria). İki tek kişilik yataklı oda; üç gece, vergiler dahil £345.', tip: '39 València adayının fiyat-performans birincisi — gecelik £115, iki tek kişilik yatak, 527 misafirden 8,2. Daha konforlu adaylar Nerede uyuyoruz sayfasında. Rezervasyon: https://www.booking.com/hotel/es/easyhotel-valencia.html' },
         d4b6: { title: 'Turia Bahçeleri’ne merhaba yürüyüşü', desc: 'Turia, şehir merkezini dolanan eski nehir yatağına kurulmuş dokuz kilometrelik bir park; nehrin kendisi 1957’deki selden sonra başka yatağa alınmış. İlk etabı yürü: tırmanılabilen dev Gulliver figürlü oyun parkına kadar gidip dön.', tip: 'Vloglardan: Turia en güzel bisikletle gezilir. Bu akşamki yürüyüş seni kazanırsa perşembe sabahı iki bisiklet kiralayıp Sanat Şehri’ne kadar sür.' },
         d4b7: { title: 'Akşam yemeği: Russafa', desc: 'Akşam yemeği Russafa’da; vlogların València’nın en hareketli mahallesi dediği semt: dokuzdan itibaren dolan barlar, teraslar ve lokantalar. Agua de València söyle: cava, portakal suyu, cin ve votkayla yapılan yerel kokteyl. Sürahiyle geliyor; iki kişiye bir sürahi, kural bu.' },
         d5b1: { title: 'Mercat Central, erkenden', desc: 'Güne Merkez Pazarı’nda başla: Avrupa’nın en büyük ve en güzel demir-cam hallerinden biri, bine yakın tezgâh. Kahvaltı tezgâhta: yer bademinden yapılan yerel içecek horchata ve yanında, batırmak için yapılmış yumuşak şekerli çörekler fartons. Sonrası için jamón ve manchego al.', tip: 'Vloglardan: taradığımız her València vlogunun en çok çekilen durağı burasıydı. Üçte kapanıyor, pazar günleri hiç açılmıyor; güne bu yüzden pazarla başlıyoruz.' },
@@ -791,7 +859,9 @@
         k7: 'Museu Picasso saatli giriş, 11 Sal — internetten €14, Ahmet’in öğrenci kartıyla €7,50. Bilet: https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours',
         k8: 'Euromed, 11 Sal — Renfe’de kontrol ettik: 14:05 treni yok, öğle trenleri de dolu. Hâlâ açık: 07:15 €68,65 · 08:15 €74,35 · 18:15 €74,35 · 20:15 €62,90; varış València Joaquín Sorolla. Sol taraf koltuklar. Bugün al: https://www.renfe.com/es/en',
         k9: 'Oceanogràfic internet bileti, 13 Per — €43,05, 4-12 yaş €31,95 (vloglardaki €32 eskimiş); internetten alınca kapı kuyruğu yok. Bilet: https://www.oceanografic.org/en/tickets/',
-        k10: 'Albufera gün batımı teknesi, 13 Per — Albumar ile kişi başı €7, El Palmar iskelesinden; gün batımı yerleri önceden satılıyor. Bilet: https://albumar.es/'
+        k10: 'Albufera gün batımı teknesi, 13 Per — Albumar ile kişi başı €7, El Palmar iskelesinden; gün batımı yerleri önceden satılıyor. Bilet: https://albumar.es/',
+        k11: 'Otel, Barcelona 8 Cmt → 11 Sal: HCC Taber, iki tek kişilik yatak, üç gece £439 + £39 vergi. Bu tarifede ücretsiz iptal yok; uçuşlar kesinleşir kesinleşmez ayırt. Rezervasyon: https://www.booking.com/hotel/es/taber.html',
+        k12: 'Otel, València 11 Sal → 14 Cum: easyHotel Ciutat Vella, iki tek kişilik yatak, vergiler dahil £345 — gecelik £115. Rezervasyon: https://www.booking.com/hotel/es/easyhotel-valencia.html'
       },
 
       map: {
@@ -806,6 +876,7 @@
         catSea: 'Tekne ve yüzme',
         catFood: 'Yeme içme',
         catFiesta: 'Fiestalar ve geceler',
+        catStay: 'Konakladığımız yerler',
         wigstonLong: 'Wigston — ev',
         bcnLong: 'Barcelona · 1-3. geceler',
         vlcLong: 'València · 4-6. geceler',
@@ -835,7 +906,9 @@
           arts: 'Sanat ve Bilim Şehri',
           ocean: 'Oceanogràfic',
           palmar: 'Paella, El Palmar',
-          albufera: 'Albufera teknesi + gün batımı'
+          albufera: 'Albufera teknesi + gün batımı',
+          staybcn: 'HCC Taber — 1-3. geceler',
+          stayvlc: 'easyHotel Ciutat Vella — 4-6. geceler'
         }
       },
 
@@ -1177,6 +1250,71 @@
           ms4: 'Uçmadan önce iki eski şehrin de çevrimdışı haritasını indir; ortaçağ sokakları çekim yutar.',
           ms5: 'Yol vloglarından, renk olsun diye: Barcelona-València arası araba yolu düz ve sıradan; Fas feribotu için Arapça tabelalar var ve termometre bir saatte 26’dan 34’e sıçrıyor. Trene bin.'
         }
+      },
+
+      stays: {
+        htmlTitle: 'España · nerede uyuyoruz',
+        metaDesc: 'İki şehirde altı gece, Booking.com’da canlı arandı: £100-150 bandına giren her konaklama ve seçtiğimiz iki yer.',
+        kicker: 'Konaklama dosyası',
+        title: 'Nerede uyuyoruz',
+        intro: '2 Ağustos’ta Booking.com’da canlı arandı: tek oda, iki yetişkin, yalnızca 8+ misafir puanı; bütçe gecelik £100, esneyince £150. Bizim cumartesi-salı aralığında Barcelona’da bütçeye giren 185 aday vardı, València’da 39 — bunlar, üzerine konuşmaya değer olanlar. Büyük fiyat, Booking’in tam bizim tarihlerimiz için verdiği üç gecelik oda toplamı; yanındaki gecelik rakama tüm vergiler dahil. İsimler, tarihlerimiz girili olarak Booking.com’daki ilana açılıyor.',
+        backToPlan: '← Plana dön',
+        onMap: 'İki seçim de rota haritasına işlendi ↗',
+        updated: 'Fiyatlar 2 Ağustos 2026’da bakıldığı andaki hâli — oynarlar; kesinleşen, planla cüzdanda durur.',
+        bcnTitle: 'Barcelona · 1-3. geceler',
+        bcnSub: '8 Cmt → 11 Sal Ağustos. Üs; Eixample’deki Gaudí günlerine, Gotik Mahalle akşamlarına, Plaça d’Espanya’dan erken Montserrat çıkışına ve salı günü Sants’tan kalkan trene uymalı.',
+        vlcTitle: 'València · 4-6. geceler',
+        vlcSub: '11 Sal → 14 Cum Ağustos. Sahil treninden inince: eski şehir sabahları, bir plaj akşamı ve lagün — plan Ciutat Vella’nın içinde ve çevresinde yaşıyor.',
+        pickKicker: 'Seçimimiz',
+        altTitle: 'Alternatifler',
+        bandNote: 'Her ray, konaklamanın vergiler dahil gecelik fiyatını bütçe bandına işliyor: gölgeli şerit £100’den (hedef) £150’ye (esneme payı) uzanıyor.',
+        perNight: 'gecelik £{n}',
+        total3: '£{n} · 3 gece',
+        plusTax: '+£{n} vergi',
+        taxIn: 'vergiler dahil',
+        was: 'önceki £{n}',
+        reviews: '{n} yorum',
+        locChip: 'konum {n}',
+        freeCancel: 'ücretsiz iptal',
+        payLater: 'otelde öde',
+        overBand: 'bandın üstünde',
+        centerKm: 'merkeze {km} km',
+        bookBtn: 'Booking.com’da ayırt ↗',
+        whyTitle: 'Neden burası',
+        whyTaber: [
+          'Havalimanı treni Passeig de Gràcia’da duruyor; otel aynı caddede 250 m ileride — 1. gün yerleşme, çantalarla üç dakikalık yürüyüş.',
+          'Casa Batlló köşeyi dönünce; pazar günkü Gaudí günü yürüyerek başlayıp yürüyerek bitiyor. Montserrat pazartesisi Plaça d’Espanya’ya üç metro durağı; salı günkü València treni için Sants tek Rodalies durağı.',
+          'Konum puanı 1.556 misafirden 9,6 — bütçeye giren tüm adayların en iyisi — iki tek kişilik yatak ve 8,7 genel puanla. Bandın üst ucuna mal oluyor ve bunu hak ediyor.'
+        ],
+        whyEasy: [
+          'Eski şehir yürüme mesafesinde: çarşambanın çapası Mercat Central sekiz dakika; La Lonja, Carmen akşam yemekleri ve Túria parkı on dakikalık çemberin içinde.',
+          'Vergiler dahil gecelik £115 — şehirdeki 8+ puanlı adayların en ucuz çift yataklı odası; Barcelona gecelerinin maliyetinin çoğunu geri alıyor: iki seçimin ortalaması £137.',
+          'Bilerek sade: yatak, klima, duş. Plan zaten herkesi pazar açılışından lagün gün batımına kadar dışarıda tutuyor.'
+        ],
+        beds: {
+          taber: 'iki tek kişilik yatak', monumental: 'çift ya da iki tek yatak', granvia: 'iki tek kişilik yatak', city47: 'iki tek kişilik yatak',
+          nhsants: 'çift ya da iki tek yatak, XL', bcn40: 'tek çift kişilik yatak', dante: 'iki tek kişilik yatak',
+          easy: 'iki tek kişilik yatak', blanq: 'stüdyo, 35 m²', littlevillage: 'stüdyo + mutfak', mythic: 'tek queen yatak',
+          nhcenter: 'çift ya da iki tek yatak', clarita: 'tek çift kişilik yatak', domino: 'tek çift kişilik yatak'
+        },
+        notes: {
+          monumental: 'Kıl payı ikinci: aynı 8,6, konum 9,4 ve £705 üzerinden %40’lık Getaway indirimi. Sagrada Família’ya yürüyerek yirmi dakika; ama Gotik akşamlarından 1,7 km geride.',
+          granvia: 'Konfor terfisi: 2.287 misafirden 9,0, iki tek yatak, ücretsiz iptal, otelde ödeme — ve gecelik £181, esneme payının £31 üstünde. Bütçe oynarsa diye dosyada.',
+          city47: 'Esnek yedek: £147’ye ücretsiz iptal ve otelde ödeme. Sants tarafında — Montserrat ve tren sabahları için doğru, geri kalan her şeye bir metro mesafede.',
+          nhsants: '£133’e sağlam bir 8,6, Sants garına yapışık — üç akşamın üçü için şehrin yanlış ucu.',
+          bcn40: 'Aramanın en ucuz merkezî yatağı: £119, Ciutat Vella’da 8,6 — ama iki kardeşe tek çift kişilik yatak; kaybettiği yer burası.',
+          dante: 'Esneme payı civarındaki en yüksek otel puanı: 8,9, Eixample’de iki tek yatakla — gecelik £160 sınırı kıl payı aşıyor ve seçimimizi başka hiçbir konuda geçemiyor.',
+          blanq: 'Konfor karşı-teklifi: 2.803 misafirden 9,0, £135’e 35 m² stüdyo — ama marina tarafında, her eski şehir sabahına bir tramvay mesafede.',
+          littlevillage: 'Aynı 9,0 fikri Campanar’da, mutfaklı — planın ağırlık merkezine 2,5 km.',
+          mythic: 'Carmen akşam yemeklerinin Túria karşısında 8,8’lik butik — tek queen yatak iki kişi için eliyor.',
+          nhcenter: 'Zincir otel ortalaması: 8,6, £145, yürüyerek on beş dakika. İdare eder — ama hem fiyatta hem konumda yenik.',
+          clarita: 'Eski şehrin tam göbeğinde 9,9 konum, 9,0 genel puan — gecelik £159 ve tek çift kişilik yatak.',
+          domino: 'Túria’nın orta noktasına yakın, £132’ye 8,7 — bu tarifede yalnızca çift kişilik yatak.'
+        },
+        totalKicker: 'İki seçim birlikte',
+        totalLine: 'Altı gecenin tamamı £823 — gecelik £137, bandın içinde.',
+        totalNote: 'Barcelona, 9,6’lık konum için bandın üst ucunu alıyor (£159); València’nın £115’lik geceleri bunu geri ödüyor. İki oda da çift yataklı; iki rezervasyon satırı da “Uçmadan önce ayırt” listesinde hazır.',
+        method: 'Bu liste nasıl yapıldı: Booking.com’da 8-11 ve 11-14 Ağustos 2026 için canlı arama; tek oda, iki yetişkin, 8+ misafir puanı ve gecelik £60-150 filtresi, “en iyi yorum + en düşük fiyat” sıralaması, her şey GBP. Konum kalitesi turist broşürünün merkezine göre değil, bu plana göre değerlendirildi.'
       },
 
       slot: {
