@@ -1093,6 +1093,48 @@
   // away the focused control — ticking an activity with the keyboard would
   // drop you back to the top of the page. Each control carries a stable
   // data-key so focus can land back on the same one afterwards.
+  // — what the assistant reads ——————————————————————————————————
+  // chat.js turns this into the briefing it sends with every question. It
+  // reads through the same resolvers as the page, so a replanned stop, a
+  // ticked moment and a document in the wallet all reach the answer. The
+  // words come out in the language on screen; the ids stay, so a stop the
+  // assistant names can be matched back to the one on the page.
+  window.TripPlan = {
+    locked: () => state.locked,
+    snapshot: () => ({
+      currency: state.currency,
+      replanned: !!state.plan,
+      days: DAYS.map((d, i) => ({
+        n: i + 1,
+        dom: d.dom,
+        ...dayWords(i),
+        acts: dayActs(i).map(a => {
+          const words = actWords(a) || {};
+          return {
+            id: a.id, t: a.t, cat: a.cat, eur: a.eur ?? null,
+            title: words.title || '', desc: words.desc || '', tip: words.tip || '',
+            // The baked-in table only: a stop added or retitled while
+            // replanning has no entry, and its own title says it better than
+            // a guessed map query would.
+            where: MAPS[a.id] || null,
+            done: !!state.done[a.id]
+          };
+        })
+      })),
+      bookings: bookingRows().map(b => ({ text: bookingText(b), done: !!state.done[b.id] })),
+      docs: state.docs.map(d => ({ name: d.name, pinned: (d.act && ACT_LABELS[d.act]) || null }))
+    })
+  };
+
+  // chat.js hides itself while the wallet is locked; it can't see `state`,
+  // so say when that changes rather than making it poll.
+  let toldLocked = null;
+  function announceLock() {
+    if (state.locked === toldLocked) return;
+    toldLocked = state.locked;
+    document.dispatchEvent(new CustomEvent('celik:lock', { detail: { locked: state.locked } }));
+  }
+
   function render() {
     const active = document.activeElement;
     const key = active && active.getAttribute ? active.getAttribute('data-key') : null;
@@ -1104,6 +1146,7 @@
     renderTracker();
     renderBookings();
     renderWallet();
+    announceLock();
     if (key) {
       const next = document.querySelector('[data-key="' + CSS.escape(key) + '"]');
       if (next) next.focus();

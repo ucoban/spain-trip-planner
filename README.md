@@ -42,11 +42,14 @@ eviction).
 | `guide.js` | Renders the field guide from `guide-data.js` and `i18n.js` |
 | `guide-data.js` | Generated guide skeleton: ids, groups, mention counts, links |
 | `stays.html` | Where we sleep: the Booking.com shortlist per city, the two picks, the budget band |
+| `stays-data.js` | The shortlist itself — prices, scores, distances, the two picks |
+| `chat.js` | The assistant: builds the briefing, streams the answer, draws the panel |
 | `places.js` | Place-name → Google Maps dictionary; turns place references in prose into links |
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |
 | `styles.css` | Design-system tokens and component classes |
 | `api/itinerary.js` | Read the replanned itinerary (public), save it (passphrase-gated) |
+| `api/chat.js` | Put a question to Claude with the trip attached; stream the answer back |
 | `api/docs.js` | List, upload, re-pin and delete wallet documents |
 | `api/file.js` | Stream one private document to the browser |
 | `api/unlock.js` | Exchange the shared passphrase for an unlock cookie |
@@ -64,9 +67,11 @@ The site speaks English and Turkish. The EN/TR toggle in the nav picks one
 (persisted as `celik-spain-lang` in `localStorage`); a first visit falls back
 to the browser language. Every word lives in `i18n.js` — static page text is
 swapped in via `data-i18n` attributes, everything rendered by `app.js`,
-`trip-map.html` and `image-slot.js` reads from `window.I18N`, and the known
-English error messages the `/api` functions return are re-voiced client-side.
-Adding a language is one more entry in `STRINGS` plus a nav button.
+`chat.js`, `trip-map.html` and `image-slot.js` reads from `window.I18N`, and
+the known English error messages the `/api` functions return are re-voiced
+client-side. The assistant is told which language the reader is in and
+answers in it, off a briefing written in that language too. Adding a language
+is one more entry in `STRINGS` plus a nav button.
 
 ## How the travel wallet works
 
@@ -92,6 +97,43 @@ script in this origin.
 Documents are capped at **4 MB** each — Vercel rejects a Function request body
 over 4.5 MB.
 
+## How the assistant knows the trip
+
+There's no retrieval step and no vector store either. The whole trip is about
+60 KB of text, which is small enough to simply hand over, so every question
+carries the entire briefing: `chat.js` renders it out of what the page has
+already loaded — the live itinerary (`window.TripPlan`, so a replanned stop is
+in the answer and so is a ticked one), the field guide's 160 places and 133
+tips, both hotels, in whichever language the reader is using.
+
+That briefing splits in two, because they change at different speeds. `brief`
+is the trip itself and only moves when someone replans, so `api/chat.js` sits
+a [prompt-cache][cache] breakpoint after it and a back-and-forth pays for it
+once every five minutes rather than once a question. `live` — the date, the
+language, what's ticked, what's in the wallet — goes after the breakpoint,
+where it costs nothing to change.
+
+[cache]: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
+
+The model is **Claude Sonnet 5** with thinking off: the answer is a lookup in
+a briefing it has just been given, not a chain of reasoning, and the first
+word arriving quickly matters more. It streams back as server-sent events; a
+proxy that refuses to stream costs only the typewriter effect, since a
+buffered response parses the same way.
+
+The panel is gated twice. It won't compose while the wallet is locked, and
+`POST /api/chat` checks the unlock cookie regardless — the itinerary is
+public, but questions about it spend real money. Answers are built as text
+nodes, never markup, and place names in them pick up the same Google Maps
+links the rest of the site uses.
+
+`api/chat.js` needs an `ANTHROPIC_API_KEY` environment variable ([Console →
+API keys][keys]). Without one the panel says so instead of failing quietly.
+A conversation costs roughly a cent or two: about 17k input tokens the first
+time, a tenth of that per question while the cache holds.
+
+[keys]: https://platform.claude.com/settings/keys
+
 ## Setting it up on Vercel
 
 1. Import the repo. Leave the framework preset on **Other** and the build
@@ -101,9 +143,13 @@ over 4.5 MB.
 3. Add a `WALLET_PASSPHRASE` environment variable (Production, Preview, and
    Development) — this is the phrase everyone types once per device. Without
    it the wallet stays locked and says so.
+4. Add an `ANTHROPIC_API_KEY` for the assistant, from [Console → API
+   keys](https://platform.claude.com/settings/keys). Without it everything
+   else still works and the chat panel explains what's missing.
 
 All of this fits in the Hobby free tier; the wallet is a few MB of PDFs against
-an allowance measured in gigabytes.
+an allowance measured in gigabytes. The assistant is the one part that bills
+separately, per question, on the API key.
 
 ## Running it locally
 

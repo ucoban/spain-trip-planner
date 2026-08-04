@@ -134,6 +134,30 @@
         cancel: 'Cancel'
       },
 
+      chat: {
+        launch: 'Ask about the trip',
+        title: 'Ask about the trip',
+        close: 'Close',
+        intro: 'It has read this plan, the field guide and both hotels — every place, price and tip we mined. Ask it anything about the week.',
+        seeds: [
+          'What is day 3 and what will it cost?',
+          'It is 35° at two in the afternoon. What now?',
+          'What did the vlogs say we are missing?'
+        ],
+        placeholder: 'Ask anything about the week…',
+        send: 'Ask',
+        sendLabel: 'Send the question',
+        stop: 'Stop',
+        clear: 'Start over',
+        you: 'You',
+        assistant: 'The assistant',
+        thinking: 'Reading the plan…',
+        locked: 'Unlock the travel wallet in the sidebar first — the assistant runs on the same key.',
+        truncated: '…that answer ran long. Ask for the rest.',
+        empty: 'It had nothing to say. Try asking another way.',
+        note: 'Claude Sonnet 5, reading this plan. Check anything you are about to book.'
+      },
+
       cats: {
         travel: 'Transit', sights: 'Sights', museum: 'Museum', boat: 'Boat trip',
         swim: 'Swim', food: 'Food & drink', event: 'Fiesta', stay: 'Stay'
@@ -791,6 +815,30 @@
         cancel: 'Vazgeç'
       },
 
+      chat: {
+        launch: 'Geziyi sor',
+        title: 'Geziyi sor',
+        close: 'Kapat',
+        intro: 'Bu planı, saha rehberini ve iki oteli de okudu — derlediğimiz her yer, her fiyat, her ipucu onda. Haftaya dair ne istersen sor.',
+        seeds: [
+          '3. gün ne var, kişi başı kaça geliyor?',
+          'Öğlen ikide hava 35°. Ne yapalım?',
+          'Vlog’lara göre neyi kaçırıyoruz?'
+        ],
+        placeholder: 'Haftaya dair ne istersen sor…',
+        send: 'Sor',
+        sendLabel: 'Soruyu gönder',
+        stop: 'Durdur',
+        clear: 'Baştan başla',
+        you: 'Sen',
+        assistant: 'Asistan',
+        thinking: 'Planı okuyor…',
+        locked: 'Önce yan paneldeki seyahat cüzdanının kilidini aç — asistan da aynı anahtarla çalışıyor.',
+        truncated: '…yanıt uzun kaçtı. Devamını iste.',
+        empty: 'Söyleyecek bir şey bulamadı. Başka türlü sormayı dene.',
+        note: 'Claude Sonnet 5, bu planı okuyor. Rezervasyon yapmadan önce doğrula.'
+      },
+
       cats: {
         travel: 'Ulaşım', sights: 'Gezilecek yer', museum: 'Müze', boat: 'Tekne turu',
         swim: 'Yüzme', food: 'Yeme içme', event: 'Fiesta', stay: 'Konaklama'
@@ -1339,6 +1387,12 @@
         'The wallet is unreachable right now.': 'Cüzdana şu anda ulaşılamıyor.',
         'That plan does not look right.': 'Bu plan olması gerektiği gibi görünmüyor.',
         'The plan is unreachable right now.': 'Plana şu anda ulaşılamıyor.',
+        'That question did not come through.': 'Soru düzgün ulaşmadı.',
+        'ANTHROPIC_API_KEY is not set on this deployment.': 'Bu kurulumda ANTHROPIC_API_KEY tanımlı değil.',
+        'The assistant key was rejected.': 'Asistanın anahtarı reddedildi.',
+        'The assistant is busy — ask again in a moment.': 'Asistan meşgul — birazdan tekrar sor.',
+        'The assistant is unreachable right now.': 'Asistana şu anda ulaşılamıyor.',
+        'The assistant would rather not answer that.': 'Asistan bu soruyu yanıtlamamayı tercih etti.',
         'Method not allowed': 'Bu yönteme izin verilmiyor.'
       },
       serverPatterns: [
