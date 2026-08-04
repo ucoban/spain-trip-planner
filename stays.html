@@ -7,8 +7,11 @@
 <meta name="description" content="Six nights in two cities, searched live on Booking.com: every stay that fit the £100-150 band, and the two we picked.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
 <link rel="stylesheet" href="styles.css">
-<!-- Loaded synchronously so window.I18N exists before the inline script below. -->
+<!-- Loaded synchronously so window.TRIP, window.I18N and window.STAYS exist before the inline script below. -->
+<script src="trips.js"></script>
+<script src="trip-italy.js"></script>
 <script src="i18n.js"></script>
+<script src="stays-data.js"></script>
 <style>
   html, body { margin: 0; padding: 0; background: #f5ead8; }
   a { color: var(--color-accent-700); } a:hover { color: var(--color-accent-800); }
@@ -47,6 +50,8 @@
     <nav class="nav" data-r="nav" style="justify-content:space-between">
       <a id="brand" class="nav-brand" href="./" style="text-decoration:none;color:inherit">España · the Çelik plan</a>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <!-- trips.js swaps this for the trip switcher -->
+        <span id="tripChipSlot"></span>
         <a id="backLink" class="tag tag-accent" href="./" style="text-decoration:none">← Back to the plan</a>
         <a id="mapLink" class="tag tag-accent-2" href="trip-map.html" target="_blank" style="text-decoration:none">Route map ↗</a>
         <div id="langGroup" role="group" aria-label="Language" style="display:flex;gap:4px">
@@ -79,38 +84,22 @@
   const tpl = window.I18N.fmt;
   const isTR = window.I18N.lang === 'tr';
 
-  // Nightly figures fold all taxes in; `total` + `tax` mirror what Booking
-  // itself quoted for the exact dates (some quotes arrive tax-inclusive).
-  const CITIES = [
-    { key: 'bcn', tint: 'var(--color-accent-100)', band: 'var(--color-accent-200)', ink: 'var(--color-accent-600)',
-      title: () => S.bcnTitle, sub: () => S.bcnSub,
-      q: '?checkin=2026-08-08&checkout=2026-08-11&group_adults=2&no_rooms=1&selected_currency=GBP',
-      pick: { id: 'taber', name: 'HCC Taber', url: 'https://www.booking.com/hotel/es/taber.html',
-        area: 'Eixample · Carrer d’Aragó 256', km: 0.7, score: 8.7, rev: 1578, loc: 9.6,
-        total: 439, tax: 39, night: 159, was: null, cancel: false, payLater: false, why: () => S.whyTaber },
-      alts: [
-        { id: 'bcn40', name: 'Acta BCN 40', url: 'https://www.booking.com/hotel/es/40.html', area: 'Ciutat Vella', km: 0.6, score: 8.6, rev: 2900, loc: null, total: 325, tax: 33, night: 119, was: null, cancel: false, payLater: false },
-        { id: 'nhsants', name: 'NH Sants Barcelona', url: 'https://www.booking.com/hotel/es/nh-sants-barcelona.html', area: 'Sants · Les Corts', km: 2.7, score: 8.6, rev: 2511, loc: null, total: 352, tax: 47, night: 133, was: 455, cancel: false, payLater: false },
-        { id: 'city47', name: 'Acta CITY47', url: 'https://www.booking.com/hotel/es/citypark.html', area: 'Sants-Montjuïc', km: 2.4, score: 8.4, rev: 5051, loc: null, total: 394, tax: 47, night: 147, was: 625, cancel: true, payLater: true },
-        { id: 'monumental', name: 'Eurostars Monumental', url: 'https://www.booking.com/hotel/es/eurostars-monumental.html', area: 'Eixample', km: 1.7, score: 8.6, rev: 1719, loc: 9.4, total: 423, tax: 47, night: 157, was: 705, cancel: false, payLater: false },
-        { id: 'dante', name: 'Best Western Premier Hotel Dante', url: 'https://www.booking.com/hotel/es/bestwesterndantebarcelona.html', area: 'Eixample', km: 1.2, score: 8.9, rev: 1688, loc: null, total: 433, tax: 47, night: 160, was: 509, cancel: false, payLater: false },
-        { id: 'granvia', name: 'Catalonia Gran Via BCN', url: 'https://www.booking.com/hotel/es/catalonia-gran-via-bcn.html', area: 'Eixample', km: 0.9, score: 9.0, rev: 2287, loc: 9.3, total: 496, tax: 47, night: 181, was: null, cancel: true, payLater: true }
-      ] },
-    { key: 'vlc', tint: 'var(--color-accent-2-100)', band: 'var(--color-accent-2-200)', ink: 'var(--color-accent-2-600)',
-      title: () => S.vlcTitle, sub: () => S.vlcSub,
-      q: '?checkin=2026-08-11&checkout=2026-08-14&group_adults=2&no_rooms=1&selected_currency=GBP',
-      pick: { id: 'easy', name: 'easyHotel València Ciutat Vella', url: 'https://www.booking.com/hotel/es/easyhotel-valencia.html',
-        area: 'Extramurs · Plaça Rojas Clemente 7-8', km: 0.8, score: 8.2, rev: 527, loc: null,
-        total: 345, tax: 0, night: 115, was: null, cancel: false, payLater: false, why: () => S.whyEasy },
-      alts: [
-        { id: 'domino', name: 'Hotel Original Domino House', url: 'https://www.booking.com/hotel/es/original-domino-house.html', area: 'Camins al Grau', km: 1.9, score: 8.7, rev: 1127, loc: null, total: 395, tax: 0, night: 132, was: 439, cancel: false, payLater: false },
-        { id: 'blanq', name: 'Blanq Marina Suites', url: 'https://www.booking.com/hotel/es/blanq-marina.html', area: 'Camins al Grau · marina', km: 3.3, score: 9.0, rev: 2803, loc: null, total: 406, tax: 0, night: 135, was: 451, cancel: false, payLater: false },
-        { id: 'littlevillage', name: 'The Little Village Apartments', url: 'https://www.booking.com/hotel/es/the-little-village-apartments.html', area: 'Campanar', km: 2.5, score: 9.0, rev: 2033, loc: null, total: 408, tax: 0, night: 136, was: 453, cancel: true, payLater: false },
-        { id: 'mythic', name: 'Mythic Valencia', url: 'https://www.booking.com/hotel/es/mythic-boutique.html', area: 'La Saïdia', km: 1.5, score: 8.8, rev: 802, loc: null, total: 423, tax: 0, night: 141, was: 470, cancel: true, payLater: false },
-        { id: 'nhcenter', name: 'NH Valencia Center', url: 'https://www.booking.com/hotel/es/nhcenter.html', area: 'Campanar', km: 1.5, score: 8.6, rev: 3415, loc: null, total: 435, tax: 0, night: 145, was: 531, cancel: false, payLater: false },
-        { id: 'clarita', name: 'Casa Clarita', url: 'https://www.booking.com/hotel/es/casa-clarita-by-sh-hoteles.html', area: 'Ciutat Vella', km: 0.5, score: 9.0, rev: 1003, loc: 9.9, total: 477, tax: 0, night: 159, was: null, cancel: true, payLater: true }
-      ] }
+  // What the data file has no opinion about: each city's tint on the budget
+  // band, its heading, and why we picked the one we picked. First city takes
+  // the warm accent, second the sage one, whichever trip is being shown; the
+  // headings and the reasons are looked up by key, so a new trip only has to
+  // name them the same way in i18n (palTitle, palSub, whyCentrale…).
+  const LOOK = [
+    { tint: 'var(--color-accent-100)', band: 'var(--color-accent-200)', ink: 'var(--color-accent-600)' },
+    { tint: 'var(--color-accent-2-100)', band: 'var(--color-accent-2-200)', ink: 'var(--color-accent-2-600)' }
   ];
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const CITIES = window.STAYS.cities.map((city, i) => ({
+    ...city, ...LOOK[i % LOOK.length],
+    title: () => S[city.key + 'Title'],
+    sub: () => S[city.key + 'Sub'],
+    pick: { ...city.pick, why: () => S['why' + cap(city.pick.id)] }
+  }));
 
   const $ = id => document.getElementById(id);
   function el(tag, attrs, ...kids) {
@@ -148,7 +137,8 @@
       el('span', { class: 's-chip', style: 'background:transparent;padding-inline:0;color:var(--color-neutral-600);font-weight:600', text: tpl(S.reviews, { n: count(s.rev) }) })
     ];
     if (s.loc != null) out.push(el('span', { class: 's-chip', text: tpl(S.locChip, { n: score(s.loc) }) }));
-    out.push(el('span', { class: 's-chip', text: S.beds[s.id] }));
+    // Only where the search actually recorded the bed configuration.
+    if (S.beds[s.id]) out.push(el('span', { class: 's-chip', text: S.beds[s.id] }));
     if (s.cancel) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-2-100);color:var(--color-accent-2-900)', text: S.freeCancel }));
     if (s.payLater) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-2-100);color:var(--color-accent-2-900)', text: S.payLater }));
     if (s.night > 150) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-200);color:var(--color-accent-900)', text: S.overBand }));
@@ -160,7 +150,7 @@
       s.was && el('span', { text: tpl(S.was, { n: s.was }), style: 'font-size:12px;color:var(--color-neutral-600);text-decoration:line-through' }),
       el('span', { class: 's-night', text: tpl(S.perNight, { n: s.night }) })
     ),
-    el('div', { text: tpl(S.total3, { n: s.total }) + ' · ' + (s.tax > 0 ? tpl(S.plusTax, { n: s.tax }) : S.taxIn), style: 'font-size:12.5px;color:var(--color-neutral-700);margin-top:2px' }),
+    el('div', { text: tpl(S.totalN, { n: s.total, nights: city.nights }) + ' · ' + (s.tax > 0 ? tpl(S.plusTax, { n: s.tax }) : S.taxIn), style: 'font-size:12.5px;color:var(--color-neutral-700);margin-top:2px' }),
     meter(city, s, solid),
     scale()
   );

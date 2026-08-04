@@ -8,7 +8,9 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
-<!-- Loaded synchronously so window.I18N exists before the inline script below. -->
+<!-- Loaded synchronously so window.TRIP and window.I18N exist before the inline script below. -->
+<script src="trips.js"></script>
+<script src="trip-italy.js"></script>
 <script src="i18n.js"></script>
 <style>
   html, body { margin: 0; height: 100%; background: var(--color-bg); font-family: var(--font-body); }
@@ -74,12 +76,8 @@
 <div id="map"></div>
 <div class="panel">
   <h1 id="panelTitle">The route</h1>
-  <p class="sub">Wigston → Barcelona → València<br><span id="panelDates">8-14 August</span></p>
-  <div class="views">
-    <button type="button" class="btn btn-primary" id="v-all">Full route</button>
-    <button type="button" class="btn btn-secondary" id="v-bcn">Barcelona</button>
-    <button type="button" class="btn btn-secondary" id="v-vlc">València</button>
-  </div>
+  <p class="sub"><span id="panelRoute">Wigston → Barcelona → València</span><br><span id="panelDates">8-14 August</span></p>
+  <div class="views" id="views"></div>
   <details class="legend-wrap" id="legendWrap">
     <summary id="legendLabel">Legend ▾</summary>
     <div class="legend" id="legend">
@@ -97,10 +95,58 @@
   const DOWS = window.I18N.t.dows;
   const dayN = n => window.I18N.fmt(window.I18N.t.ui.dayN, { n });
 
+  // España's geometry is the built-in; any other trip brings its own in the
+  // same shape (trip-<id>.js), and everything below draws whichever it gets.
+  const GEO = {
+    route: 'Wigston → Barcelona → València',
+    drive: [[52.581, -1.093], [52.831, -1.328]],
+    arcs: [[[52.831, -1.328], [41.387, 2.170], 1.6]],
+    lines: [[[41.387, 2.170], [41.118, 1.245], [40.65, 0.58], [39.986, -0.037], [39.470, -0.376]]],
+    cities: [
+      { ll: [52.581, -1.093], label: 'Wigston', longKey: 'wigstonLong' },
+      { ll: [41.387, 2.170], label: 'Barcelona', longKey: 'bcnLong', smallDir: 'left' },
+      { ll: [39.470, -0.376], label: 'València', longKey: 'vlcLong' }
+    ],
+    spots: [
+      [41.3906, 2.1631, 'stay', 'staybcn', 1, '16:00'],
+      [39.4730, -0.3855, 'stay', 'stayvlc', 4, '17:30'],
+      [41.3839, 2.1760, 'sights', 'gothic', 1, '18:30'],
+      [41.3799, 2.1745, 'food', 'merce', 1, '21:00'],
+      [41.4036, 2.1744, 'sights', 'sagrada', 2, '09:00'],
+      [41.4145, 2.1527, 'sights', 'guell', 2, '17:30'],
+      [41.3917, 2.1650, 'fiesta', 'batllo', 2, '21:00'],
+      [41.5931, 1.8371, 'sights', 'montserrat', 3, '10:00'],
+      [41.3784, 2.1925, 'sea', 'barceloneta', 3, '18:00'],
+      [41.3800, 2.1868, 'food', 'cansole', 3, '20:30'],
+      [41.3853, 2.1794, 'food', 'caterina', 4, '09:00'],
+      [41.3838, 2.1819, 'sights', 'delmar', 4, '09:45'],
+      [41.3852, 2.1809, 'sights', 'picasso', 4, '10:30'],
+      [41.3817, 2.1716, 'sights', 'rambla', 4, '12:15'],
+      [39.4772, -0.3644, 'sights', 'turia', 4, '18:30', 7],
+      [39.4630, -0.3760, 'food', 'russafa', 4, '21:00'],
+      [39.4738, -0.3790, 'food', 'mercat', 5, '08:45'],
+      [39.4745, -0.3785, 'sights', 'lonja', 5, '10:00'],
+      [39.4757, -0.3754, 'sights', 'cathedral', 5, '11:30'],
+      [39.4810, -0.3245, 'sea', 'malvarosa', 5, '17:30'],
+      [39.4793, -0.3757, 'sights', 'serranos', 5, '20:45'],
+      [39.4785, -0.3800, 'food', 'carmen', 5, '21:30'],
+      [39.4548, -0.3505, 'sights', 'arts', 6, '09:00'],
+      [39.4531, -0.3480, 'sights', 'ocean', 6, '10:30'],
+      [39.3245, -0.3300, 'food', 'palmar', 6, '14:15'],
+      [39.3355, -0.3355, 'sea', 'albufera', 6, '19:00']
+    ],
+    views: {
+      'v-all': { bounds: [[52.581, -1.093], [41.387, 2.170], [39.470, -0.376]], pad: 60, label: null },
+      'v-bcn': { bounds: [[41.360, 2.148], [41.418, 2.196]], pad: 46, label: 'Barcelona' },
+      'v-vlc': { bounds: [[39.320, -0.385], [39.485, -0.320]], pad: 46, label: 'València' }
+    }
+  };
+  const G = (window.TRIP && window.TRIP.data && window.TRIP.data.map) || GEO;
+
   document.title = T.htmlTitle;
   document.getElementById('panelTitle').textContent = T.panelTitle;
   document.getElementById('panelDates').textContent = T.panelDates;
-  document.getElementById('v-all').textContent = T.viewAll;
+  document.getElementById('panelRoute').textContent = G.route;
   document.getElementById('legendLabel').textContent = T.legendLabel;
   document.getElementById('legFlight').textContent = T.flight;
   document.getElementById('legTrain').textContent = T.train;
@@ -139,8 +185,6 @@
     attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 20
   }).addTo(map);
 
-  const WIG = [52.581, -1.093], EMA = [52.831, -1.328], BCN = [41.387, 2.170], VLC = [39.470, -0.376];
-
   const arc = (a, b, bend) => {
     const pts = [];
     for (let i = 0; i <= 40; i++) {
@@ -149,48 +193,22 @@
     }
     return pts;
   };
-  L.polyline(arc(EMA, BCN, 1.6), { color: tok('--color-accent-600'), weight: 3, dashArray: '7 7' }).addTo(map);
-  L.polyline([BCN, [41.118, 1.245], [40.65, 0.58], [39.986, -0.037], VLC], { color: tok('--color-accent-2-600'), weight: 3.5 }).addTo(map);
-  L.polyline([WIG, EMA], { color: tok('--color-neutral-500'), weight: 2.5, dashArray: '2 6' }).addTo(map);
+  // Dashed arcs are the flights, solid sage the ground legs between bases,
+  // the faint dots the drive to the airport.
+  (G.arcs || []).forEach(([a, b, bend]) =>
+    L.polyline(arc(a, b, bend), { color: tok('--color-accent-600'), weight: 3, dashArray: '7 7' }).addTo(map));
+  (G.lines || []).forEach(pts =>
+    L.polyline(pts, { color: tok('--color-accent-2-600'), weight: 3.5 }).addTo(map));
+  if (G.drive) L.polyline(G.drive, { color: tok('--color-neutral-500'), weight: 2.5, dashArray: '2 6' }).addTo(map);
 
-  const cityDot = (ll, label, longLabel, dir) => {
-    L.circleMarker(ll, { radius: small ? 6 : 7, color: '#fff', weight: 2.5, fillColor: tok('--color-text'), fillOpacity: 1 }).addTo(map)
-      .bindTooltip(small ? label : longLabel, { permanent: true, direction: dir || 'right', offset: dir === 'left' ? [-10, 0] : [10, 0], className: 'city-label' });
-  };
-  cityDot(WIG, 'Wigston', T.wigstonLong);
-  cityDot(BCN, 'Barcelona', T.bcnLong, small ? 'left' : 'right');
-  cityDot(VLC, 'València', T.vlcLong);
+  G.cities.forEach(c => {
+    const dir = (small && c.smallDir) || c.dir || 'right';
+    L.circleMarker(c.ll, { radius: small ? 6 : 7, color: '#fff', weight: 2.5, fillColor: tok('--color-text'), fillOpacity: 1 }).addTo(map)
+      .bindTooltip(small ? c.label : T[c.longKey], { permanent: true, direction: dir, offset: dir === 'left' ? [-10, 0] : [10, 0], className: 'city-label' });
+  });
 
   // [lat, lng, cat, spot key, day number, time, also-on-day]
-  const SPOTS = [
-    [41.3906, 2.1631, 'stay', 'staybcn', 1, '16:00'],
-    [39.4730, -0.3855, 'stay', 'stayvlc', 4, '17:30'],
-    [41.3839, 2.1760, 'sights', 'gothic', 1, '18:30'],
-    [41.3799, 2.1745, 'food', 'merce', 1, '21:00'],
-    [41.4036, 2.1744, 'sights', 'sagrada', 2, '09:00'],
-    [41.4145, 2.1527, 'sights', 'guell', 2, '17:30'],
-    [41.3917, 2.1650, 'fiesta', 'batllo', 2, '21:00'],
-    [41.5931, 1.8371, 'sights', 'montserrat', 3, '10:00'],
-    [41.3784, 2.1925, 'sea', 'barceloneta', 3, '18:00'],
-    [41.3800, 2.1868, 'food', 'cansole', 3, '20:30'],
-    [41.3853, 2.1794, 'food', 'caterina', 4, '09:00'],
-    [41.3838, 2.1819, 'sights', 'delmar', 4, '09:45'],
-    [41.3852, 2.1809, 'sights', 'picasso', 4, '10:30'],
-    [41.3817, 2.1716, 'sights', 'rambla', 4, '12:15'],
-    [39.4772, -0.3644, 'sights', 'turia', 4, '18:30', 7],
-    [39.4630, -0.3760, 'food', 'russafa', 4, '21:00'],
-    [39.4738, -0.3790, 'food', 'mercat', 5, '08:45'],
-    [39.4745, -0.3785, 'sights', 'lonja', 5, '10:00'],
-    [39.4757, -0.3754, 'sights', 'cathedral', 5, '11:30'],
-    [39.4810, -0.3245, 'sea', 'malvarosa', 5, '17:30'],
-    [39.4793, -0.3757, 'sights', 'serranos', 5, '20:45'],
-    [39.4785, -0.3800, 'food', 'carmen', 5, '21:30'],
-    [39.4548, -0.3505, 'sights', 'arts', 6, '09:00'],
-    [39.4531, -0.3480, 'sights', 'ocean', 6, '10:30'],
-    [39.3245, -0.3300, 'food', 'palmar', 6, '14:15'],
-    [39.3355, -0.3355, 'sea', 'albufera', 6, '19:00']
-  ];
-  SPOTS.forEach(([lat, lng, cat, key, day, time, alsoDay]) => {
+  G.spots.forEach(([lat, lng, cat, key, day, time, alsoDay]) => {
     const title = T.spots[key];
     const when = dayN(day) + ' · ' + DOWS[day - 1] + ' ' + time + (alsoDay ? ' + ' + dayN(alsoDay) : '');
     L.marker([lat, lng], {
@@ -209,22 +227,29 @@
   const fitOpts = p => matchMedia('(max-width: 640px)').matches
     ? { paddingTopLeft: [26, 26], paddingBottomRight: [26, 158] }
     : { padding: [p, p] };
-  const VIEWS = {
-    'v-all': [[WIG, BCN, VLC], 60],
-    'v-bcn': [[[41.360, 2.148], [41.418, 2.196]], 46],
-    'v-vlc': [[[39.320, -0.385], [39.485, -0.320]], 46]
-  };
+  const VIEWS = G.views;
   let view = 'v-all';
   let explored = false;
-  const btns = ['v-all', 'v-bcn', 'v-vlc'].map(id => document.getElementById(id));
+  // One button per view, built from the data: "Full route" is worded in the
+  // reader's language, the rest are place names and stay as they are.
+  const viewBox = document.getElementById('views');
+  const btns = Object.keys(VIEWS).map(id => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.id = id;
+    b.className = 'btn ' + (id === view ? 'btn-primary' : 'btn-secondary');
+    b.textContent = VIEWS[id].label || T.viewAll;
+    viewBox.appendChild(b);
+    return b;
+  });
   btns.forEach(b => b.addEventListener('click', () => {
     btns.forEach(x => x.className = 'btn btn-secondary');
     b.className = 'btn btn-primary';
     view = b.id;
     explored = false;
-    map.flyToBounds(L.latLngBounds(VIEWS[view][0]), fitOpts(VIEWS[view][1]));
+    map.flyToBounds(L.latLngBounds(VIEWS[view].bounds), fitOpts(VIEWS[view].pad));
   }));
-  const fit = () => map.fitBounds(L.latLngBounds(VIEWS[view][0]), fitOpts(VIEWS[view][1]));
+  const fit = () => map.fitBounds(L.latLngBounds(VIEWS[view].bounds), fitOpts(VIEWS[view].pad));
   fit();
   // Embedded in an iframe, the first fit can land before the frame reaches
   // its final size — Leaflet would keep that zoom and simply paint more

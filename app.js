@@ -27,7 +27,10 @@
 
   const FILTERS = ['all', 'boat', 'swim', 'sights', 'museum', 'food', 'event'];
 
-  const DAYS = [
+  // España is the built-in trip: its skeleton is right here, the way it has
+  // always been. Any other trip registers its own (trips.js, trip-<id>.js)
+  // and the four resolvers below pick whichever is in play.
+  const BUILT_IN_DAYS = [
     { dom: '8', dot: 'var(--color-accent)', acts: [
       { id: 'd1b1', t: '07:30', cat: 'travel', eur: 89 },
       { id: 'd1b2', t: '15:00', cat: 'travel', eur: 5 },
@@ -79,13 +82,13 @@
     ] }
   ];
 
-  const BOOKINGS = ['k1', 'k1b', 'k11', 'k12', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
+  const BUILT_IN_BOOKINGS = ['k1', 'k1b', 'k11', 'k12', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10'];
 
   // Where each stop is, as a Google Maps search query — a named place opens
   // the place card (photos, hours, directions), which a bare lat/lng pin
   // would not. Keyed by stop id like the words in i18n.js; the queries are
   // place names, so one table serves every language.
-  const MAPS = {
+  const BUILT_IN_MAPS = {
     d1b1: 'East Midlands Airport',
     d1b2: 'Passeig de Gràcia station, Barcelona',
     d1s1: 'Hotel HCC Taber, Carrer d\'Aragó 256, Barcelona',
@@ -125,7 +128,17 @@
   // For stops the table doesn't know (added or renamed while replanning),
   // the link searches the stop's own title, steered towards the right city.
   // Day 4 spans both cities, so it gets no hint rather than a wrong one.
-  const MAP_CITY = ['Barcelona', 'Barcelona', 'Barcelona', '', 'València', 'València', 'València'];
+  const BUILT_IN_MAP_CITY = ['Barcelona', 'Barcelona', 'Barcelona', '', 'València', 'València', 'València'];
+
+  const TRIP = (window.TRIP && window.TRIP.data) || null;
+  const DAYS = TRIP ? TRIP.days : BUILT_IN_DAYS;
+  const BOOKINGS = TRIP ? TRIP.bookings : BUILT_IN_BOOKINGS;
+  const MAPS = TRIP ? TRIP.maps : BUILT_IN_MAPS;
+  const MAP_CITY = TRIP ? TRIP.mapCity : BUILT_IN_MAP_CITY;
+  // Ticks and currency are per trip: the same browser holds both holidays,
+  // and neither should tick the other off.
+  const skey = name => (window.TRIP ? window.TRIP.key(name) : 'celik-spain-' + name);
+
   const mapsUrl = window.PlaceLinks.url;
   function mapQuery(a, title) {
     const baked = T.acts[a.id];
@@ -144,7 +157,7 @@
   const state = {
     day: 0,
     filter: 'all',
-    done: read('celik-spain-done', {}),
+    done: read(skey('done'), {}),
     // Ticks and currency stay in localStorage — they're trivial to redo and
     // nobody needs them on another device. Documents don't: see the wallet
     // section below.
@@ -158,7 +171,7 @@
     editing: false,
     sync: 'idle', // 'saving' | 'saved' | 'error'
     syncMsg: null,
-    currency: localStorage.getItem('celik-spain-currency') === 'EUR' ? 'EUR' : 'GBP'
+    currency: localStorage.getItem(skey('currency')) === 'EUR' ? 'EUR' : 'GBP'
   };
 
   // — the plan: baked-in until somebody replans —————————————————————
@@ -305,7 +318,10 @@
     const ATTRS = {
       'data-i18n-placeholder': 'placeholder',
       'data-i18n-title': 'title',
-      'data-i18n-aria-label': 'aria-label'
+      'data-i18n-aria-label': 'aria-label',
+      // The route strip's city links: a different trip means different cities
+      // behind the same three cards, so the href travels with the label.
+      'data-i18n-href': 'href'
     };
     for (const dataAttr in ATTRS) {
       document.querySelectorAll('[' + dataAttr + ']').forEach(n => {
@@ -318,7 +334,7 @@
   // — persistence ————————————————————————————————————————————————
   function toggle(id) {
     state.done[id] = !state.done[id];
-    try { localStorage.setItem('celik-spain-done', JSON.stringify(state.done)); } catch (e) {}
+    try { localStorage.setItem(skey('done'), JSON.stringify(state.done)); } catch (e) {}
     render();
   }
   // — travel wallet ——————————————————————————————————————————————
@@ -405,10 +421,12 @@
   // change PUTs the whole plan. Writes go through the same unlock cookie;
   // reads are public, like the itinerary itself.
   let saveTimer = null, saveBusy = false, saveAgain = false;
+  // One document per trip: replanning Sicily must not overwrite España.
+  const PLAN_URL = '/api/itinerary?trip=' + encodeURIComponent(window.TRIP ? window.TRIP.id : 'spain');
 
   async function loadPlan() {
     try {
-      const res = await fetch('/api/itinerary');
+      const res = await fetch(PLAN_URL);
       if (!res.ok) return;
       const payload = await res.json();
       if (payload.plan) { state.plan = payload.plan; render(); }
@@ -430,7 +448,7 @@
     saveBusy = true;
     state.sync = 'saving';
     try {
-      await finishRequest(await fetch('/api/itinerary', {
+      await finishRequest(await fetch(PLAN_URL, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan: state.plan })
@@ -485,7 +503,9 @@
   // Anything a previous visit stashed in localStorage is still the only copy
   // of that document, so it's offered as a one-click move rather than being
   // dropped on the floor.
-  const legacyDocs = read('celik-spain-docs', []).filter(d => d && d.dataUrl);
+  // (Only España ever had them — that store predates the second trip.)
+  const legacyDocs = (window.TRIP && window.TRIP.id !== 'spain')
+    ? [] : read('celik-spain-docs', []).filter(d => d && d.dataUrl);
   function migrateLegacy() {
     walletAction(async () => {
       for (const d of legacyDocs) {
@@ -1166,7 +1186,7 @@
   document.querySelectorAll('[data-currency]').forEach(btn => {
     btn.addEventListener('click', () => {
       state.currency = btn.dataset.currency;
-      try { localStorage.setItem('celik-spain-currency', state.currency); } catch (e) {}
+      try { localStorage.setItem(skey('currency'), state.currency); } catch (e) {}
       document.querySelectorAll('[data-currency]').forEach(b => {
         const on = b.dataset.currency === state.currency;
         b.setAttribute('aria-pressed', String(on));

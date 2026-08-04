@@ -45,15 +45,23 @@ window.PlaceLinks = (() => {
     'Wigston': 'Wigston, Leicestershire'
   };
 
+  // A trip that brings its own place table brings the whole of it: the field
+  // guide and the aliases above are España's, and Spanish place names would
+  // never match Sicilian prose anyway.
+  const trip = window.TRIP && window.TRIP.data;
+  const dictionary = (trip && trip.places) || ALIASES;
+
   const index = new Map();
   const add = (name, q) => { if (name.length >= 4 && !index.has(name)) index.set(name, q); };
-  (((window.GUIDE || {}).places) || []).forEach(p => {
-    add(p.name, p.q);
-    // "Casa Milà (La Pedrera)" is referred to by either half, so match both.
-    const m = p.name.match(/^(.+?) \((.+)\)$/);
-    if (m) { add(m[1], p.q); add(m[2], p.q); }
-  });
-  for (const name in ALIASES) index.set(name, ALIASES[name]);
+  if (!trip) {
+    (((window.GUIDE || {}).places) || []).forEach(p => {
+      add(p.name, p.q);
+      // "Casa Milà (La Pedrera)" is referred to by either half, so match both.
+      const m = p.name.match(/^(.+?) \((.+)\)$/);
+      if (m) { add(m[1], p.q); add(m[2], p.q); }
+    });
+  }
+  for (const name in dictionary) index.set(name, dictionary[name]);
 
   // One alternation, longest name first, so "Mercat de Santa Caterina" beats
   // "Santa Caterina" when both could match at the same spot.

@@ -13,10 +13,15 @@
 import { get, put } from '@vercel/blob';
 import { isUnlocked, json, locked } from './_auth.js';
 
-const PATH = 'itinerary/plan.json';
+// One document per trip, and the day count is the one thing not editable —
+// the dates are fixed, so a plan that is not exactly this long is malformed.
+// España keeps the original pathname so the plan already saved there stands.
+const TRIPS = {
+  spain: { path: 'itinerary/plan.json', days: 7 },       // 8-14 August
+  italy: { path: 'itinerary/plan-italy.json', days: 8 }  // 22-29 August
+};
 const LANGS = ['en', 'tr'];
 const CATS = ['travel', 'sights', 'museum', 'boat', 'swim', 'food', 'event'];
-const DAY_COUNT = 7; // 8-14 August — the dates are the one thing not editable
 
 const ID = /^[A-Za-z0-9_-]{1,32}$/; // must survive _wallet.js safeSegment intact
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -63,9 +68,9 @@ function cleanAct(act, seen) {
 
 // Rebuild the plan field by field rather than storing what the client sent:
 // anything not on this list never reaches the store.
-function cleanPlan(plan) {
+function cleanPlan(plan, dayCount) {
   if (!plan || typeof plan !== 'object') return null;
-  if (!Array.isArray(plan.days) || plan.days.length !== DAY_COUNT) return null;
+  if (!Array.isArray(plan.days) || plan.days.length !== dayCount) return null;
   if (!Array.isArray(plan.bookings) || plan.bookings.length > MAX_BOOKINGS) return null;
 
   const seen = new Set();
@@ -103,8 +108,19 @@ function cleanPlan(plan) {
 // Named method exports — see api/unlock.js for why there's no default.
 async function handler(request) {
   try {
+    // ?trip=… picks the document. An unknown one is a bad request rather
+    // than a silent fallback onto somebody else's itinerary.
+    let trip = TRIPS.spain;
+    try {
+      const id = new URL(request.url).searchParams.get('trip');
+      if (id) {
+        if (!TRIPS[id]) return bad();
+        trip = TRIPS[id];
+      }
+    } catch { /* no URL to parse — España it is */ }
+
     if (request.method === 'GET') {
-      const result = await get(PATH, { access: 'private' });
+      const result = await get(trip.path, { access: 'private' });
       if (!result) return json({ plan: null });
       let plan = null;
       try { plan = JSON.parse(await new Response(result.stream).text()); } catch { /* corrupt → act unsaved */ }
@@ -115,9 +131,9 @@ async function handler(request) {
       if (!isUnlocked(request)) return locked();
       let body = {};
       try { body = await request.json(); } catch { return bad(); }
-      const plan = cleanPlan(body.plan);
+      const plan = cleanPlan(body.plan, trip.days);
       if (!plan) return bad();
-      await put(PATH, JSON.stringify(plan), {
+      await put(trip.path, JSON.stringify(plan), {
         access: 'private',
         addRandomSuffix: false,
         allowOverwrite: true,

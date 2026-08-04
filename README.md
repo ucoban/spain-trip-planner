@@ -1,25 +1,41 @@
-# España · the Çelik plan
+# The Çelik plans
 
-A seven-day trip planner for Barcelona and València, 8-14 August. Pick a
-day, filter it down to the boat trips or the fiestas, tick things off as they
-happen, and keep boarding passes and booking PDFs pinned to the stop they
-belong to. The itinerary and its embedded tips are distilled from 29
-travel vlogs and 22 blog articles (routes, prices, and warnings mined from
-their transcripts, comment sections, and pages). And none of it is fixed:
+Two holidays, one site. Opening it asks which — **España** (Barcelona and
+València, 8-14 August) or **Sicilia** (Palermo and Taormina, 22-29 August) —
+and remembers the answer; the chip in the nav switches between them later,
+and `?trip=italy` links straight to one. Everything below works the same
+whichever is showing: pick a day, filter it down to the boat trips or the
+swims, tick things off as they happen, and keep boarding passes and booking
+PDFs pinned to the stop they belong to. Both itineraries and their embedded
+tips are distilled from travel vlogs and blog articles — 29 vlogs and 22
+articles for Spain, 16 and 16 for Sicily — with routes, prices and warnings
+mined from transcripts, comment sections and pages. And none of it is fixed:
 **Replan** in the day header turns the whole plan editable in place.
+
+Each trip keeps its own ticks, its own replanned itinerary and its own
+hotels; the travel wallet and the shared passphrase are common to both.
 
 The plan picks a path; the **field guide** (`guide.html`) keeps the whole
 haul: every place the sources suggested (160, grouped by city, each linked
 to Google Maps and to the vlog moment or article that recommended it, and
 badged when it appears in the itinerary) plus all 133 merged tips by
-category, with the full source lists at the bottom.
+category, with the full source lists at the bottom. It is España's alone so
+far — on the Sicilia trip the nav simply doesn't offer it, and what the
+sources said lives in the stops' own tips instead.
 
 **Where we sleep** (`stays.html`) is the accommodation file: a live
-Booking.com search (2 Aug 2026, 2 adults, score 8+, £60-150 a night) boiled
-down to seven candidates per city, each plotted on the £100-150 budget band.
-The two picks — HCC Taber in Barcelona, easyHotel Ciutat Vella in València —
-are check-in stops in the itinerary, lines in "Book before you fly", and
-bed-icon pins on the route map.
+Booking.com search (2 adults, score 8+, £60-150 a night) boiled down to
+seven candidates per city, each plotted on the £100-150 budget band. The
+picks — HCC Taber and easyHotel Ciutat Vella for Spain, Eurostars Centrale
+Palace and B&B Al Sole di Sicilia for Sicily — are check-in stops in the
+itinerary, lines in "Book before you fly", and bed-icon pins on the route
+map.
+
+**Ask about the trip** (bottom right of the plan) is the shortcut through all
+of it: an assistant that has read the whole week, the field guide where there
+is one, and both hotels, and answers in the language the page is in. It runs
+on Claude Sonnet 5 behind `/api/chat`, and it takes the same passphrase as
+the wallet.
 
 Ticked moments, the hero photo, and the chosen currency live in the browser's
 `localStorage` — they're cheap to redo and nobody needs them on a second
@@ -35,6 +51,8 @@ eviction).
 
 | File | What it does |
 | --- | --- |
+| `trips.js` | The trip registry: which trips exist, which one is showing, the picker and the nav chip |
+| `trip-italy.js` | Sicilia, whole: skeleton, both languages, hotels, map geometry, place dictionary |
 | `index.html` | The page itself — nav, hero, route, embedded map, day view, sidebar |
 | `i18n.js` | Every user-facing string, per language (English and Turkish) |
 | `app.js` | Itinerary skeleton, tick/filter/day state, travel wallet, document preview |
@@ -58,7 +76,7 @@ eviction).
 
 The page itself still has no build step and no client-side dependencies —
 Leaflet and the two Google fonts load from their CDNs, everything else is in
-the repo. Only the `api/` functions have an npm dependency, which Vercel
+the repo. Only the `api/` functions have npm dependencies, which Vercel
 installs at deploy time.
 
 ## Languages
@@ -164,7 +182,7 @@ The wallet needs the Functions and the Blob store, which means the Vercel CLI:
 ```sh
 npm install
 npx vercel link      # once
-npx vercel env pull  # fetches WALLET_PASSPHRASE and the Blob credentials
+npx vercel env pull  # fetches the passphrase, the Blob credentials and the API key
 npx vercel dev       # then open http://localhost:3000
 ```
 
@@ -178,12 +196,14 @@ same shared passphrase as the wallet — a change lands on everyone's plan,
 so it takes the family key.
 
 There's still no database. The first edit materialises the built-in
-itinerary (every language at once) into one JSON document,
-`itinerary/plan.json` in the same private Blob store, and from then on the
-site renders from that document instead of the baked-in data. Reading it is
-public — the itinerary already ships in the page source — but `PUT
-/api/itinerary` checks the unlock cookie and re-validates the whole plan
-shape server-side before storing it (`api/itinerary.js`).
+itinerary (every language at once) into one JSON document — `plan.json` for
+España, `plan-italy.json` for Sicilia, both under `itinerary/` in the same
+private Blob store — and from then on the site renders from that document
+instead of the baked-in data. Reading it is public (the itinerary already
+ships in the page source), but `PUT /api/itinerary?trip=…` checks the unlock
+cookie and re-validates the whole plan shape server-side before storing it,
+including that the day count still matches the trip's fixed dates
+(`api/itinerary.js`).
 
 Every text field exists once per language. The edit dialogs show EN and TR
 side by side, and a field left blank borrows from the other language, so
@@ -194,6 +214,17 @@ won't appear on the map; and documents pinned to a since-removed stop stay
 in the wallet, listed as general.
 
 ## Editing the trip in the source
+
+España is the **built-in** trip: its skeleton sits in `app.js`, its words in
+`i18n.js`, its geometry in `trip-map.html`, its hotels in `stays-data.js`.
+Sicilia is a **registered** one: all four of those live together in
+`trip-italy.js` under `window.TRIPS.italy`, and each of the four files above
+reads "the registered trip's, or my built-in one". Adding a third holiday is
+therefore one more `trip-<id>.js` in the same shape plus a card in `trips.js`
+— no forking of anything.
+
+The paragraphs below describe España's files; the registered trip uses the
+same field names, so they read as instructions for both.
 
 The built-in itinerary — what the site shows until someone replans, and the
 seed for the first edit — lives in the repo. Its skeleton is one array at
@@ -216,8 +247,9 @@ euros; the £/€ control in the header converts it. Keep `id` stable — it's t
 key ticked state is stored under, and it's baked into the pathname of every
 document pinned to that stop.
 
-Map pins are a separate list in `trip-map.html` (`SPOTS`), since not every
-activity needs a pin and a few pins cover more than one day.
+Map pins are a separate list in `trip-map.html` (`GEO.spots`), since not every
+activity needs a pin and a few pins cover more than one day; the flight arcs,
+ground legs, city dots and zoom buttons sit beside them in the same object.
 
 Every stop also carries a **Google Maps link** (the pin pill next to its
 tags; the route map's popups have one too). The link's search query comes
