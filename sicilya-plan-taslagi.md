@@ -108,11 +108,10 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
 - **~14:30** Taormina-Giardini istasyonu → Giardini Naxos merkez: taksi ~€10–15 ya da 20 dk sahil yürüyüşü (tahmini). **B&B Al Sole di Sicilia**'ya yerleşme.
 - **15:30** Kapının önündeki **kumsalda ilk yüzme** — Naxos koyu geniş ve kumlu; şezlong derdi Taormina fiyatlarının yarısı.
 - **19:00** Sahilde passeggiata + deniz mahsullü akşam yemeği (Naxos, Taormina'dan belirgin ucuz).
-- *Opsiyon:* Teatro Antico'da 21:30 **Tony Hadley** konseri (Spandau Ballet) — biletler: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/
+- **21:00** Otobüsle Taormina'ya çıkıp **karanlıkta Corso Umberto**: araca kapalı cadde, sokak müzisyenleri, ışıklı Piazza IX Aprile. **Gerçek durum (5 Ağu, mekânın kendi takvimi):** 26-29 Ağustos'ta Teatro Antico'da konser YOK — sezonun son gösterileri 22-23'ünde Il Volo, 24-25'inde Pooh, sonrası 4 Eylül. https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/
 - Yol alternatifi: SAIS otobüsü Palermo→Katanya (€14, 2s40d) + tren/Interbus Taormina — daha çok sefer ama iki bagaj taşıması; trenin konforu kazanır.
 
 ### 6. Gün · 27 Ağu Per — Taormina günü 🏛🚡🏖
-- *Sıkı opsiyon:* **04:45'te Teatro Antico'da gün doğumu konseri** — Morricone film müzikleri, antik tiyatroda şafak (taksiyle çıkış ~€20–25). Hayat boyu anlatılık. Bilet: TicketOne (üstteki link).
 - **08:30** Naxos'tan Interbus/ASM ile Taormina'ya (~15 dk, ~€2–3) — kruvaziyer dalgasından önce varmış ol.
 - **09:00** **Teatro Antico** açılışta (**€14**; Etna bir yanda, İyonya Denizi öbür yanda; sahneye çıkabiliyorsun): resmi https://parchiarcheologici.regione.sicilia.it/naxos-taormina/en/biglietti/teatro-antico-di-taormina-2/ · online https://www.aditusculture.com — konser günlerinde erken kapanabilir, sabah şart.
 - **10:30** **Corso Umberto**: Piazza IX Aprile, San Giuseppe, Vicolo Stretto; **Bam Bar**'da granita+brioche (White Lotus'un mekânı; önce limonlusundan). Yemek yeme işini ana caddede yapma — başlangıçlar €30'a çıkıyor; yan sokaklar (Osteria da Rita) ya da rezervasyonla **La Bottega del Formaggio** peynir tabağı ("Taormina'daki en iyi yemeğimiz" — vlog).
@@ -127,7 +126,7 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
   - **Giyim ciddi:** ağustosta bile zirvede ~10–15°C + rüzgâr — polar, rüzgârlık, uzun pantolon, kapalı ayakkabı (ağustos vlogu: "yanardağda üşüdüm"). Teleferik güçlü rüzgârda kapanır.
   - Arabasız alternatif (tursuz): Katanya'dan tek AST otobüsü 08:15 (dönüş 16:30, ~€10–12) — Naxos'tan yetişmek zor, tur mantıklı.
 - **16:00** Dönüş; kapı önü kumsalda **veda yüzmesi**.
-- **20:00** Naxos'ta uzun veda yemeği. *Konser opsiyonu:* Teatro Antico'da 21:30 **Arisa** (TicketOne).
+- **20:00** Naxos'ta uzun veda yemeği.
 
 ### 8. Gün · 29 Ağu Cmt — Eve dönüş
 - **08:45** Taormina-Giardini → Katanya Centrale **regionale** (~45 dk, ~€5,10; rezervasyonsuz) ya da Interbus'ın CTA havalimanı direkt seferi (kontrol et: https://www.interbus.it).
@@ -145,7 +144,7 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
 4. **🚄 IC treni Palermo→Taormina, 26 Ağu** — rezervasyonlu koltuk, ekonomi tarifesi tükeniyor: https://www.trenitalia.com/en.html
 5. **🎫 Cappella Palatina, 23 Ağu Paz sabahı** — €19, online: https://www.federicosecondo.org/en/buy-ticket-online/
 6. **🌋 Etna turu, 28 Ağu** — GetYourGuide ücretsiz iptalli, ağustosta günler önceden doluyor. (7. gündeki link)
-7. **🎭 Konser hevesi varsa** (26 Tony Hadley / 27 şafak Morricone / 28 Arisa): https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/
+7. **🎭 Konser yok, kontrol yeter:** mekânın takvimine göre 26-29 Ağustos boş (son gösteriler 22-23 Il Volo, 24-25 Pooh). Tarihe yaklaşınca bir kez bak: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/
 8. **🏖 Mondello lidosu, 24 Ağu** — 48 saat önceden: https://booking.mondelloitalobelga.it/
 9. **⛵ Tekne turu** — GYG ücretsiz iptalli, yaklaşınca. (7. gündeki linkler)
 

@@ -59,9 +59,17 @@ taorminatoday.com (401). Cloak scraper
   out IS the book-now signal.
 - Italy August trips: search "franchigia estiva" + year — the late-July
   to early-Sept transport strike ban can zero out sciopero risk.
-- Event calendars are never complete on one site — union several local
-  ones, then point booking at the TicketOne (or national equivalent)
-  venue URL.
+- **Event calendars: only the venue's own ticketing page counts.** Local
+  news listings and festival blogs recycle previous years' line-ups, and
+  they read as current. On the Sicily run three concerts sourced that way
+  (taorminatoday, taorminaitalia) turned out not to exist on the trip's
+  dates at all — the venue's TicketOne calendar showed the season ending
+  two days before arrival, and one "sunrise concert" was a normal 21:00
+  show ten days earlier. Never put a dated event in the plan on a
+  secondary source: open the venue page, read the month, and if the page
+  is JS-heavy, drive it with a real browser rather than downgrading to
+  the blogs. "No event in our window" is a finding worth writing down —
+  it stops the next reader re-researching it.
 - Local-language searches surface official closure notices that English
   queries miss — do one caveat sweep in the local language.
 

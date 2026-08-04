@@ -55,10 +55,9 @@ window.TRIPS.italy = {
       { id: 'i5s1', t: '14:30', cat: 'stay', eur: null },
       { id: 'i5b2', t: '15:30', cat: 'swim', eur: 0 },
       { id: 'i5b3', t: '19:30', cat: 'food', eur: 25 },
-      { id: 'i5b4', t: '21:30', cat: 'event', eur: 45 }
+      { id: 'i5b4', t: '21:00', cat: 'event', eur: 3 }
     ] },
     { dom: '27', dot: 'var(--color-accent-2)', acts: [
-      { id: 'i6b1', t: '04:45', cat: 'event', eur: 40 },
       { id: 'i6b2', t: '08:30', cat: 'travel', eur: 3 },
       { id: 'i6b3', t: '09:00', cat: 'sights', eur: 14 },
       { id: 'i6b4', t: '10:30', cat: 'food', eur: 8 },
@@ -70,8 +69,7 @@ window.TRIPS.italy = {
     { dom: '28', dot: 'var(--color-accent-2)', acts: [
       { id: 'i7b1', t: '07:30', cat: 'sights', eur: 120 },
       { id: 'i7b2', t: '16:30', cat: 'swim', eur: 0 },
-      { id: 'i7b3', t: '20:00', cat: 'food', eur: 30 },
-      { id: 'i7b4', t: '21:30', cat: 'event', eur: 45 }
+      { id: 'i7b3', t: '20:00', cat: 'food', eur: 30 }
     ] },
     { dom: '29', dot: 'var(--color-neutral-500)', acts: [
       { id: 'i8b1', t: '08:45', cat: 'travel', eur: 5 },
@@ -109,8 +107,7 @@ window.TRIPS.italy = {
     i5s1: 'B&B Al Sole di Sicilia, Giardini Naxos',
     i5b2: 'Spiaggia di Giardini Naxos',
     i5b3: 'Lungomare Tysandros, Giardini Naxos',
-    i5b4: 'Teatro Antico di Taormina',
-    i6b1: 'Teatro Antico di Taormina',
+    i5b4: 'Corso Umberto, Taormina',
     i6b2: 'Taormina Porta Messina bus terminal',
     i6b3: 'Teatro Antico di Taormina',
     i6b4: 'Bam Bar, Taormina',
@@ -121,7 +118,6 @@ window.TRIPS.italy = {
     i7b1: 'Rifugio Sapienza, Mount Etna',
     i7b2: 'Spiaggia di Giardini Naxos',
     i7b3: 'Giardini Naxos',
-    i7b4: 'Teatro Antico di Taormina',
     i8b1: 'Catania Centrale railway station',
     i8b2: 'Catania Fontanarossa Airport',
     i8b3: 'Catania Fontanarossa Airport'
@@ -249,7 +245,7 @@ window.TRIPS.italy = {
       [37.8496, 15.2925, 'sights', 'villacomunale', 6, '12:00'],
       [37.8517, 15.3010, 'sea', 'isolabella', 6, '13:00'],
       [37.8340, 15.2740, 'sea', 'boat', 6, '17:00'],
-      [37.8532, 15.2934, 'fiesta', 'concert', 5, '21:30', 7],
+      [37.8519, 15.2887, 'fiesta', 'corsonight', 5, '21:00'],
       [37.6990, 15.0000, 'sights', 'etna', 7, '07:30']
     ],
     views: {
@@ -295,14 +291,15 @@ window.TRIPS.italy = {
         vlogsText: 'Distilled from 16 Sicily vlogs and 16 articles: the Palatine Chapel opens its royal apartments Friday to Monday only, granita with brioche is breakfast and not dessert, a cannolo must be filled in front of you, bus tickets come from a tabacchi and get validated or cost €100, free beach strips fill by nine in August, and Etna is cold at the top even in the last week of the month. Ionian sea: 27 °C. Pack water shoes for Isola Bella, a fleece for the volcano, and cash for the markets.'
       },
 
-      // Sicily's evening category is a concert in a Greek theatre, not a fiesta.
+      // No fiestas on this island in our week — the theatre's summer season
+      // ends two days before we arrive — so the category is the evening out.
       cats: {
         travel: 'Transit', sights: 'Sights', museum: 'Museum', boat: 'Boat trip',
-        swim: 'Swim', food: 'Food & drink', event: 'Concert', stay: 'Stay'
+        swim: 'Swim', food: 'Food & drink', event: 'Evening out', stay: 'Stay'
       },
       filters: {
         all: 'Everything', boat: 'Boat trips', swim: 'Swimming', sights: 'Sights',
-        museum: 'Museums', food: 'Food', event: 'Concerts'
+        museum: 'Museums', food: 'Food', event: 'Evenings out'
       },
 
       days: [
@@ -347,9 +344,8 @@ window.TRIPS.italy = {
         i5s1: { title: 'Check in: B&B Al Sole di Sicilia', desc: 'The east-coast base, and deliberately not Taormina: a B&B in Giardini Naxos, a hundred metres from the sand, scored 9.6 by 462 guests, £324 for the three nights plus £10 tax — about £108 a night, free cancellation. Taormina up on its cliff costs half again for a room further from the water.', tip: 'From the station it is a short taxi (about €10–15) or twenty minutes along the seafront. Book: https://www.booking.com/hotel/it/b-amp-b-al-sole-di-sicilia.en-gb.html' },
         i5b2: { title: 'First swim, Naxos bay', desc: 'Drop the bags and walk into the sea. Giardini Naxos is a long shallow bay with dark volcanic sand, loungers at half Taormina’s price, and free stretches that stay free because the whole bay is this big.' },
         i5b3: { title: 'Dinner on the Naxos seafront', desc: 'Dinner along the Lungomare Tysandros with the lights of Taormina hanging in the dark above you — swordfish, or pasta with pistachio, and a granita after. Naxos prices, not Taormina prices: a blogger who ate in both put Taormina starters at up to €30.' },
-        i5b4: { title: 'Optional: Tony Hadley at the Teatro Antico', desc: 'Tonight the ancient theatre up the hill has a concert in it — Tony Hadley, of Spandau Ballet, at half nine, in a Greek theatre from the third century BC with Etna behind the stage. Entirely optional, and quite a first evening.', tip: 'Sources list it for 26 August; the venue page is the one to trust, and it is also where the tickets are: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/ · Taxi up and back, about €20–25 each way.' },
+        i5b4: { title: 'Taormina after dark', desc: 'The bus back up the hill for the evening the vlogs all rate: Corso Umberto closed to cars and full of people walking it end to end, street performers on the corners, Piazza IX Aprile lit up with the sea black behind it. A gelato, a look at the theatre gates, and the last bus or a taxi down.', tip: 'Checked on the venue calendar: no concert falls in our nights. The Teatro Antico\'s summer season ends two days before we arrive — Il Volo on the 22nd and 23rd, Pooh on the 24th and 25th, then nothing until September. If a date is added it appears here: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/' },
 
-        i6b1: { title: 'Optional: sunrise concert in the theatre', desc: 'The strange and wonderful option: at quarter to five in the morning the Teatro Antico opens for a sunrise concert — Morricone film scores by the Solisti Taorminesi, with the sun coming up out of the Ionian behind the ruined stage. If you do this, the rest of the day starts later and it is worth it.', tip: 'Listed for 27 August by the Taormina calendars; confirm and buy at https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/ · Taxi up in the dark, about €20–25.' },
         i6b2: { title: 'Bus up the hill', desc: 'Taormina sits two hundred metres above its own station, and walking it is forty-five minutes of switchbacks. The Interbus and ASM buses run up from Giardini Naxos in about fifteen minutes.', tip: 'Tickets are not sold on board — buy at the terminal kiosk or a tabaccheria first (about €2–3), and validate on boarding.' },
         i6b3: { title: 'Teatro Antico, at nine sharp', desc: 'The Greek theatre is the single most recommended thing in every Sicily vlog we mined, and the reason to be at the gate when it opens: Etna framed through the broken back wall of the stage, the Ionian on the other side, and you can climb all over it. By eleven it is a queue.', tip: '€14 (some official pages still say €12 — the exhibition surcharge moves), under-18 free, 18-25 half price with a student card. Official: https://parchiarcheologici.regione.sicilia.it/naxos-taormina/en/biglietti/teatro-antico-di-taormina-2/ · On concert days it closes early to day visitors, which is another reason for the morning.' },
         i6b4: { title: 'Granita at Bam Bar, then Corso Umberto', desc: 'The Sicilian breakfast, done properly and late: granita with a brioche col tuppo to dunk in it. Bam Bar is the famous one — start with lemon. Then walk Corso Umberto end to end, through Piazza IX Aprile with its chessboard tiles and its view.', tip: 'From the vlogs, honestly: the granita is excellent and no better than the granita in Catania or Palermo — you are paying for the address. And eat lunch and dinner one lane off the Corso, never on it.' },
@@ -361,7 +357,6 @@ window.TRIPS.italy = {
         i7b1: { title: 'Etna, to 2,900 m', desc: 'The whole day: minibus pickup from Giardini Naxos, up the flank of the volcano to the Rifugio Sapienza at 1,900 m, cable car to 2,500 m, then a four-wheel-drive and a guide over black ash to about 2,900 m, along the rim of craters that are still steaming. Nobody goes above 2,800 m without a certified guide, which is why this is a tour and not a bus.', tip: 'About €120 a head for the full version from Taormina: https://www.getyourguide.com/taormina-l1518/mount-etna-tour-to-2900m-from-taormina-475-excellent-t636956/ · A cheaper half-day to the 1,900 m Silvestri craters runs from Catania at about €60. Dress for it — a vlogger who filmed this on 21 August was cold: long trousers, a fleece and a windproof, closed shoes, two litres of water each. The cable car shuts in strong wind.' },
         i7b2: { title: 'The last swim', desc: 'Back down by five, into the sea from the door, and stay in it until the light goes.' },
         i7b3: { title: 'The long last dinner', desc: 'The proper one: a table on the Naxos front, everything you have not eaten yet — pasta with sardines, swordfish involtini, cassata — and a walk along the water afterwards.' },
-        i7b4: { title: 'Optional: Arisa at the Teatro Antico', desc: 'If dinner runs early and the legs still work, the ancient theatre has a concert again tonight. Same venue page for the programme and the tickets: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/' },
 
         i8b1: { title: 'Train to Catania Centrale', desc: 'The regional train down the coast, about forty-five minutes, €5.10, no reservation needed. Bags packed the night before.' },
         i8b2: { title: 'Alibus to the airport', desc: 'From outside Catania Centrale the Alibus runs to Fontanarossa airport every twenty minutes: €4, about twenty-five minutes. There is time for one last granita in the terminal.', tip: 'If the morning runs early, the fish market La Pescheria is five minutes from the station and open Saturdays 07:30–14:00 — but not with the bags.' },
@@ -377,7 +372,7 @@ window.TRIPS.italy = {
         j6: 'Cappella Palatina + royal apartments, Sun 23 · 08:30 — €19 pp, online to skip the ticket queue. The apartments open Fri-Mon only and Sunday closes at 12:30. Book: https://www.federicosecondo.org/en/buy-ticket-online/',
         j7: 'Etna tour to 2,900 m, Fri 28 — about €120 pp with pickup from Giardini Naxos; free cancellation, and August dates fill days ahead. Book: https://www.getyourguide.com/taormina-l1518/mount-etna-tour-to-2900m-from-taormina-475-excellent-t636956/',
         j8: 'Teatro Antico, Thu 27 · 09:00 — €14 pp, half price 18-25 with a student card, under-18 free. Book: https://parchiarcheologici.regione.sicilia.it/naxos-taormina/en/biglietti/teatro-antico-di-taormina-2/',
-        j9: 'Teatro Antico concerts, if you want one: Tony Hadley (26th), the 04:45 Morricone sunrise concert (27th), Arisa (28th). Programme and tickets: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/',
+        j9: 'Nothing to book at the Teatro Antico: checked on the venue calendar, its summer season stops before our nights — Il Volo 22-23 Aug, Pooh 24-25, then nothing until 4 September. Worth one look closer to the date in case a date is added: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/',
         j10: 'Mondello lido, Mon 24 — about €35 for two sunbeds and an umbrella; book 48 hours ahead in August or take the free sand at half eight. Book: https://booking.mondelloitalobelga.it/',
         j11: 'Taormina bay boat trip, Thu 27 · 17:00 — about €25 pp for the hour, free cancellation, sells out in August. Book: https://www.getyourguide.com/taormina-l1518/boat-trip-giardini-naxos-taormina-isola-bella-grotta-azzura-t585002/',
         j12: 'Passports, GHIC cards and travel insurance — and a photo of each in the wallet below, so a lost bag is an inconvenience and not a disaster.',
@@ -395,7 +390,7 @@ window.TRIPS.italy = {
         catSights: 'Sights & museums',
         catSea: 'Boats & swims',
         catFood: 'Food & drink',
-        catFiesta: 'Concerts & nights out',
+        catFiesta: 'Evenings out',
         catStay: 'Where we sleep',
         wigstonLong: 'Wigston — home',
         pmoLong: 'Palermo · nights 1-4',
@@ -424,7 +419,7 @@ window.TRIPS.italy = {
           villacomunale: 'Villa Comunale gardens',
           isolabella: 'Isola Bella',
           boat: 'Boat trip + Blue Grotto',
-          concert: 'Concerts at the ancient theatre',
+          corsonight: 'Corso Umberto after dark',
           etna: 'Etna, 2,900 m'
         }
       },
@@ -508,11 +503,11 @@ window.TRIPS.italy = {
 
       cats: {
         travel: 'Ulaşım', sights: 'Gezilecek yer', museum: 'Müze', boat: 'Tekne turu',
-        swim: 'Yüzme', food: 'Yeme içme', event: 'Konser', stay: 'Konaklama'
+        swim: 'Yüzme', food: 'Yeme içme', event: 'Akşam programı', stay: 'Konaklama'
       },
       filters: {
         all: 'Hepsi', boat: 'Tekne turları', swim: 'Yüzme', sights: 'Gezilecek yerler',
-        museum: 'Müzeler', food: 'Yemek', event: 'Konserler'
+        museum: 'Müzeler', food: 'Yemek', event: 'Akşam programı'
       },
 
       days: [
@@ -557,9 +552,8 @@ window.TRIPS.italy = {
         i5s1: { title: 'Yerleşme: B&B Al Sole di Sicilia', desc: 'Doğu kıyısı üssü ve bilerek Taormina değil: Giardini Naxos’ta, kumdan yüz metre uzakta, 462 misafirin 9,6 verdiği bir B&B; üç gece £324 artı £10 vergi — geceliği yaklaşık £108, ücretsiz iptalli. Kayalığın üstündeki Taormina, sudan daha uzak bir oda için bunun bir buçuk katını istiyor.', tip: 'İstasyondan kısa bir taksi (€10-15 civarı) ya da sahil boyunca yirmi dakika. Rezervasyon: https://www.booking.com/hotel/it/b-amp-b-al-sole-di-sicilia.en-gb.html' },
         i5b2: { title: 'İlk yüzme, Naxos koyu', desc: 'Çantaları bırak ve denize gir. Giardini Naxos uzun, sığ bir koy: koyu volkanik kum, Taormina’nın yarı fiyatına şezlong ve koy o kadar geniş olduğu için ücretsiz kalmayı sürdüren şeritler.' },
         i5b3: { title: 'Naxos sahilinde akşam yemeği', desc: 'Lungomare Tysandros boyunca, yukarıda karanlıkta asılı duran Taormina ışıklarıyla akşam yemeği — kılıç balığı ya da fıstıklı makarna, arkasından granita. Taormina fiyatı değil, Naxos fiyatı: ikisinde de yemiş bir blogger Taormina’da başlangıçların €30’a çıktığını yazıyor.' },
-        i5b4: { title: 'İsteğe bağlı: Teatro Antico’da Tony Hadley', desc: 'Bu akşam tepedeki antik tiyatroda konser var — Spandau Ballet’den Tony Hadley, dokuz buçukta, sahnesinin arkasında Etna duran MÖ üçüncü yüzyıldan kalma bir Yunan tiyatrosunda. Tamamen isteğe bağlı ve fena bir ilk akşam değil.', tip: 'Kaynaklar 26 Ağustos diyor; güvenilecek yer mekânın kendi sayfası, bilet de orada: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/ · Taksiyle çıkıp inmek her yön €20-25 civarı.' },
+        i5b4: { title: 'Karanlıkta Taormina', desc: 'Akşam için otobüsle yeniden yukarı — vlogların hepsinin övdüğü saat: Corso Umberto arabaya kapalı ve baştan sona yürüyen insanlarla dolu, köşelerde sokak müzisyenleri, Piazza IX Aprile ışıl ışıl ve arkasında kapkara deniz. Bir dondurma, tiyatronun kapısına bir bakış, sonra son otobüs ya da taksiyle aşağı.', tip: 'Mekânın kendi takviminden kontrol edildi: bizim gecelerimize denk gelen konser yok. Teatro Antico’nun yaz sezonu biz gelmeden iki gün önce bitiyor — 22 ve 23’ünde Il Volo, 24 ve 25’inde Pooh, sonra eylüle kadar hiçbir şey. Yeni tarih eklenirse burada görünür: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/' },
 
-        i6b1: { title: 'İsteğe bağlı: tiyatroda gün doğumu konseri', desc: 'Tuhaf ve harika seçenek: sabahın beşe çeyrek kalasında Teatro Antico gün doğumu konseri için açılıyor — Solisti Taorminesi’den Morricone film müzikleri, yıkık sahnenin arkasından İyonya’dan doğan güneşle. Bunu yaparsanız günün kalanı geç başlar ve buna değer.', tip: 'Taormina takvimleri 27 Ağustos diyor; doğrula ve buradan al: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/ · Karanlıkta taksiyle yukarı, €20-25 civarı.' },
         i6b2: { title: 'Otobüsle yokuş yukarı', desc: 'Taormina kendi istasyonunun iki yüz metre yukarısında ve yürümek kırk beş dakikalık virajlı bir tırmanış demek. Interbus ve ASM otobüsleri Giardini Naxos’tan yaklaşık on beş dakikada çıkarıyor.', tip: 'Bilet otobüste satılmıyor — önce terminal büfesinden ya da tabaccheria’dan al (€2-3 civarı) ve binerken valide et.' },
         i6b3: { title: 'Teatro Antico, tam dokuzda', desc: 'Taradığımız bütün Sicilya vloglarında en çok önerilen tek şey bu Yunan tiyatrosu ve kapı açılırken orada olmanın sebebi de o: sahnenin yıkık arka duvarından çerçevelenen Etna, öbür yanda İyonya ve her yerine tırmanabiliyorsun. On birde kuyruğa dönüşüyor.', tip: '€14 (bazı resmî sayfalar hâlâ €12 yazıyor — sergi farkı oynuyor), 18 yaş altı ücretsiz, öğrenci kartıyla 18-25 yarı fiyat. Resmî: https://parchiarcheologici.regione.sicilia.it/naxos-taormina/en/biglietti/teatro-antico-di-taormina-2/ · Konser günlerinde gündüz ziyaretine erken kapanıyor; sabah olmasının bir sebebi de bu.' },
         i6b4: { title: 'Bam Bar’da granita, sonra Corso Umberto', desc: 'Sicilya kahvaltısı, usulünce ve geç: içine batırmak için brioche col tuppo ile granita. Bam Bar meşhur olanı — limonlusundan başla. Sonra Corso Umberto’yu baştan sona yürü; satranç tahtası döşemeli ve manzaralı Piazza IX Aprile’den geç.', tip: 'Vloglardan, dürüstçe: granita mükemmel ve Katanya’dakinden ya da Palermo’dakinden daha iyi değil — parayı adrese veriyorsun. Öğle ve akşam yemeğini de Corso’nun üstünde değil, bir ara sokak içeride ye.' },
@@ -571,7 +565,6 @@ window.TRIPS.italy = {
         i7b1: { title: 'Etna, 2.900 metreye', desc: 'Bütün gün: Giardini Naxos’tan minibüsle alınma, yanardağın yamacından 1.900 metredeki Rifugio Sapienza’ya, teleferikle 2.500 metreye, oradan dört çekerle ve rehberle siyah külün üstünden yaklaşık 2.900 metreye — hâlâ tüten kraterlerin kenarına. 2.800 metrenin üstüne sertifikalı rehber olmadan kimse çıkamıyor; bunun otobüs değil tur olmasının sebebi bu.', tip: 'Taormina çıkışlı tam versiyon kişi başı €120 civarı: https://www.getyourguide.com/taormina-l1518/mount-etna-tour-to-2900m-from-taormina-475-excellent-t636956/ · Daha ucuz yarım günlük 1.900 metre Silvestri kraterleri turu Katanya’dan €60 civarı. Giyimi ciddiye al — bunu 21 Ağustos’ta çeken bir vlogger üşüdü: uzun pantolon, polar ve rüzgârlık, kapalı ayakkabı, kişi başı iki litre su. Teleferik sert rüzgârda kapanıyor.' },
         i7b2: { title: 'Son yüzme', desc: 'Beşte aşağıda ol, kapının önünden denize gir ve ışık gidene kadar çık.' },
         i7b3: { title: 'Uzun son yemek', desc: 'Asıl olanı: Naxos sahilinde bir masa, henüz yemediğiniz ne varsa — sardalyalı makarna, kılıç balığı involtini, cassata — ve arkasından su kenarında bir yürüyüş.' },
-        i7b4: { title: 'İsteğe bağlı: Teatro Antico’da Arisa', desc: 'Yemek erken biter ve bacaklar hâlâ çalışıyorsa antik tiyatroda bu akşam yine konser var. Program ve bilet aynı mekân sayfasında: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/' },
 
         i8b1: { title: 'Katanya Centrale treni', desc: 'Kıyı boyunca bölgesel tren, yaklaşık kırk beş dakika, €5,10, rezervasyon gerekmiyor. Çantalar bir önceki akşamdan hazır.' },
         i8b2: { title: 'Alibus ile havalimanına', desc: 'Katanya Centrale’nin önünden Alibus, Fontanarossa havalimanına yirmi dakikada bir kalkıyor: €4, yaklaşık yirmi beş dakika. Terminalde son bir granita’ya vakit var.', tip: 'Sabah erken biterse balık pazarı La Pescheria istasyona beş dakika ve cumartesi 07:30-14:00 açık — ama bagajla değil.' },
@@ -587,7 +580,7 @@ window.TRIPS.italy = {
         j6: 'Cappella Palatina + kraliyet daireleri, 23 Paz · 08:30 — kişi başı €19, gişe kuyruğunu atlamak için internetten. Daireler yalnız cuma-pazartesi açık ve pazar 12:30’da kapanıyor. Bilet: https://www.federicosecondo.org/en/buy-ticket-online/',
         j7: 'Etna turu, 2.900 metre, 28 Cum — Giardini Naxos’tan almalı, kişi başı €120 civarı; ücretsiz iptalli ve ağustos günleri günler öncesinden doluyor. Rezervasyon: https://www.getyourguide.com/taormina-l1518/mount-etna-tour-to-2900m-from-taormina-475-excellent-t636956/',
         j8: 'Teatro Antico, 27 Per · 09:00 — kişi başı €14, öğrenci kartıyla 18-25 yarı fiyat, 18 yaş altı ücretsiz. Bilet: https://parchiarcheologici.regione.sicilia.it/naxos-taormina/en/biglietti/teatro-antico-di-taormina-2/',
-        j9: 'Teatro Antico konserleri, istersen: Tony Hadley (26’sı), 04:45 Morricone gün doğumu konseri (27’si), Arisa (28’i). Program ve bilet: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/',
+        j9: 'Teatro Antico’da ayırtılacak bir şey yok: mekânın takviminden bakıldı, yaz sezonu bizim gecelerimizden önce bitiyor — 22-23 Ağustos Il Volo, 24-25 Pooh, sonra 4 Eylül’e kadar boş. Yine de tarihe yaklaşınca bir kez bakmakta fayda var, yeni tarih eklenebilir: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/',
         j10: 'Mondello lidosu, 24 Pzt — iki şezlong ve şemsiye €35 civarı; ağustosta 48 saat önceden ayırt ya da sekiz buçukta gidip ücretsiz kuma kur. Rezervasyon: https://booking.mondelloitalobelga.it/',
         j11: 'Taormina koyu tekne turu, 27 Per · 17:00 — bir saat için kişi başı €25 civarı, ücretsiz iptalli, ağustosta doluyor. Rezervasyon: https://www.getyourguide.com/taormina-l1518/boat-trip-giardini-naxos-taormina-isola-bella-grotta-azzura-t585002/',
         j12: 'Pasaportlar, GHIC kartları ve seyahat sigortası — ve her birinin fotoğrafı aşağıdaki cüzdana, ki kaybolan çanta felaket değil aksilik olsun.',
@@ -605,7 +598,7 @@ window.TRIPS.italy = {
         catSights: 'Gezilecekler ve müzeler',
         catSea: 'Tekne ve yüzme',
         catFood: 'Yeme içme',
-        catFiesta: 'Konser ve gece',
+        catFiesta: 'Akşam programı',
         catStay: 'Nerede uyuyoruz',
         wigstonLong: 'Wigston — ev',
         pmoLong: 'Palermo · 1-4. geceler',
@@ -634,7 +627,7 @@ window.TRIPS.italy = {
           villacomunale: 'Villa Comunale bahçeleri',
           isolabella: 'Isola Bella',
           boat: 'Tekne turu + Mavi Mağara',
-          concert: 'Antik tiyatroda konserler',
+          corsonight: 'Karanlıkta Corso Umberto',
           etna: 'Etna, 2.900 m'
         }
       },
