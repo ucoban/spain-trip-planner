@@ -7,7 +7,7 @@ Araştırma tarihi: 4 Ağustos 2026. Uçak fiyatları Ryanair'in canlı fiyat AP
 
 ## 1. Özet
 
-- **Rota:** Wigston → Stansted → **Palermo** (4 gece: şehir + Mondello + Cefalù) → tren → **Giardini Naxos/Taormina** (3 gece: plaj + Taormina + Etna) → **Katanya** → Stansted → eve.
+- **Rota:** Wigston → Stansted → **Palermo** (4 gece: şehir + bisikletle Mondello + Terrasini/Cala Muletti) → tren → **Giardini Naxos/Taormina** (3 gece: plaj + Taormina + Etna) → **Katanya** → Stansted → eve.
 - **Uçuşlar (2 kişi, Basic): ~£587.** Gidiş STN→PMO 22 Ağu 17:25, dönüş CTA→STN 29 Ağu 13:20. Araba bütün hafta Stansted otoparkında.
 - **Oteller (2 kişi, toplam ~£847+vergi):** Palermo'da **Eurostars Centrale Palace** (Quattro Canti'nin üstünde, 8.6, 4 gece £482+£31) · Giardini Naxos'ta **B&B Al Sole di Sicilia** (plaja 100 m, 9.6, 3 gece £324+£10). İkisi de ücretsiz iptalli — hemen kilitle.
 - **Kaba toplam:** 2 kişi ~£2.750–2.900 (kişi başı ~£1.400) — uçuş + otel + yer ulaşımı + biletler/turlar + yemek dahil, kabin bagajı Basic'te yok (10 kg bagaj eklersen +£100–160).
@@ -86,22 +86,23 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
 - **19:30** Foro Italico – Mura delle Cattive – La Cala yürüyüşü, gün batımı.
 - **21:00** Akşam yemeği: **Grano Granis** (pasta alla Norma, caponata — erken git, küçük yer) ya da rezervasyonla **Seven** çatı katı.
 
-### 3. Gün · 24 Ağu Pzt — Mondello: yüzme günü 🏖
-- **08:30** Politeama arkasından (Piazza Sturzo/Crispi) **806 otobüsü** (~30–45 dk). Bilet **tabacchi'den €1,40** (şoförden €1,80) — **binince mutlaka validate et, cezası €100.** Canlı saat: Moovit.
-- **09:15** Plaj: ya serbest şerit (09:00'dan önce yer var) ya **Italo-Belga lidosu** — 2 şezlong + şemsiye ~€35, hafta içi de 48 saat önceden ayırt: https://booking.mondelloitalobelga.it/ (bütçe: Bassa Marea €6–8/kişi).
-- Öğle: kıyıdaki büfelerden panino (€6–8) — "manzarası güzel, yemeği kötü" kuralı gereği sahil restoranlarından uzak dur. Seyyar satıcıya fiyatı önceden sor.
-- **16:00** İsteğe bağlı: plajın ucundan **Capo Gallo rezervi** (€2, kayalık, en berrak su — deniz ayakkabısı) ya da devam yüzme.
-- **18:30** Dönüş 806 (dönüş kuyruğu uzayabilir — akşam sekize kalma); duş.
+### 3. Gün · 24 Ağu Pzt — Mondello: bisikletle gidiş dönüş 🚲🏖
+- **08:00** **Palermo On Bike** (Via Discesa dei Giudici 13, otelden 5 dk): şehir bisikleti **€10/gün**, e-bike €20 — kilit, ışık, tamir seti dahil. https://www.palermonbike.com/en/bici/bike-rental-palermo/
+- **08:15–09:15** **Mondello'ya ~12 km bisiklet yolu**, Parco della Favorita'nın içinden; düz, bir saat. Merkezden çıkarken trafik karışık, parka kadar yavaş git. *Rehberli alternatif:* Mondello & Favorita turu 4 saat, kişi başı €70.
+- **09:15** Plaj: ya serbest şerit (ağustosta 09:00'da doluyor) ya **Italo-Belga lidosu** — 2 şezlong + şemsiye ~€35, 48 saat önceden: https://booking.mondelloitalobelga.it/ (bütçe: Bassa Marea €6–8/kişi). **Lidoya bisikletleri içeri alıp almadıklarını sor.**
+- **13:00** Kıyıdaki büfelerden panino (€6–8) — sahil restoranlarından uzak dur, seyyar satıcıya fiyatı önce sor.
+- **17:00** **Dönüş, Favorita parkının içinden** — çamların altı iki üç derece serin. Mataraları Mondello'da doldur, parkta satan yok.
 - **21:00** Teatro Massimo çevresi + akşam yemeği; pizza için **Pizzeria Procopio** (rezervasyon).
-- *Meraklısına sabah rötarı:* Monreale mozaikleri — Piazza Indipendenza'dan 389 otobüsü (€1,40, ~20 dk, 60–90 dk'da bir); katedral ücretsiz, avlu €6. Ağustosta Mondello ile aynı güne sıkıştırma; ya bu sabahı feda et ya atla.
+- *Feda edilen:* Capo Gallo rezervi (€2, en berrak su) — bisikletli olmayan bir güne. *Yedek:* bacaklar itiraz ederse 806 otobüsü (€1,40, tabacchi'den, binince validate).
 
-### 4. Gün · 25 Ağu Sal — Cefalù kaçamağı 🚆🏖
-- **08:30** Palermo Centrale → Cefalù **regionale treni** (~50 dk, **€7**, saat başı; rezervasyon yok — erken tren = yer bulursun). Bilet: Trenitalia app (dijital bilet kendini validate eder) https://www.trenitalia.com/en.html
-- **09:30** **Norman Katedrali** (UNESCO; Pantokrator mozaiği — "Palatina'nın büyüğü") sabah sakinliğinde → **Lavatoio** (ortaçağ çamaşırhanesi, serin mola).
-- **11:00** Plaj: ana kumsal — lido ~€35 ya da erkenciysen serbest alan; öğle: **Non Solo Pane** ya da **La Cefalù Nostrana**'dan sandviç.
-- **15:00** Bastione di Capo Marchiafava'dan kayadan yüzme ya da devam kumsal. **La Rocca tırmanışı (€5) ağustos öğleninde yapılmaz** — vlogger ocak ayında bile terledi; illa istiyorsan bir dahaki sefere ya da 08:00'de.
-- **18:00** Porto Vecchio + iskeleden kartpostal manzarası (Cinema Paradiso) → **19:00** tren, Palermo.
-- **21:00** Palermo'da veda yemeği; önce **Nino u Ballerino**'da "gurme" pani ca meusa cesareti olan için.
+### 4. Gün · 25 Ağu Sal — Terrasini + Cala Muletti: mağara denizden 🚆⛵
+**Gerçek durum:** Cala Muletti / **Grotta delle Colombe**, Terrasini ile Trappeto arasında, SS113'ün altında (park koordinatı 38.0876930, 13.0801406; PMO havalimanına ~15 dk araba). Karadan erişim San Cataldo plajından sağa dönen patikayla ~15 dk: terk edilmiş yapı, açık bir kesit, savaş sığınağı ve o meşhur merdiven. **Korkuluk yok, merdiven dik; yer viral olduktan sonra bir İtalyan dergisi "İtalya'nın en tehlikeli yerleri" arasında saydı** (bir yürüyüş blogu ise "basit" diyor). Üstelik araba/taksi istiyor — bizde yok. **Çözüm: aynı mağaraya tekneyle girip içinde yüzmek.**
+- **09:45** Palermo Centrale → **Cinisi-Terrasini** treni (~1 sa, ~€5, günde ~8 sefer; Trapani hattı, sabit fiyat/rezervasyonsuz). **Uyarı:** ilk seferler için siteler 06:23 / 08:49 / 10:12 diye üç ayrı şey söylüyor — bir akşam önce Trenitalia app'ten bak. İstasyondan kasabaya 20 dk yürüme ya da Cracchiolo otobüsü (~€1) / taksi.
+- **11:15** **Riserva Naturale Capo Rama** (WWF): kireçtaşı uçurumda 5 hektar bodur palmiye, 16. yy gözetleme kulesi, altında Cala Porro mağarası; 2000'den beri tescilli jeosit. Kuleden bütün körfez. *Doğrulanamadı:* giriş ücretli mi, kapıda görevli var mı — kasabada sor. **Gölge ve su yok**, şapka + matara.
+- **13:15** Terrasini sahilinde balık öğle yemeği (turistik değil, çalışan balıkçı kasabası). İstersen **Palazzo d'Aumale** müzesi.
+- **15:15** **Tekne: Grotta delle Colombe + Cala Rossa** — Porto di Terrasini'den kalkış, mağarada **40 dk yüzme molası**, sonra Cala Rossa'nın kırmızı-beyaz damarlı kayaları ve aradaki koylarda 40 dk daha; ~3 sa 45 dk, ~19:00'da limanda. **Kişi başı €50**, şnorkel +€35, teknede ~20-25 kişi, denize bağlı. Sabah 09:15 seferi de var ama Palermo treniyle yetişilmiyor. WhatsApp +39 338 232 2936 · https://www.dreamingsicily.it/experiences/minicrociera-in-barca-da-terrasini-a-cala-rossa/
+- **19:15** Tren, Palermo. **21:00** Veda yemeği; cesaret varsa **Nino u Ballerino**'da pani ca meusa.
+- *Karadan yürüme alternatifi:* Trappeto istasyonu Cala Muletti'ye ~4,7 km, Cinisi-Terrasini ~6,7 km — ikisinden de taksi gerekir.
 
 ### 5. Gün · 26 Ağu Çar — Trenle doğuya geçiş 🚄
 - **Sabah** Palermo Centrale → **InterCity treni** → Messina Centrale aktarma → **Taormina-Giardini** (en hızlı ~3s54d; IC koltuk rezervasyonlu — **ekonomi tarifeleri tükeniyor, bu hafta al**): https://www.trenitalia.com/en.html (yedek: https://www.thetrainline.com/en/train-times/palermo-centrale-to-taormina-giardini)
@@ -145,7 +146,9 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
 5. **🎫 Cappella Palatina, 23 Ağu Paz sabahı** — €19, online: https://www.federicosecondo.org/en/buy-ticket-online/
 6. **🌋 Etna turu, 28 Ağu** — GetYourGuide ücretsiz iptalli, ağustosta günler önceden doluyor. (7. gündeki link)
 7. **🎭 Konser yok, kontrol yeter:** mekânın takvimine göre 26-29 Ağustos boş (son gösteriler 22-23 Il Volo, 24-25 Pooh). Tarihe yaklaşınca bir kez bak: https://www.ticketone.it/venue/teatro-antico-di-taormina-15305/
-8. **🏖 Mondello lidosu, 24 Ağu** — 48 saat önceden: https://booking.mondelloitalobelga.it/
+8. **⛵ Terrasini teknesi, 25 Ağu 15:15** — kişi başı €50, ~20-25 koltuk, denize bağlı; ayırt ve sabahı teyit et: WhatsApp +39 338 232 2936
+9. **🚲 Bisikletler, 24 Ağu** — €10/gün (e-bike €20), bir gün önce mesaj: https://www.palermonbike.com/en/bici/bike-rental-palermo/
+10. **🏖 Mondello lidosu, 24 Ağu** — 48 saat önceden: https://booking.mondelloitalobelga.it/
 9. **⛵ Tekne turu** — GYG ücretsiz iptalli, yaklaşınca. (7. gündeki linkler)
 
 ---
@@ -156,10 +159,10 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
 |---|---|---|
 | Uçuşlar (Basic) | **£587** | Gerçek durum, 4 Ağu; +£100–160 10 kg bagaj istenirse |
 | Oteller | **£847** | Canlı Booking; +~€25–30 konaklama vergisi tesiste |
-| Yer ulaşımı | ~£110 | Havalimanı otobüsleri, IC + regionale trenler, 806/şehir otobüsleri, funivia, Alibus |
-| Bilet + turlar | ~£420–500 | Palatina €38, S. Caterina €20, Teatro Antico €28, Etna turu €240, tekne €50–80, lidolar ~€90–100 |
+| Yer ulaşımı | ~£105 | Havalimanı otobüsleri, IC + regionale trenler (Terrasini dahil), bisiklet kiralama €20, şehir otobüsleri, funivia, Alibus |
+| Bilet + turlar | ~£480–560 | Palatina €38, S. Caterina €20, Teatro Antico €28, Etna turu €240, Terrasini teknesi €100, Taormina teknesi €50, lidolar ~€70 |
 | Yemek | ~£360–420 | Sokak lezzeti ağırlıklı €50–70/gün (panelle €1,50'den Seven'a) |
-| **Toplam** | **~£2.750–2.900** | **Kişi başı ~£1.400** |
+| **Toplam** | **~£2.800–2.950** | **Kişi başı ~£1.425** |
 
 ---
 
