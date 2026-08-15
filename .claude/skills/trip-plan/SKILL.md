@@ -2,7 +2,7 @@
 name: trip-plan
 description: >-
   Research and draft a complete, bookable holiday plan for any destination and
-  date range — real flights with booking deep links, a Booking.com hotel
+  date range — real flights with booking deep links, a Booking.com and Airbnb
   shortlist, trains/buses between bases, activities with ticket links, and tips
   mined from YouTube vlogs and blog articles by parallel research agents — in
   the style of this repo's Spain (Barcelona + València) plan. Use whenever the
@@ -27,12 +27,30 @@ Parse from the user's message: **destination** (region or city pair) and
 **date range**. If either is missing, ask before spawning anything. Everything
 else defaults to the household profile below unless the user overrides it:
 
-- Home: Wigston, Leicester, UK. Airports by drive time: East Midlands EMA
-  (~45 min), Birmingham BHX (~1h), Luton LTN (~1h45), Stansted STN (~2h),
-  Manchester MAN (~2h). Prefer the closest airport that has a sensible route.
-- Party: 2 adults, cabin bags only, budget-airline comfortable.
-- Hotels: Booking.com, score 8.0+, target £60–150/night (stretch ~£180 in
-  resort towns in high season), central or near station/beach, 1 room.
+- Home: **South Wigston, Leicestershire — and the journey to the airport is
+  BY TRAIN, from South Wigston station, out and back. There is no car and
+  nothing is parked anywhere.** Never cost parking, fuel or drive time, and
+  never rank airports by road distance.
+  - So rank candidate airports by **rail connection from South Wigston**:
+    total journey time, number of changes, return fare for 2, and whether the
+    last train home still runs after an evening landing. Luton (Luton Airport
+    Parkway + DART) and Birmingham International (station attached to the
+    terminal) are rail-served; **East Midlands EMA has no station at all** and
+    is reached by the Skylink bus from Leicester — check its hours against the
+    flight times before recommending it.
+  - Candidates to sweep, not a boundary: EMA, BHX, LTN, STN, MAN, plus
+    Gatwick, Bristol and Liverpool. Let **door-to-door cost and time** decide.
+  - **A UK-side open-jaw is fine** — with no car to strand, flying out of one
+    airport and back into another is a legitimate headline option.
+- Party: 2 adults, cabin bags only, budget-airline comfortable. **Normalise
+  baggage before comparing carriers** — TUI and Jet2 include a cabin bag,
+  Ryanair Basic doesn't, and the add-on can invert the ranking.
+- Stays: **Booking.com and Airbnb, always both** — score 8.0+ (Airbnb 4.7+),
+  target £60–150/night (stretch ~£180 in resort towns in high season),
+  central or near station/beach, 1 room / entire place. Compare the two on
+  true all-in totals (Airbnb's cleaning + service fees, which punish short
+  legs) and check the local short-let licensing rules before recommending a
+  rental.
 - Style: swimming + sightseeing + food, no rental car — trains and buses.
 - Open-jaw flights when the route has two bases (fly into one, home from the
   other), like BCN-in/VLC-out in the Spain plan.
@@ -49,9 +67,18 @@ better against a concrete frame:
   trips are short and one base has proper swimming. Note the likely
   arrival/departure airports for the open-jaw.
 - Sketch which day trips hang off which base (the Cefalù/Montserrat role).
+- **Always have the stays agent price the single-base variant too**, not only
+  the split you chose. One base for the whole range costs a changeover day,
+  a luggage move and a second booking — and on a small island or a compact
+  region it is often cheaper *and* easier, especially where a single hotel
+  includes breakfast. The frame is a hypothesis; the price table is what
+  settles it. Say what the single base gives up (usually: the far end of the
+  region stops being a day trip) rather than assuming the split wins.
 
 State the frame in one short paragraph to the user before launching agents,
-so a wrong guess dies early.
+so a wrong guess dies early. **Frame it as a proposal, and name the one or
+two assumptions most likely to be wrong** — the user knows things the
+research doesn't, and a frame stated as settled invites nothing back.
 
 ## Step 2 — Spawn the research agents
 
@@ -60,7 +87,8 @@ prompt templates in `references/agent-prompts.md` with the placeholders
 filled in:
 
 1. **Flights** — real routes and dates, times, prices, deep links.
-2. **Stays** — Booking.com shortlist per base, live prices if scrapeable.
+2. **Stays** — Booking.com *and* Airbnb shortlist per base, live prices if
+   scrapeable, compared on all-in totals plus the local licensing check.
 3. **Vlogs** — 10+ YouTube vlogs mined for places, tips, prices, warnings.
 4. **Blogs** — 10+ articles mined the same way.
 5. **Ground transport + activities** — trains/buses with operators and
@@ -94,7 +122,10 @@ Spain plan:
    1–2 alternatives; flag day-of-week limits and early departures.
 3. **Konaklama** — per base: the pick (score, reviews, area, total price,
    cancellation) + 3–6 alternatives, each with its booking.com URL and the
-   exact-dates search URL.
+   exact-dates search URL. Then the **Airbnb karşılaştırması**: the best
+   entire-place candidates on all-in totals (nightly + cleaning + service
+   fee), the verdict per base against the hotel pick, and any short-let
+   licensing caveat that makes a rental risky to book.
 4. **Gün gün plan** — every day: morning/afternoon/evening stops with rough
    times, category (yol / gezi / müze / tekne / yüzme / yemek / etkinlik),
    per-person € where known, and a mined tip with its source link where one

@@ -88,10 +88,52 @@ already paid for.
 > neighbourhood, distances, score + review count, approx total in GBP, free
 > cancellation y/n. One recommended pick per base with a one-line reason.
 >
-> Booking.com blocks plain fetches: try WebFetch, then the stealth scraper
-> via ToolSearch ("select:mcp__plugin_maviapi_cloak__cloak_scrape"). If live
-> prices stay out of reach, fall back to well-reviewed properties verified
-> via WebSearch and mark prices as estimates. Note city taxes and flag
+> **Also price the SINGLE-BASE variant** — one property for the whole range,
+> in each candidate area — alongside the split above. A changeover costs a
+> day, a luggage move and a second booking, and the single base is often
+> cheaper and easier; the table decides it, not the frame. For each
+> single-base candidate, state what it gives up: the commute from that base
+> to the region's main sights, and which day trips stop being feasible.
+>
+> **Then do the same on Airbnb** — it is not optional, and in resort towns
+> where the hotel search comes back thin it is often the thing that saves
+> the base. **Do NOT filter to entire homes**: Airbnb sells hotel rooms and
+> aparthotels too, and where private rentals are regulated out they are the
+> only good value on the platform. Per base: 5–7 listings with URL, type,
+> rating + review count, beds, distance, free-cancellation window, and the
+> **all-in total in GBP including cleaning and service fees** — Airbnb's
+> headline nightly rate hides both, and a fixed cleaning fee punishes a
+> 3-night leg far harder than a 7-night one, so a rental that looks cheaper
+> per night often isn't. Cross-check any hotel found on one platform against
+> the other; the same property is routinely priced differently on each.
+> Finish with a side-by-side verdict per base: best Airbnb vs best hotel on
+> true total, plus the non-price factors (reception and daily cleaning vs
+> self-check-in, **breakfast included is worth ~£150–200 for 2 over a week —
+> count it**, luggage storage on changeover day).
+>
+> **Read the reviews of whatever you recommend** and report what guests
+> actually complain about — noise, room size, aircon, beach crowding. A star
+> average is not a finding; "reviews repeatedly mention street noise until
+> 3am" is.
+>
+> **Check the local short-let licensing rules before recommending any
+> rental** — they bite hardest exactly where trips go. Establish whether the
+> city restricts or bans tourist rentals in apartment buildings, what
+> licence number listings must display (Balearics ETV, Portugal AL, Italy
+> CIN, Amsterdam/Barcelona registration), the state of any national
+> registry purge delisting unregistered properties, and what the guest's
+> practical risk is (short-notice cancellation, no recourse). If most
+> listings in a base look unlicensed, that leads the section — it is not a
+> footnote.
+>
+> Booking.com and Airbnb both block plain fetches: try WebFetch once, then
+> the stealth scraper via ToolSearch
+> ("select:mcp__plugin_maviapi_cloak__cloak_scrape"), then a real Chrome
+> session (see the playbook — `evaluate_script` over the result cards, never
+> `take_snapshot`). If live prices stay out of reach, fall back to
+> well-reviewed properties verified via WebSearch and mark prices as
+> estimates. Note city/tourist taxes — including the different rate band
+> holiday rentals usually pay versus hotels, and who collects it — and flag
 > likely sell-outs in high season. [+ the standard data contract]
 
 ## 3. Vlogs
