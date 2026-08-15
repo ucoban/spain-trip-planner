@@ -1,7 +1,19 @@
 # Playbook: blog-mining research
 
 Techniques proven on real trips. Paste this into the blogs agent's prompt.
-Last updated: 2026-08-04 (Sicily trip).
+Last updated: 2026-08-15 (Mallorca, 22 articles; Sicily 2026-08-04).
+
+## The one rule that outranks everything else here
+
+**Blogs are for places, tips and atmosphere — never for transport line numbers,
+fares or opening hours.** They recycle dead data for years and read as current.
+On the Mallorca run the articles collectively gave: a bus line to Valldemossa
+that doesn't serve it, seven north-coast line numbers retired in 2019, a beach
+shuttle that no longer exists, a train fare five euros stale, and a "free public
+transport in 2026" headline that turns out to be residency-gated. Every one of
+those reads as authoritative. **Harvest names and experiences from blogs, then
+verify every number against the operator's own site or API** — and say in the
+report which figures still need that check.
 
 ## Query shapes that work
 
@@ -24,6 +36,16 @@ rome2rio.com, Expedia/Kayak attraction pages, Tripadvisor review
 permalinks, moovitapp.com landing pages, invented-"<year> prices" content
 farms, GetYourGuide/Viator listings (price sanity-checks only, useless to
 read).
+
+## Local newspapers beat travel blogs for two specific things
+
+Prices set by a council (beach loungers, taxi tariffs) and anything political
+(protests, new restrictions) live in the **local press**, not in guides. The
+Spanish-language price keyword trick surfaced Última Hora and Ara Balears,
+which carried the only real sunbed figures — including the municipal 2026
+tender rates — that English-only queries never found. Majorca Daily Bulletin
+gave the protest story with dates, crowd numbers and organiser names, where
+travel blogs gave vibes. Add a local-paper query to every run.
 
 ## Domains worth fetching first (Italy-proven; pattern generalizes)
 

@@ -1,19 +1,25 @@
 # The Çelik plans
 
-Two holidays, one site. Opening it asks which — **España** (Barcelona and
-València, 8-14 August) or **Sicilia** (Palermo and Taormina, 22-29 August) —
-and remembers the answer; the chip in the nav switches between them later,
-and `?trip=italy` links straight to one. Everything below works the same
-whichever is showing: pick a day, filter it down to the boat trips or the
-swims, tick things off as they happen, and keep boarding passes and booking
-PDFs pinned to the stop they belong to. Both itineraries and their embedded
-tips are distilled from travel vlogs and blog articles — 29 vlogs and 22
-articles for Spain, 16 and 16 for Sicily — with routes, prices and warnings
-mined from transcripts, comment sections and pages. And none of it is fixed:
+Three holidays, one site. Opening it asks which — **España** (Barcelona and
+València, 8-14 August), **Sicilia** (Palermo and Taormina, 22-29 August) or
+**Mallorca** (one base at s'Arenal, 22-28 August) — and remembers the answer;
+the chip in the nav switches between them later, and `?trip=italy` links
+straight to one. Everything below works the same whichever is showing: pick a
+day, filter it down to the boat trips or the swims, tick things off as they
+happen, and keep boarding passes and booking PDFs pinned to the stop they
+belong to. All three itineraries and their embedded tips are distilled from
+travel vlogs and blog articles — 29 vlogs and 22 articles for Spain, 16 and 16
+for Sicily, 20 and 22 for Mallorca — with routes, prices and warnings mined
+from transcripts, comment sections and pages. And none of it is fixed:
 **Replan** in the day header turns the whole plan editable in place.
 
 Each trip keeps its own ticks, its own replanned itinerary and its own
-hotels; the travel wallet and the shared passphrase are common to both.
+hotels; the travel wallet and the shared passphrase are common to all three.
+
+Mallorca is the odd one out in shape: a single base for the whole week rather
+than two, because the price table said so — one hotel with breakfast beat
+every split we costed, and the honest cost of that choice (the north of the
+island stops being reachable) is written into the plan rather than hidden.
 
 The plan picks a path; the **field guide** (`guide.html`) keeps the whole
 haul: every place the sources suggested (160, grouped by city, each linked
@@ -27,9 +33,12 @@ sources said lives in the stops' own tips instead.
 Booking.com search (2 adults, score 8+, £60-150 a night) boiled down to
 seven candidates per city, each plotted on the £100-150 budget band. The
 picks — HCC Taber and easyHotel Ciutat Vella for Spain, Eurostars Centrale
-Palace and B&B Al Sole di Sicilia for Sicily — are check-in stops in the
-itinerary, lines in "Book before you fly", and bed-icon pins on the route
-map.
+Palace and B&B Al Sole di Sicilia for Sicily, tent Arenal for Mallorca — are
+check-in stops in the itinerary, lines in "Book before you fly", and bed-icon
+pins on the route map. Mallorca's search also ran on Airbnb in parallel, with
+no room-type filter, which is how the hotel it ended up recommending was found
+at all — Airbnb sells hotel rooms too, and filtering to entire homes hides
+them.
 
 **Ask about the trip** (bottom right of the plan) is the shortcut through all
 of it: an assistant that has read the whole week, the field guide where there
@@ -53,6 +62,7 @@ eviction).
 | --- | --- |
 | `trips.js` | The trip registry: which trips exist, which one is showing, the picker and the nav chip |
 | `trip-italy.js` | Sicilia, whole: skeleton, both languages, hotels, map geometry, place dictionary |
+| `trip-mallorca.js` | Mallorca, the same way — one base, seven days, both languages |
 | `index.html` | The page itself — nav, hero, route, embedded map, day view, sidebar |
 | `i18n.js` | Every user-facing string, per language (English and Turkish) |
 | `app.js` | Itinerary skeleton, tick/filter/day state, travel wallet, document preview |

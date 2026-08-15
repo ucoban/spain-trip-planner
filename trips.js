@@ -48,6 +48,17 @@
         tr: 'Sekiz gün, iki kıyı: Norman mozaikleri ve sokak lezzetleri, sonra Etna, antik tiyatro ve yüzülecek bir koy.'
       },
       guide: false
+    },
+    {
+      id: 'mallorca', emoji: '🐚', hue: '--color-accent-3',
+      title: { en: 'Mallorca', tr: 'Mallorca' },
+      route: { en: 'Palma → s\'Arenal', tr: 'Palma → s\'Arenal' },
+      dates: { en: '22–28 August 2026', tr: '22–28 Ağustos 2026' },
+      blurb: {
+        en: 'Seven days from one bed: the 1912 railway over the mountains, a gorge reached only by boat, and sand at the front door.',
+        tr: 'Tek yataktan yedi gün: dağların üstünden 1912 treni, yalnızca tekneyle varılan bir kanyon ve kapının önünde kum.'
+      },
+      guide: false
     }
   ];
 

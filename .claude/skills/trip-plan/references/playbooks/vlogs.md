@@ -1,7 +1,7 @@
 # Playbook: YouTube vlog mining
 
 Techniques proven on real trips. Paste this into the vlogs agent's prompt.
-Last updated: 2026-08-04 (Sicily trip, 16 vlogs / 13 full transcripts).
+Last updated: 2026-08-15 (Mallorca, 20 vlogs; Sicily 2026-08-04, 16 vlogs).
 
 ## Finding vlogs — query shapes
 
@@ -55,6 +55,19 @@ from real person-on-camera vlogs (verdicts, prices, mistakes).
    directly — a 15-min video ≈ 2,000 words; reading beats delegating.
 5. Corroborate vlog prices/schedules with one plain WebSearch, note year
    next to every price (stale prices are the #1 vlog hazard).
+
+## Description-only is a legitimate result, not a failure
+
+Some keepers have no transcript at all — music-montage and walking-tour videos
+genuinely ship without captions (yt-dlp says so explicitly). Don't retry: refetch
+just `shortDescription` via the same curl+brace-match, use title/channel/date
+plus the description, and **label the entry description-only** in the writeup.
+On the Mallorca run 15 of 17 priority videos yielded subs; the 2 failures were
+both caption-less montages, and 4 entries went in as description-only.
+
+Keep the VTT→text converter as a small reusable script rather than re-deriving
+it: drop any line contained in the previous one (auto-captions re-emit growing
+partial lines), inject `[mm:00]` markers.
 
 ## Aggregation contract
 
