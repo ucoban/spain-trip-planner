@@ -31,6 +31,18 @@
   --color-accent-800: #643312;
   --color-accent-900: #402310;
 
+  /* Mallorca's ramp: the sea, next to España's sand and Sicilia's sage. */
+  --color-accent-3: #3f7d94;
+  --color-accent-3-100: #ecf6f9;
+  --color-accent-3-200: #d3e9f0;
+  --color-accent-3-300: #aed6e3;
+  --color-accent-3-400: #7fbcd0;
+  --color-accent-3-500: #589eb6;
+  --color-accent-3-600: #3f7d94;
+  --color-accent-3-700: #2f6274;
+  --color-accent-3-800: #244a58;
+  --color-accent-3-900: #17303a;
+
   --color-accent-2-100: #f0fae1;
   --color-accent-2-200: #e1eecc;
   --color-accent-2-300: #ccdbb2;
