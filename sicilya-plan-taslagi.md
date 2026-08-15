@@ -1,5 +1,13 @@
-# Sicilya · Çelik planı — TASLAK
-**22–29 Ağustos 2026 (Cmt→Cmt) · 2 yetişkin · Palermo 4 gece + Giardini Naxos 3 gece**
+# Sicilya · Çelik planı — TASLAK (KISMEN GEÇERSİZ)
+
+> **Bu dosya artık planın kaynağı değil.** Uçuşlar Trapani iniş / Katanya kalkış olarak sabitlenince rota
+> **Trapani 2 gece + Palermo 2 gece + Giardini Naxos 3 gece** oldu; Cefalù kaçamağı düştü, yerine Egadi
+> adaları tekne turu ve Erice geldi. Güncel plan sitenin kendisinde (`trip-italy.js`) — gün gün program,
+> ulaşım, biletler ve rezervasyon sırası orada. Aşağıdaki bölümlerden **1, 2, 3 ve 4** eski rotayı
+> anlatıyor; 5–8 (bütçe kalemleri, cepte dursun, kaynaklar) hâlâ geçerli. Batı için toplanan kaynaklar
+> en altta.
+
+**22–29 Ağustos 2026 (Cmt→Cmt) · 2 yetişkin · ~~Palermo 4 gece + Giardini Naxos 3 gece~~**
 
 Araştırma tarihi: 4 Ağustos 2026. Uçak fiyatları Ryanair'in canlı fiyat API'sinden, otel fiyatları Booking.com'un canlı arama sonuçlarından alındı ("Gerçek durum" diye işaretli). Tahmin olanlar "tahmini" diye işaretli. Kaynak: 16 blog makalesi + 16 YouTube vlog'u + resmi operatör/bilet siteleri.
 
@@ -180,4 +188,20 @@ Arama (112 uygun tesis): https://www.booking.com/searchresults.en-gb.html?ss=Gia
 **Blog:** Along Dusty Roads — Taormina + Mondello (https://www.alongdustyroads.com/posts/things-to-do-in-taormina-sicily, https://www.alongdustyroads.com/posts/mondello-beach-palermo) · We Are Palermo — Mondello lido matematiği + şehir (https://wearepalermo.com/news/mondello-guide/, https://wearepalermo.com/things-to-do/) · Rachel Phipps — Palermo (https://www.rachelphipps.com/2025/06/palermo-sicily-guide.html) · Go Ask A Local — Cefalù (https://goaskalocal.com/blog/travel-guide-to-cefalu-sicily) · Wandering Redhead — arabasız 2 hafta (https://www.wanderingredhead.com/perfect-2-week-sicily-itinerary-without-a-car/) · The Dirty Passport — Taormina plaj kulüpleri (https://thedirtypassport.com/taormina-beach-clubs/) · EtnaTracking + Sicily Active — Etna lojistiği (https://www.etnatracking.com/en/miscellaneous/mount-etna-transport, https://www.sicilyactive.com/en/visiting-mount-etna) · The Passport Couple — Katanya balık pazarı (https://thepassportcouple.com/catania-fish-market/) · Do Eat Better — Katanya sokak yemeği (https://doeatbetterexperience.com/blog/what-to-eat-in-catania-a-street-food-guide-to-eastern-sicily/) · Stylish Traveler — arabasız 7 gün (https://stylishtravlr.com/7-days-in-sicily-without-a-car-the-perfect-itinerary/)
 
 ---
-*Taslak — siteye işlenmedi. Onaylarsan İspanya planı formatında app.js/i18n.js/stays-data.js'e (EN+TR) aktarılır, harita iğneleri ve rehber sayfası eklenir.*
+
+## 9. Batı Sicilya kaynakları (Trapani başlangıcı için toplandı)
+
+Uçuş Trapani inişine sabitlenince batı için ayrıca araştırıldı; aşağıdakiler siteye işlenen bölümün kaynağı.
+
+**Trapani ve çevresi:** Along Dusty Roads — Trapani rehberi (https://www.alongdustyroads.com/posts/trapani-sicily-travel-guide) · Along Dusty Roads — Favignana günübirlik (https://www.alongdustyroads.com/posts/favignana-sicily-day-trip) · The Globetrotter GP — Favignana (https://www.theglobetrottergp.com/trapani-favignana-day-trip/) · Ferryhopper — Trapani→Favignana vapur rehberi (https://www.ferryhopper.com/en/blog/featured/trapani-favignana-day-trip-guide)
+
+**Erice:** resmî teleferik tarifeleri ve saatleri (https://www.funiviaerice.it/it/page/tariffe, https://www.funiviaerice.it/it/page/orari) · Visit Sicily (https://www.visitsicily.info/en/attrazione/funivia-per-erice-e-borgo-medievale/) · Maria Grammatico (https://www.mariagrammatico.it/)
+
+**Tuzlalar ve Segesta (bu turda kullanılmadı, ilk eklenecekler):** Saline Culcasi (https://www.salineculcasi.it/en/blog/curiosity/trapani-3-days-itinerary) · Visit Sicily tuzlalar (https://www.visitsicily.info/en/trapani-and-paceco-salt-pans/) · Italy Heaven — Segesta (https://www.italyheaven.co.uk/sicily/segesta/) · SittingUnderAPalmTree — Segesta otobüsle (https://sittingunderapalmtree.com/a-day-trip-to-segesta-italy-tips-for-bus-attractions-and-what-to-pack/)
+
+**Ulaşım:** AST havalimanı otobüsü (https://www.semplicestay.it/en/how-to-get-from-birgi-airport-to-trapani-city-centre-by-bus-easy-and-up-to-date-guide/, https://www.airgest.it) · Segesta Autolinee Trapani→Palermo (https://www.segesta.it/en/) · Liberty Lines (https://www.libertylines.it/en/)
+
+**Vlog:** Erice & Trapani günübirlik (https://www.youtube.com/watch?v=DCTF-8Cek8o) · Erice, Trapani & Marsala (https://www.youtube.com/watch?v=YZbj4EQcl6o) · Trapani, batının tuzlu kalbi (https://www.youtube.com/watch?v=xI8n7DQkkN4)
+
+---
+*Bu taslak araştırma arşivi olarak duruyor. Yürüyen plan sitede: `trip-italy.js` (EN+TR), harita iğneleri ve konaklama sayfası dahil.*
