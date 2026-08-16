@@ -189,7 +189,9 @@ Kategoriler: 🚌 yol · 🏛 gezi · 🖼 müze · ⛵ tekne · 🏖 yüzme · 
 ### 2. Gün · 23 Ağu Paz — Palma: bedava giriş günü 🏛🖼
 > **Gerçek durum:** Katedral **pazar günleri kapalı** (Nis-Kas: Pzt-Cum 10:00-17:15, Cmt 10:00-14:15). O yüzden pazar gününü katedrale değil, pazar günü bedava/açık olanlara ayırıyoruz.
 
-- **09:00** EMT **23** ile Plaça d'Espanya'ya (~35 dk) 🚌, oradan **46** ya da taksiyle **Castell de Bellver** 🏛. **Gerçek durum: pazar günleri ücretsiz**, Nis-Eyl Paz 10:00-15:00 (Pzt kapalı). Çam ormanının içinden yürüyerek de çıkılıyor. https://castelldebellver.palma.es/-/horarios-y-precios/en/
+- **09:00** EMT **23** ile Plaça d'Espanya'ya (~35 dk) 🚌.
+- **09:15** **Kaleye çıkış — otobüs kapıya gitmiyor.** EMT'nin ağında *Castell de Bellver* adında bir durak (939) var ama **üzerinde kayıtlı hiçbir hat yok**; aynı şey Camilo José Cela durağı (1965) için de geçerli. **Gerçek durum (EMT'nin kendi API'sinden, 16 Ağu):** servis verilen en yakın durak **pl. Gomila (62)** — 4, 20 ve 46 numaralar uğruyor — ve bunlardan **Plaça d'Espanya'da (durak 295) da duran tek hat 46**. Yani aktarmasız: **46**. Pazar ve tatil günleri **30 dakikada bir**; Sindicat kalkışları 08:45 / 09:15 / 09:45, Plaça d'Espanya birkaç dakika sonrası. Duraktan kaleye kuş uçuşu **512 m**, ama **27 m'den 110 m'ye tırmanış** (ölçüldü) — çam ormanının içinden **~20 dk**, ağustos sıcağında hafife alınacak bir yokuş değil. Dönüşte aynı yürüyüşle pl. Gomila'ya (97) inip **47** ya da **4** ile Joan Miró boyunca geri. Taksi alternatifi kapıya kadar çıkıyor.
+- **09:55** **Castell de Bellver** 🏛. **Gerçek durum: pazar günleri ücretsiz**, Nis-Eyl Paz 10:00-15:00 (Pzt kapalı). https://castelldebellver.palma.es/-/horarios-y-precios/en/
 - **11:30** **Es Baluard** çağdaş sanat müzesi 🖼 — Rönesans surunun üstünde, Paz 10:00-15:00. **€8** (birçok rehber €6 yazıyor, güncel değil). https://esbaluard.org/en/visit/
 - **13:00** Öğle: **La Llotja** çevresi. *(Mercat de l'Olivar ve Santa Catalina pazarları pazar günü kapalı — onlar salıya.)*
 - **15:00** **Palau Reial de l'Almudaina** 🏛 — Nis-Eyl Salı-Paz 10:00-19:00. **€8**; **AB vatandaşlarına Çar ve Paz 15:00-19:00 ücretsiz** (kimlikle). ⚠️ Brexit sonrası İngiliz pasaportu bu kapsamda değil — Türk/AB pasaportun varsa bedava, yoksa €8. https://tickets.patrimonionacional.es/en/tickets/142760?city=PMI
@@ -302,7 +304,7 @@ Kategoriler: 🚌 yol · 🏛 gezi · 🖼 müze · ⛵ tekne · 🏖 yüzme · 
 | İngiltere tarafı ulaşım | **£48** | South Wigston ↔ Leicester treni + Skylink otobüsü, 2 kişi gidiş-dönüş |
 | Otel (6 gece, esnek tarife) | **£1.164** | Gerçek durum, Booking canlı oda tablosu; brunch dahil (iade yok £1.050 · deniz manzaralı £1.267) |
 | Ecotasa | ~£34 | Tesiste ödenir, 2 kişi × 6 gece, 4★/3★-sup bandı varsayımıyla |
-| Mallorca içi ulaşım | ~£115 | A2 havalimanı ×2, Sóller kombine €64, Drach 401 €21,60, 203 Valldemossa, EMT şehir içi, Illetes |
+| Mallorca içi ulaşım | ~£115 | A2 havalimanı ×2, Sóller kombine €64, Drach 401 €21,60, 203 Valldemossa, EMT şehir içi (Bellver'e 46 dahil), Illetes |
 | Biletler | ~£160 | Katedral+teraslar €50, Drach €37, Cartoixa €25, Es Baluard €16, Almudaina €16, Banys €4 |
 | Şezlong/plaj | ~£50 | Illetes €19,50, Playa de Palma paketleri, Port de Sóller ~€20-27 |
 | Akşam yemekleri | ~£240 | Brunch öğlene kadar idare ettiği için günde bir öğün: 2 kişi €40-60/gün |
