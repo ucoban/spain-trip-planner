@@ -150,6 +150,19 @@
   const LINK_ICON = '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>';
   const PIN_ICON = '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>';
 
+  // — what the stops look like ———————————————————————————————————
+  // A photograph for the stops you would not recognise from their name, sat
+  // beside the words rather than above them: the itinerary is still a list to
+  // read down, not a gallery to scroll. Resolved from Wikimedia Commons into
+  // photos.js at build time by tools/photos.mjs, which is also why the author
+  // and licence travel with each one — the pictures are free to publish only
+  // on the condition that the credit goes with them, so the viewer shows it.
+  //
+  // Keyed by stop id and looked up per trip. It lives outside the trip data
+  // files because it is generated and those are written by hand, and because
+  // España's itinerary is in this file rather than in one of them.
+  const PHOTOS = (window.PHOTOS || {})[(window.TRIP && window.TRIP.id) || 'spain'] || {};
+
   const read = (key, fallback) => {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (e) { return fallback; }
   };
@@ -845,6 +858,66 @@
     }));
   }
 
+  // The thumbnail on the stop card. Null for the stops with no photograph,
+  // which is most of the buses and every "dinner back at the base" — see
+  // tools/photo-queries.json for why those were left out on purpose.
+  function photoThumb(a, x) {
+    const p = PHOTOS[a.id];
+    if (!p) return null;
+    return el('button', {
+      type: 'button', 'data-r': 'photo', 'data-key': 'photo-' + a.id,
+      'aria-label': tpl(T.ui.photoOf, { title: x.title }), onclick: () => openPhoto(a, x),
+      style: 'flex-shrink:0;width:128px;height:92px;padding:0;border:none;cursor:zoom-in;' +
+        'border-radius:14px;overflow:hidden;background:var(--color-neutral-200)'
+    }, el('img', {
+      src: p.src, alt: '', loading: 'lazy', decoding: 'async',
+      style: 'width:100%;height:100%;object-fit:cover;display:block'
+    }));
+  }
+
+  // Bigger, with the credit under it. The credit is not decoration: these are
+  // CC-BY and CC-BY-SA photographs, and naming the photographer is the price
+  // of using them.
+  function openPhoto(a, x) {
+    const p = PHOTOS[a.id];
+    if (!p) return;
+    let close;
+    const closeBtn = el('button', {
+      type: 'button', class: 'btn btn-ghost btn-icon', 'aria-label': T.ui.closePhoto,
+      text: '×', onclick: () => close()
+    });
+    const credit = el('div', {
+      style: 'display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;font-size:12px;color:var(--color-neutral-700)'
+    },
+      el('span', { text: p.by ? tpl(T.ui.photoBy, { by: p.by }) : T.ui.photoSource }),
+      p.lic && el('a', {
+        href: p.licUrl || p.page, target: '_blank', rel: 'noopener license', text: p.lic,
+        style: 'color:var(--color-neutral-700)'
+      }),
+      p.page && el('a', {
+        href: p.page, target: '_blank', rel: 'noopener', text: T.ui.photoSource,
+        style: 'color:var(--color-neutral-700)'
+      })
+    );
+    const dialog = el('div', {
+      'data-r': 'dialog', class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-label': x.title,
+      style: 'max-width:900px;width:100%;max-height:90vh;display:flex;flex-direction:column;gap:12px;' +
+        'background:var(--color-bg);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:18px 20px;overflow:auto',
+      onclick: e => e.stopPropagation()
+    },
+      el('div', { style: 'display:flex;align-items:flex-start;gap:12px' },
+        el('div', { text: x.title, style: 'flex:1;min-width:0;font-family:var(--font-heading);font-size:21px' }),
+        closeBtn
+      ),
+      el('img', {
+        src: p.src, alt: x.title, width: p.w || null, height: p.h || null,
+        style: 'display:block;width:100%;max-height:68vh;object-fit:contain;border-radius:var(--radius-lg);background:var(--color-neutral-100)'
+      }),
+      credit
+    );
+    close = presentDialog(dialog, closeBtn);
+  }
+
   function activityCard(a, pos, total) {
     const isDone = !!state.done[a.id];
     const c = CATS[a.cat];
@@ -870,7 +943,8 @@
     return el('div', { class: 'card', style: isDone ? 'opacity:.55' : '' },
       el('div', { 'data-r': 'actrow', style: 'display:flex;gap:16px;align-items:flex-start' },
         el('div', { text: a.t, style: 'min-width:50px;font-weight:700;font-size:14px;padding-top:3px;color:var(--color-neutral-800)' }),
-        el('div', { style: 'flex:1' },
+        photoThumb(a, x),
+        el('div', { style: 'flex:1;min-width:0' },
           el('div', { style: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px' },
             el('span', { text: x.title, style: 'font-family:var(--font-heading);font-size:19px;text-decoration:' + (isDone ? 'line-through' : 'none') }),
             el('span', { text: T.cats[a.cat], style: 'font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:3px 11px;border-radius:999px;background:' + c.bg + ';color:' + c.fg + ';border:' + (c.bd || 'none') }),

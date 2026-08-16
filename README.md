@@ -74,6 +74,8 @@ eviction).
 | `chat.js` | The assistant: builds the briefing, streams the answer, draws the panel |
 | `places.js` | Place-name → Google Maps dictionary; turns place references in prose into links |
 | `trip-map.html` | Leaflet route map — every stop pinned, flown to per city |
+| `photos.js` | Generated: one Commons photograph per stop worth one, with its author and licence |
+| `tools/photos.mjs` | Resolves those photographs; `tools/photo-queries.json` says which stop gets what |
 | `image-slot.js` | `<image-slot>` custom element: drop or browse a photo, downscaled to WebP |
 | `styles.css` | Design-system tokens and component classes |
 | `api/itinerary.js` | Read the replanned itinerary (public), save it (passphrase-gated) |
@@ -267,6 +269,19 @@ from `MAPS` in `app.js` — place name plus city, keyed by stop id, shared by
 every language. A stop the table doesn't know — added or retitled while
 replanning — falls back to searching its own title, steered towards that
 day's city.
+
+Stops you would not recognise from their name carry a **photograph** — a
+thumbnail beside the words, a full-width banner on a phone, and the picture
+enlarged with its credit when you tap it. They come from Wikimedia Commons,
+resolved into `photos.js` at build time by `node tools/photos.mjs` and keyed
+by stop id, so the site itself makes no API calls and needs no key. Which stop
+gets which picture is a hand-kept list in `tools/photo-queries.json`, because
+letting a search pick answered "El Carmen, Valencia" with El Cid. Buses,
+flights and dinners back at the base get nothing on purpose, and a place
+appears once per trip: a stock photo of an airport is filler, and the same
+beach four times is a page repeating itself. The author and licence travel
+with every picture and are shown in the viewer — that is the condition on
+using them at all.
 
 Place references in **prose** open Google Maps too: descriptions, tips, day
 subtitles, booking lines, the hero blurbs, the trip strip's city cards, and
