@@ -44,14 +44,25 @@ Notes that cost time to learn:
 | `thetrainline/locations?q=` | Resolves free text to a station code. `South Wigston` → `SWS1949gb`. |
 | `thetrainline/fares?from=&to=&date=` | Cheapest single per day plus departure times, over a small date window. This is how you price the South Wigston → airport leg without opening National Rail. |
 | `flightlist/search?from=&to=&date_from=&date_to=` | Real fares with flight numbers and times across a date range. **Returns USD** — convert before comparing with a GBP quote. |
-| `tripadvisor/search?q=` | Geo/place lookup with `geo_id` and coordinates. |
+| `tripadvisor/search?q=` | Place lookup. The result `url` carries both ids — `-g187463-d244037-` — and that is the only way to learn which geo a place belongs to. |
+| `tripadvisor/attractions?geo=` `restaurants?geo=` `hotels?geo=` | Top thirty for a town: rating, review count, category, coordinates. `restaurants` also carries an `image`; **`attractions` carries none**. |
+| `tripadvisor/reviews?id=&geo=&type=` | Actual review text. Where the "€22 to visit a church" complaints live. |
 | `getyourguide/activities/<slug>` | Tour listings with price, rating, next availability and an image URL. |
 | `airbnb/search?location=&checkin=&checkout=&adults=` | Works — **but see below.** |
 
-Broken or unusable on that date: `tripadvisor/attractions`, `tripadvisor/place`
-and `getyourguide/activity/<id>` all returned `scrape_failed` on every retry;
-`google/images` returned `Not enough credits`. Re-test before assuming; update
-this table when one flips.
+**Tripadvisor's parameter is `geo`, not `geo_id`** — even though `/search`
+*returns* the field called `geo_id`. Pass the wrong name and you get
+`scrape_failed`, not "missing parameter", so it reads exactly like a dead
+endpoint. This cost a whole round of "Tripadvisor is broken" that was not
+true. When something returns `scrape_failed` on every attempt, omit the
+parameters entirely first: the error message then names what it wants.
+
+Genuinely dead on 2026-08-16: `tripadvisor/place` (every id and both types,
+including ones `/reviews` answers fine with the same parameters),
+`getyourguide/activity/<id>` and `getyourguide/explore` — all `scrape_failed`;
+`google/images` — `Not enough credits`. The Tripadvisor lists cap at 30 and do
+not page: `limit` and `offset` are accepted and ignored, so a real place
+outside a town's top thirty simply cannot be priced or rated through them.
 
 ## Wrong answers, confidently given
 
@@ -86,10 +97,21 @@ island is worse than no price, because it looks like research.
 
 ## Photographs
 
-`google/images` would resolve anything, but it hands back a hotlink with no
-rights attached — fine inside an agent's research, wrong on a page we publish.
-For pictures that go on the site, use Wikimedia Commons instead
-(`tools/photos.mjs` in this repo), which carries an author and a licence.
-maviapi's role there is the last resort: `getyourguide/activities/<slug>`
-returns tour photography that is at least licensed for display, for a place
-Wikimedia has never photographed.
+Not from here, and Tripadvisor is the specific disappointment: `/attractions`
+returns no image field at all, only `/restaurants` carries one, and `/place` —
+the detail endpoint that would have had a gallery — is dead. `google/images`
+would resolve anything but hands back a hotlink with no rights attached: fine
+inside an agent's research, wrong on a page we publish.
+
+For pictures that go on the site, use Wikimedia Commons (`tools/photos.mjs` in
+this repo), which is the only source that hands over a named author and a
+licence with the file. maviapi's role there is the last resort:
+`getyourguide/activities/<slug>` returns tour photography that is at least
+licensed for display, for a place Wikimedia has never photographed.
+
+What Tripadvisor *is* for is the crowd's verdict — rating, review count and
+the reviews themselves (`tools/tripadvisor.mjs`). That is worth more next to a
+plan than another photograph anyway, and it is worth most when it disagrees
+with the plan: Palma's Banys Àrabs sit in the itinerary at 3.4 and Platja de
+Palma at 3.7, which is exactly what somebody deciding what to cut needs to
+know.

@@ -188,11 +188,12 @@ a card in `trips.js`; an accent ramp in `styles.css`; the script tag on
 `index.html`, `stays.html` and `trip-map.html`; a README paragraph. Follow
 the template and no other file needs touching.
 
-**Every stop worth a picture gets one.** Add the trip to
-`tools/photo-queries.json` and run `node tools/photos.mjs`, which resolves
-Wikimedia Commons photographs — with the author and licence that let us
-publish them — into `photos.js`, which `app.js` hangs off the stop cards.
-Three rules the first pass got wrong:
+**Every stop worth a picture gets a small gallery.** Add the trip to
+`tools/photo-queries.json` and run `node tools/photos.mjs`, which resolves six
+Wikimedia Commons photographs a stop — each with the author and licence that
+let us publish it — into `photos.js`, which `app.js` hangs off the stop cards.
+Then `node tools/tripadvisor.mjs` adds what the crowd made of each stop into
+`ratings.js`. Four rules, each of which cost a round to learn:
 
 - **Only the stops you would not recognise from their name.** Buses, flights
   and "dinner back at the base" get nothing; a stock airport photo is filler.
@@ -200,11 +201,19 @@ Three rules the first pass got wrong:
   repeat itself down the page.
 - **A confidently wrong photograph is worse than none.** Unpinned search
   answered "El Carmen, Valencia" with El Cid and "Santa Catalina, Palma" with
-  a castle in the Canaries. Pin the article (`ca:Banys Àrabs de Palma`) or the
-  file (`file:Drach Caves.jpg`) whenever the plain name is ambiguous, and read
-  the resolver's report — it prints what each stop actually landed on.
-- **Look at them before shipping.** Build a contact sheet of every resolved
-  photo and screenshot it in one go; that is what caught a protest march
-  standing in for a bus square and a black-and-white plate standing in for a
-  beach. Check the licences too: swap out anything GFDL-only or with no
-  named author.
+  a castle in the Canaries. Pin the article (`ca:Banys Àrabs de Palma`), the
+  Commons category (`cat:Coves del Drac-Inside`) or the exact file whenever
+  the plain name is ambiguous — a query can be a list, so a hand-picked lead
+  keeps a whole category for company. Read the resolver's report: it prints
+  what each stop actually landed on.
+- **Within a stop, rank the frames.** A Commons category is alphabetical, so
+  taken as they come you get a manhole cover and a shop sign above the view of
+  the town. Prefer what the article *and* the category both vouch for, then a
+  filename that names the place, then the biggest — and keep the plans,
+  crests, portraits and posters out by name.
+- **Look at them before shipping.** Build one contact sheet of every resolved
+  frame and screenshot it; that is what caught a protest march standing in for
+  a bus square and *Toledo* cathedral standing in for Palma's. Loading a few
+  hundred Commons thumbnails at once gets you throttled, and a throttled image
+  looks exactly like a missing one — check a failure individually before
+  believing it.
