@@ -94,18 +94,32 @@ filled in:
 5. **Ground transport + activities** — trains/buses with operators and
    prices, tours and sight tickets with bookable product links.
 
-Each template already tells the agent to try WebFetch first and fall back to
-the stealth scraper (`mcp__plugin_maviapi_cloak__cloak_scrape` via
-ToolSearch) on bot-walled sites, and to return raw structured markdown, not
-prose. Two additions the templates also carry:
+Each template already tells the agent which tools to reach for in which order,
+and to return raw structured markdown, not prose. Two additions the templates
+also carry:
 
 - **Playbooks in, method notes out.** Before launching, read
   `references/playbooks/` and paste the matching playbook into each agent's
   prompt — it holds the techniques previous trips paid to discover (which
   sites bot-wall, which URL/query shapes return real data, scraper
-  fallbacks that actually work). Every agent must end its report with a
-  `## Method notes (reusable)` section; without it the knowledge dies with
-  the agent.
+  fallbacks that actually work). **`maviapi.md` goes into every agent's
+  prompt**, on top of its own domain playbook. Every agent must end its
+  report with a `## Method notes (reusable)` section; without it the
+  knowledge dies with the agent.
+
+- **Ask the APIs before driving a browser.** maviapi
+  (`https://api.maviapi.com/v1/sites/<slug>/...`, key in `~/.maviapi-key`)
+  serves Booking.com, Airbnb, Trainline, Tripadvisor, GetYourGuide and flight
+  fares as plain JSON — a hotel shortlist or a rail fare that used to take a
+  Chrome session is one request. `references/playbooks/maviapi.md` has the
+  working endpoints, the dead ones, and the one rule that matters: **when a
+  location fails to resolve these endpoints return a different city rather
+  than an error** (Mallorca queries came back as Barcelona; a guessed
+  GetYourGuide slug came back as Cape Town). Check every result is about the
+  place you asked for before a price from it reaches the draft. Treat the
+  numbers as a shortlist and confirm the actual picks live — a headline that
+  turns out not to be bookable is the one failure this whole skill exists to
+  avoid.
 
 While agents run, do any local prep (skeleton of the draft file);
 synthesize only after all five report.
@@ -161,6 +175,36 @@ are why trip N+1 is faster and cheaper than trip N.
 
 End with a short Turkish summary: the route, the two flights + prices, the
 two hotels + totals, budget bottom line, and the 3–4 things that sell out
-first. Offer — don't start — the follow-ups: wiring the plan into the site
-(app.js/i18n.js/stays-data.js in both languages), or re-verifying prices
-closer to booking day.
+first. Offer — don't start — the follow-ups: wiring the plan into the site,
+or re-verifying prices closer to booking day.
+
+## Step 6 — Only if asked: wire it into the site
+
+The draft is the deliverable. When the user asks for the plan on the site
+(“siteye yükle”), follow `trip-italy.js` / `trip-mallorca.js` exactly: a
+`trip-<id>.js` registering into `window.TRIPS` with `days`, `bookings`,
+`maps`, `mapCity`, `places`, `stays`, `map` and `i18n` in both languages;
+a card in `trips.js`; an accent ramp in `styles.css`; the script tag on
+`index.html`, `stays.html` and `trip-map.html`; a README paragraph. Follow
+the template and no other file needs touching.
+
+**Every stop worth a picture gets one.** Add the trip to
+`tools/photo-queries.json` and run `node tools/photos.mjs`, which resolves
+Wikimedia Commons photographs — with the author and licence that let us
+publish them — into `photos.js`, which `app.js` hangs off the stop cards.
+Three rules the first pass got wrong:
+
+- **Only the stops you would not recognise from their name.** Buses, flights
+  and "dinner back at the base" get nothing; a stock airport photo is filler.
+  A place appears once per trip, on its first visit, so the week doesn't
+  repeat itself down the page.
+- **A confidently wrong photograph is worse than none.** Unpinned search
+  answered "El Carmen, Valencia" with El Cid and "Santa Catalina, Palma" with
+  a castle in the Canaries. Pin the article (`ca:Banys Àrabs de Palma`) or the
+  file (`file:Drach Caves.jpg`) whenever the plain name is ambiguous, and read
+  the resolver's report — it prints what each stop actually landed on.
+- **Look at them before shipping.** Build a contact sheet of every resolved
+  photo and screenshot it in one go; that is what caught a protest march
+  standing in for a bus square and a black-and-white plate standing in for a
+  beach. Check the licences too: swap out anything GFDL-only or with no
+  named author.

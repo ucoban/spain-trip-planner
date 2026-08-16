@@ -29,6 +29,12 @@ prompt under a "Known techniques from previous trips — start here:" heading.
 An agent that starts from the playbook skips the dead ends the last trip
 already paid for.
 
+`maviapi.md` goes into **every** agent's prompt on top of its domain file. It
+is the fastest first move for hotels, rail fares, flight fares and place
+lookup — and it carries the warning that pays for itself: these endpoints
+answer an unresolvable location with a different city rather than an error,
+so every result has to be checked against the place that was asked for.
+
 ---
 
 ## 1. Flights

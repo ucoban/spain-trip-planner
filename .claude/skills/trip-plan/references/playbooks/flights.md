@@ -1,7 +1,13 @@
 # Playbook: flight research
 
 Techniques proven on real trips. Paste this into the flights agent's
-prompt. Last updated: 2026-08-15 (Mallorca; Sicily 2026-08-04 before that).
+prompt. Last updated: 2026-08-16 (Mallorca; Sicily 2026-08-04 before that).
+
+**Start with `maviapi.md`.** `flightlist/search?from=&to=&date_from=&date_to=`
+returns real fares with flight numbers and times across a whole date range in
+one call — the fastest way to find which day is cheap. It quotes **USD**, so
+convert before it meets a GBP number, and it is a shortlist, not a booking:
+the carrier's own page still settles the fare and the baggage below.
 
 ## Normalise baggage BEFORE comparing carriers — this inverts rankings
 

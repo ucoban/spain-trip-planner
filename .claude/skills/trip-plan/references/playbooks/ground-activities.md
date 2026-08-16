@@ -1,8 +1,16 @@
 # Playbook: ground transport + activities research
 
 Techniques proven on real trips. Paste this into the transport/activities
-agent's prompt. Last updated: 2026-08-15 (Mallorca; Sicily 2026-08-04 before
+agent's prompt. Last updated: 2026-08-16 (Mallorca; Sicily 2026-08-04 before
 that — Italy specifics kept where they generalise).
+
+**Start with `maviapi.md`** for the two things it does well here:
+`thetrainline/fares` prices the UK rail leg to the airport without opening
+National Rail, and `getyourguide/activities/<slug>` lists tours with prices
+and availability. Neither replaces the operator's own API below — timetables,
+live availability and booking rules only exist there — and a *guessed*
+GetYourGuide slug returns a real page for a different continent, so resolve
+it through `getyourguide/catalog` rather than inventing the number.
 
 ## Find the transport authority's internal JSON API before reading any HTML
 

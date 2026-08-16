@@ -1,7 +1,14 @@
 # Playbook: stays research — Booking.com **and** Airbnb
 
 Techniques proven on real trips. Paste this into the stays agent's prompt.
-Last updated: 2026-08-15 (Mallorca trip; Sicily 2026-08-04 before that).
+Last updated: 2026-08-16 (Mallorca trip; Sicily 2026-08-04 before that).
+
+**Start with `maviapi.md`.** `booking/search?location=&checkin=&checkout=&adults=`
+returns name, URL, total price, stars, review score and review count in one
+call — a whole shortlist without a browser. Two conditions: its Airbnb search
+answered Mallorca queries with **Barcelona** listings, so check every result
+is in the place you asked for; and its Booking prices are a shortlist, not a
+quote — the pick still gets confirmed in a real session on the exact dates.
 
 **Always research both platforms.** Hotels win more often than not, but the
 comparison is the deliverable — and in a resort town where the hotel search
