@@ -25,7 +25,6 @@
     stay: { bg: 'var(--color-neutral-800)', fg: 'var(--color-neutral-100)' }
   };
 
-  const FILTERS = ['all', 'boat', 'swim', 'sights', 'museum', 'food', 'event'];
 
   // España is the built-in trip: its skeleton is right here, the way it has
   // always been. Any other trip registers its own (trips.js, trip-<id>.js)
@@ -135,6 +134,20 @@
   const BOOKINGS = TRIP ? TRIP.bookings : BUILT_IN_BOOKINGS;
   const MAPS = TRIP ? TRIP.maps : BUILT_IN_MAPS;
   const MAP_CITY = TRIP ? TRIP.mapCity : BUILT_IN_MAP_CITY;
+  // Only the categories this trip actually contains. España, Sicilia and
+  // Mallorca all swim and all take a boat, so their filter rows are unchanged;
+  // a road trip through Güneydoğu does neither, and an empty "Boat trips"
+  // button is a promise the week does not keep.
+  const FILTERS = ['all', 'boat', 'swim', 'sights', 'museum', 'food', 'event']
+    .filter(k => k === 'all' || DAYS.some(d => d.acts.some(a => a.cat === k)));
+  // What the prices are shown in, and in what order — the first is the
+  // default. The pair below is the one this site has always had; a trip whose
+  // money is neither pound nor euro declares its own (trip-<id>.js) with the
+  // rate it was researched at, so the chip agrees with the prose.
+  const CURRENCIES = (TRIP && TRIP.currencies) || [
+    { code: 'GBP', sym: '£', rate: 0.87 },
+    { code: 'EUR', sym: '€', rate: 1 }
+  ];
   // Ticks and currency are per trip: the same browser holds both holidays,
   // and neither should tick the other off.
   const skey = name => (window.TRIP ? window.TRIP.key(name) : 'celik-spain-' + name);
@@ -196,7 +209,10 @@
     editing: false,
     sync: 'idle', // 'saving' | 'saved' | 'error'
     syncMsg: null,
-    currency: localStorage.getItem(skey('currency')) === 'EUR' ? 'EUR' : 'GBP'
+    currency: (() => {
+      const stored = localStorage.getItem(skey('currency'));
+      return CURRENCIES.some(c => c.code === stored) ? stored : CURRENCIES[0].code;
+    })()
   };
 
   // — the plan: baked-in until somebody replans —————————————————————
@@ -332,7 +348,7 @@
     // Prose blocks get their place references linked; everything else —
     // buttons, labels, headings — stays plain text (no anchors inside
     // interactive elements).
-    const PROSE = new Set(['heroText', 'vlogsText', 'ahmetDesc', 'izemDesc']);
+    const PROSE = new Set(['heroText', 'vlogsText', 'travellerADesc', 'travellerBDesc']);
     document.querySelectorAll('[data-i18n]').forEach(n => {
       const key = n.getAttribute('data-i18n');
       const s = T.static[key];
@@ -544,10 +560,14 @@
       legacyDocs.length = 0;
     });
   }
+  // Prices are stored once, in euros, and converted on the way out: one
+  // number per stop, whichever currency the reader has chosen.
   function fmt(eur) {
     if (eur == null) return null;
     if (eur === 0) return T.ui.free;
-    return (state.currency === 'GBP' ? '£' + Math.round(eur * 0.87) : '€' + eur) + ' ' + T.ui.pp;
+    const c = CURRENCIES.find(x => x.code === state.currency) || CURRENCIES[0];
+    const n = Math.round(eur * c.rate);
+    return c.sym + n.toLocaleString(window.I18N.lang === 'tr' ? 'tr-TR' : 'en-GB') + ' ' + T.ui.pp;
   }
   const sizeLabel = bytes => {
     const kb = bytes / 1024;
@@ -1302,6 +1322,8 @@
     locked: () => state.locked,
     snapshot: () => ({
       currency: state.currency,
+      // The stored prices are euros; this is what the reader is seeing them as.
+      currencies: CURRENCIES,
       replanned: !!state.plan,
       days: DAYS.map((d, i) => ({
         n: i + 1,
@@ -1362,6 +1384,15 @@
   window.addEventListener('beforeunload', e => {
     if (state.sync === 'saving' || saveBusy) { e.preventDefault(); e.returnValue = ''; }
   });
+  const curGroup = document.getElementById('currencyGroup');
+  if (curGroup) curGroup.replaceChildren(...CURRENCIES.map(c => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.dataset.currency = c.code;
+    b.textContent = c.sym;
+    b.style.cssText = 'font-size:12px;padding:5px 12px';
+    return b;
+  }));
   document.querySelectorAll('[data-currency]').forEach(btn => {
     btn.addEventListener('click', () => {
       state.currency = btn.dataset.currency;

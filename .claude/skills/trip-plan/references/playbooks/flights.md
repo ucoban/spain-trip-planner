@@ -1,7 +1,7 @@
 # Playbook: flight research
 
 Techniques proven on real trips. Paste this into the flights agent's
-prompt. Last updated: 2026-08-16 (Mallorca; Sicily 2026-08-04 before that).
+prompt. Last updated: 2026-09-18 (Türkiye — schedule-only; Palermo 2026-08-19; Mallorca 2026-08-16; Sicily 2026-08-04).
 
 **Start with `maviapi.md`.** `flightlist/search?from=&to=&date_from=&date_to=`
 returns real fares with flight numbers and times across a whole date range in
@@ -171,3 +171,71 @@ Cloak scraper: unauthorized upstream as of 2026-08-04.
 (5) stafftravel.easyjet.com → easyJet patterns;
 (6) WebSearch → close gaps (Wizz/TUI/BA);
 (7) hand-build deep links from the patterns above.
+
+## Sweeping `farfnd` to prove a route does NOT exist (Palermo, 2026-08-19)
+
+Loop `farfnd/.../cheapestPerDay` over every plausible UK origin before
+researching anything else. A route with no service returns a full month of
+`unavailable: true` days — that is a *positive* answer, not a failed call, and
+it collapses the airport comparison in one pass. On the Palermo run seven of
+eight origins (LTN, BHX, MAN, BRS, LGW, EMA, LPL) came back fully unavailable
+and only STN flew, which killed the whole "rank airports by rail connection"
+exercise in a single loop. **Say the negative result out loud in the draft** —
+"Luton is a better rail connection but nobody flies it" is information the
+household needs, and it prevents the same question next trip.
+
+Cross-check the survivors with maviapi `flightlist/search`, which lists the
+*other* carriers on the same city pair (easyJet LGW/LTN here) and, crucially,
+carries **`seats_available`**. At short notice that number outranks the fare.
+
+## Short-notice runs (< 1 week): what changes
+
+- Fares are 2–3× the same route's four-weeks-out level, and the **cheapest day
+  in the window is often not the day the trip was framed around**. Build the
+  date matrix anyway — on this run a **6-night** window (22–28 Aug) priced
+  **£24/person cheaper than the 5-night one** (22–27) because the return leg
+  swung £24. An extra night that costs negative money is a finding; lead with it.
+- Ryanair's `/api/booking/v4/.../availability` returns nothing to `curl` (bot
+  wall). `farfnd` + maviapi `flightlist` together give flight number, time,
+  price and seats without it — don't waste a round on the booking API.
+- Advance rail fares to the airport may already be gone. Check the **last leg
+  home** against the landing time explicitly and price the taxi: a 20:30
+  Stansted landing puts you in Leicester at ~23:45, and the last South
+  Wigston train left at 22:25. That is a £12–15 line, not a blocker, but it
+  belongs in the day-six timeline.
+
+
+## When the user says "don't look at tickets" (Türkiye run, 2026-09-18)
+
+Sometimes the party has already booked, or will book themselves, and asks you **not** to price
+flights. That does **not** mean skip the flight work — it means the question changes from
+*"what does it cost"* to **"does a flight at that hour actually exist on that day?"** On this run
+that check found a booking-level error in the user's own plan.
+
+**The finding:** the plan assumed a ~21:00 departure from a small regional airport to a specific
+Istanbul airport. A flight leaves at 20:50 — **to the other Istanbul airport.** The only service to
+the one the traveller wanted was **once a week, at 07:20 in the morning.** Nobody would have caught
+that from a fare search; it came from reading the route's whole timetable.
+
+**Method, in order:**
+1. `flightconnections.com/flights-from-<orig>-to-<dest>` — lowercase IATA; **the short form works,
+   the long `flights-<city>-<iata>-to-...` form 404s.** Gives airlines, flight numbers, times,
+   flights/week. It curls as **405** but WebFetches fine.
+   ⚠️ **Its frequency counts can be wrong** — it reported "4/week" for a route that flew daily.
+2. **`uk.trip.com/flights/status-<flightno>/` is the truth**: a raw 7-day operating history with
+   real departure times. **Derive the weekday pattern yourself from the date list.**
+3. **maviapi `flightlist/search` over seven consecutive dates.** A single date looks deterministic;
+   one departure actually wandered 20:00–22:05 across the week. **And reverse origin/destination to
+   get an arrivals board** — which morning arrival a party takes can change a whole day by two hours,
+   and on this run that was the highest-leverage number in the entire flight research.
+4. Small-airport reality check: **confirm the airport is operating at all** after a disaster
+   (passenger statistics are the cheapest proof — one airport's traffic grew 35% in the quake years),
+   and note that a small airport may have only one or two departures a day, so an assumed hour is
+   a real risk to the plan.
+
+⚠️ **Season matters for schedules, not just fares.** Timetables read in September are the *summer*
+schedule; the winter one starts late October. **Quote times ±30 min and tell the user to re-confirm
+in November.** Say this in the draft — it is the difference between a schedule finding and a promise.
+
+Dead this run: `flightsfrom.com` 403 (confirmed again), `airportinfo.live` DNS-dead,
+`flightconnections` CAPTCHA'd for one agent while WebFetching fine for another.

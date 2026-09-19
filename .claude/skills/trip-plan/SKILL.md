@@ -107,6 +107,15 @@ also carry:
   report with a `## Method notes (reusable)` section; without it the
   knowledge dies with the agent.
 
+  **Country playbooks go in too, when one exists.** `turkiye-resmi-kaynaklar.md`
+  is the first: for a Turkish trip it replaces most blog research outright,
+  because Turkey publishes museum hours, closed days, **live open/closed
+  status**, prices, road distances, tolls and fuel prices as scrapable official
+  data — while its travel-blog internet is almost entirely stale. Paste it into
+  every agent on a Turkish trip. When a run discovers a country's official data
+  layer, write it up as its own `<country>-*.md` rather than burying it in the
+  domain files.
+
 - **Ask the APIs before driving a browser.** maviapi
   (`https://api.maviapi.com/v1/sites/<slug>/...`, key in `~/.maviapi-key`)
   serves Booking.com, Airbnb, Trainline, Tripadvisor, GetYourGuide and flight
@@ -120,6 +129,37 @@ also carry:
   numbers as a shortlist and confirm the actual picks live — a headline that
   turns out not to be bookable is the one failure this whole skill exists to
   avoid.
+
+- **Ask whether the trip is even shaped like this skill assumes.** The default
+  profile (2 adults, UK rail to the airport, open-jaw, swimming) is a default,
+  not a boundary. A trip can be a self-drive road trip with a rotating cast and
+  free accommodation with friends — in which case the deliverables change: no
+  flight fares, a **leg table with a whole-trip kilometre total** (it decides
+  the rental's km policy, and every common daily cap fails a long route), a
+  **cast-and-dates table** for who joins and leaves when, and hotel research
+  for only the nights that actually need it. Re-scope the five agents to the
+  trip in front of you rather than filling the template's slots. Five is a
+  default too — the Türkiye run used six, split by region rather than by domain,
+  because the sights research was the bulk of the work.
+
+- **In a disaster-affected region, current-status verification IS the job.**
+  After an earthquake, flood or war, every pre-event blog, guidebook and
+  listicle describes buildings that may no longer stand — and reads as current.
+  Tell every agent to establish dated post-event status for each sight, and to
+  report "unverified status" as a finding rather than passing an old listing
+  through. Two rules worth quoting to them verbatim: **"restoration complete"
+  is not "open to visitors"** (one castle was declared restored twice and still
+  has not opened), and **a Tripadvisor ranking is not evidence a place is open**
+  (one site sat at #2 in its city eight years after closing, another at #1
+  while shut since an earthquake).
+
+- **Feasibility arithmetic is a first-class deliverable.** Ask each regional
+  agent to set its day's driving against that day's actual daylight and return
+  a verdict plus two or three alternative shapes. On the Türkiye run this
+  killed one day as written (401 km of driving against 9h43 of light, leaving
+  55 minutes per city) and rescued another that had looked impossible. **Give
+  agents the computed sunrise/sunset up front** — a 20-minute error in an
+  assumed sunset changes which days work.
 
 While agents run, do any local prep (skeleton of the draft file);
 synthesize only after all five report.
@@ -217,3 +257,63 @@ Then `node tools/tripadvisor.mjs` adds what the crowd made of each stop into
   hundred Commons thumbnails at once gets you throttled, and a throttled image
   looks exactly like a missing one — check a failure individually before
   believing it.
+
+### What the Güneydoğu wiring added (2026-09-18)
+
+- **Add the destination's language to `WIKIS` in `photos.mjs` before you run
+  it.** English Wikipedia has no article for Yesemek, Perre, Karakuş, Hasan
+  Paşa Hanı or the Adana museum; Turkish has all five. One word in a list
+  turned three MISSes into six-frame galleries.
+- 🔴 **A name that matches perfectly can still be the wrong continent.**
+  `tr:Perre` resolves cleanly — to a *freguesia in Viana do Castelo,
+  Portugal*, and the gallery came back as municipal coats of arms and a
+  parish church. The Commagene city is `Perrhe`. The matcher can only check
+  the name it was given, so on the contact sheet **ask what country each
+  frame is in**, not just whether it looks like the right kind of thing.
+- **A small town's Commons category is its diaspora's family album.**
+  `Category:Midyat` leads with a 1927 language map and early-20th-century
+  studio portraits. Pin the sub-category that is actually the place
+  (`cat:Midyat Guest House, Midyat`, `cat:Old town scenes, Midyat town`) and
+  keep the broad one last as filler.
+- ⚠️ **`tools/tripadvisor.mjs` resolves nothing any more**: maviapi's
+  `tripadvisor/search?q=` answers `scrape_failed` for every term (checked
+  2026-09-18). A new trip gets no ratings. Say so rather than hunting for a
+  bug; the existing `ratings.js` rows were harvested while it worked.
+
+### When the trip doesn't fit the site's assumptions, change the site, not the truth
+
+Three of this run's edits were to shared files, and each one existed because a
+hardcoded assumption would otherwise have put a wrong thing on the page. All
+three kept the other trips byte-identical, which is the bar:
+
+- **The currency toggle was £/€ in the markup.** A trip priced in lira
+  rendered "£6 a head" next to prose saying "~370₺". Now a trip may declare
+  `currencies: [{code, sym, rate}]` and `app.js` builds the buttons and the
+  conversion from it; the default is the pair the site always had. Store the
+  prices in euros still, and **derive the euro figures from the local ones**
+  (370₺ → 6.6, not 7) so the chip and the prose agree after conversion.
+- **The filter row was a fixed list** including Boat trips and Swimming. A
+  road trip through the southeast does neither, and an empty filter is a
+  promise the week can't keep. Now derived from the categories the days
+  actually contain — same for the map legend in `trip-map.html`.
+- **The two travellers' names were in `index.html`.** A trip with a rotating
+  cast of four needs them per-trip, so they became `travellerAName` /
+  `travellerAInitial` / `travellerADesc` (and B) in the packs. `izemDesc` and
+  `ahmetDesc` were renamed to match.
+- Smaller, same reason: the stays rail's £90-190 band and its two labels come
+  from `stays.band` and i18n; a hotel with no published guest score gets no
+  score chip rather than an invented one; a hotel with no live price for the
+  dates says so; a city with no alternatives draws no alternatives card; and
+  `stays.cities[].search` gives the pick's button a real dated search when no
+  per-hotel deep link could be verified.
+
+### Verify links before you ship them, and say when you couldn't
+
+For Türkiye no bookable per-hotel deep link could be confirmed — obilet 403s
+every URL shape. So the hotel **names** open Google Maps (always right, always
+works) and the **button** opens an enuygun dated city search whose URL shape
+was curl-tested for a 200 first: `enuygun.com/otel/bolge/<il>/` (Diyarbakır is
+the exception, `/otel/yer/diyarbakir/`) with
+`?checkInDate=DD.MM.YYYY&checkOutDate=DD.MM.YYYY&roomDetail=<pax>%7C<rooms>&p=search&country=TR`.
+A page that says plainly "no deep link could be verified, phone and confirm"
+is worth more than a guessed one that 404s on the day.

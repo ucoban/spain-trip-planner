@@ -298,8 +298,8 @@ window.TRIPS.mallorca = {
         city2: 'Sóller · Valldemossa',
         city2Href: 'https://www.google.com/maps/search/?api=1&query=Port%20de%20S%C3%B3ller',
         mapIntro: 'Every stop, pinned — dashed lines are the flights out and home, solid the spokes out of the base: the railway over the mountains, the coast road to Valldemossa, the long run east to the caves. Hover a pin for its name, tap for the when.',
-        izemDesc: 'Architect. The cathedral terraces and the Carthusian monastery are the two days planned around her.',
-        ahmetDesc: 'Student. Carry the student ID: the Cartoixa is €8.50 rather than €12.50 with it.',
+        travellerADesc: 'Architect. The cathedral terraces and the Carthusian monastery are the two days planned around her.',
+        travellerBDesc: 'Student. Carry the student ID: the Cartoixa is €8.50 rather than €12.50 with it.',
         vlogsKicker: 'What the vlogs taught us',
         vlogsText: 'Distilled from 20 Mallorca vlogs and 22 articles: tap a contactless card on the buses rather than paying cash, it is 40% cheaper and two people can share one card; the free-travel headline is for residents only. Half the bus numbers online are dead — 320, 330, 340 and the Es Trenc shuttle no longer exist, and Porto Cristo is the 401, not the 412. The cathedral shuts on Sundays and the Cartoixa shuts on Sundays; Bellver, Es Baluard and the Almudaina all shut on Mondays. Port de Sóller is the one beach that wants water shoes, and do not swim by the harbour — a vlogger filmed the water there and it is oily. Jellyfish were reported at Ses Illetes this summer, so check the map on the morning. Sea: 27 °C. Pack water shoes, earplugs for the corridor doors, and cash for the beach loungers.'
       },
@@ -487,8 +487,8 @@ window.TRIPS.mallorca = {
         city2: 'Sóller · Valldemossa',
         city2Href: 'https://www.google.com/maps/search/?api=1&query=Port%20de%20S%C3%B3ller',
         mapIntro: 'Her durak haritada — kesik çizgiler gidiş ve dönüş uçuşları, düz çizgiler üsten çıkan kollar: dağların üstünden geçen tren, Valldemossa\'ya giden kıyı yolu, doğuya mağaralara uzanan uzun hat. İğnenin üstüne gel, adını görürsün; dokun, saatini.',
-        izemDesc: 'Mimar. Katedral terasları ve Kartuziyen manastırı, günleri onun için kurulan iki durak.',
-        ahmetDesc: 'Öğrenci. Öğrenci kartını yanına al: Cartoixa kartla €12,50 değil €8,50.',
+        travellerADesc: 'Mimar. Katedral terasları ve Kartuziyen manastırı, günleri onun için kurulan iki durak.',
+        travellerBDesc: 'Öğrenci. Öğrenci kartını yanına al: Cartoixa kartla €12,50 değil €8,50.',
         vlogsKicker: 'Vloglardan öğrendiklerimiz',
         vlogsText: '20 Mallorca vlog\'u ve 22 makaleden damıtıldı: otobüste nakit yerine temassız banka kartı okut — %40 ucuz, üstelik iki kişi aynı kartı kullanabiliyor; "2026\'da toplu taşıma bedava" haberi yalnızca ikamet kaydı olanlar için. İnternetteki otobüs numaralarının yarısı ölü: 320, 330, 340 ve Es Trenc servisi artık yok, Porto Cristo\'ya 401 gidiyor, 412 değil. Katedral ve Cartoixa pazar günleri kapalı; Bellver, Es Baluard ve Almudaina pazartesi kapalı. Deniz ayakkabısı isteyen tek plaj Port de Sóller, ve orada limanın dibinde yüzme — bir vlogger suyu çekmiş, mazot gibi. Bu yaz Ses Illetes\'te denizanası bildirildi, sabahı haritadan bak. Deniz 27 °C. Deniz ayakkabısı, koridor kapıları için kulak tıkacı ve şezlong parası için nakit al.'
       },

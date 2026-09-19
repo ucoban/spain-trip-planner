@@ -1,6 +1,6 @@
 # Playbook: maviapi — travel data as JSON, before you reach for a browser
 
-Last updated: 2026-08-16 (Mallorca trip, first use).
+Last updated: 2026-09-18 (Güneydoğu/Türkiye run; Gothenburg 2026-09-03; Palermo 2026-08-19; Mallorca 2026-08-16).
 
 maviapi turns bot-walled travel sites into plain REST. Where it answers, it
 replaces twenty minutes of Chrome driving with one `curl`. Where it doesn't,
@@ -115,3 +115,102 @@ plan than another photograph anyway, and it is worth most when it disagrees
 with the plan: Palma's Banys Àrabs sit in the itinerary at 3.4 and Platja de
 Palma at 3.7, which is exactly what somebody deciding what to cut needs to
 know.
+
+## Additions from the Palermo run (2026-08-19)
+
+- **`booking/search` quotes EUR, not GBP.** The payload carries `currency: "€"`
+  next to `price_amount`, and `price_amount` is the **whole-stay total for the
+  date range**, taxes and charges included — not a nightly rate. Read the
+  field; don't infer the currency from the household's.
+- **Its Booking numbers were exact.** Every one of the 18 Palermo properties
+  matched a live stealth-browser read of the same search URL to the euro,
+  including the struck-through "original price". Treat `booking/search` as a
+  quote-grade shortlist for *price*; what it does **not** carry is the **free
+  cancellation** flag and the "members-only price" caveat, and at short notice
+  those decide the pick. One cloak read of the search URL backfills both for
+  the whole list at once — cheaper than opening property pages one by one.
+- **`airbnb/search` resolved "Palermo Sicily Italy" correctly** (all 16 results
+  at 38.1x/13.3x). The wrong-city trap is real but not universal: **naming the
+  region and country in the `location` string is the cheap defence**, and
+  checking returned `coordinate` values is the confirmation.
+- **`getyourguide/catalog?q=` ignores the query** — it returned Normandy, Siem
+  Reap and Guanacaste for `q=Palermo`. It is an index dump, not a search. Get
+  the real city slug from a WebSearch of `site:getyourguide.com <city>`
+  (Palermo = `palermo-l387`) and go straight to
+  `getyourguide/activities/<slug>`, which returned 16 products with price,
+  rating, review count, next availability and URL — enough to build a whole
+  activities section.
+- **`flightlist/search` carries `seats_available`** on the cheapest itinerary.
+  Ryanair's own `farfnd` does not. At three days out that field was the single
+  most decision-relevant number in the flight research ("2 seats left on the
+  return") — always surface it.
+- **`thetrainline/fares` returns a ~3-day window starting at `date`, and
+  silently omits days with no advance fares.** An absent day means "no advance
+  inventory found", **not** "no service" — say so that way in the draft and
+  quote a walk-up estimate rather than leaving the leg unpriced.
+- `tripadvisor/attractions?geo=` still works and is worth the call for its
+  ratings alone: Mondello at **3.7 (3,496)** changed how a beach day got
+  written. `tripadvisor/restaurants?geo=` returned empty on this run.
+- **zsh gotcha in the curl loops:** `set -- $pair` does **not** word-split in
+  zsh, so the classic `for p in "A B"; do set -- $p` idiom silently passes the
+  whole string as `$1` and runs four identical broken requests. Use
+  `p=A:B; o=${p%%:*}; d=${p##*:}` instead.
+
+## Additions from the Gothenburg run (2026-09-03)
+
+- **`tripadvisor/search?q=` was `scrape_failed` on every query**, but the geo
+  id is in any Tripadvisor URL a WebSearch returns (`-g189894-`), and
+  `attractions?geo=` / `restaurants?geo=` then worked (30 each, attractions
+  carried `image` this time). `data` is nested — `data.attractions[]`,
+  `data.restaurants[]` — not a bare list.
+- **`thetrainline/fares` is useless outside the UK**: every Swedish route
+  returned empty days. Price Swedish rail on sj.se in Chrome (see
+  `ground-activities.md`).
+- **`flightlist/search` can miss a direct flight** — AYT–GOT returned only
+  connecting itineraries although Pegasus flies it nonstop. Its absence in the
+  top results is not evidence the route doesn't exist.
+- `getyourguide/activities/gothenburg-l479` — the real slug, found via
+  `site:getyourguide.com gothenburg` — was `scrape_failed`; the cloak MCP
+  server failed to connect the whole session. GetYourGuide prices this run came
+  from affiliate mirrors only.
+
+
+## Additions from the Güneydoğu (Türkiye) run (2026-09-18)
+
+**The wrong-city trap is WORSE than this file said, and it is the headline lesson again.**
+Four separate confident-but-wrong answers in one run:
+
+- `tripadvisor/attractions?geo=297968` → **Side**. `geo=297963` → **Belek**.
+- `booking/search?location=Viransehir` → **Kayseri**.
+- A naive Mardin geo guess → **Kırşehir**.
+
+All four returned plausible-looking *Turkish* data, which is far harder to catch than the
+Mallorca→Barcelona case: the language, the naming and the price shapes all look right.
+**Verify a returned name or coordinate against the region before any number from it is used.**
+
+**Correct Tripadvisor geo ids, this region:** Şanlıurfa **652373** · Mardin **672951** ·
+Midyat **780971** · Viranşehir **12219421**.
+`tripadvisor/search?q=` was `scrape_failed` on **every** query again (third run in a row — treat it
+as permanently dead). Get geo ids from the `-gNNNNNN-` in any Tripadvisor URL a search returns.
+
+**`flightlist/search` is the right tool when the user says "don't look at tickets" but a day hinges
+on a flight existing.** Two techniques worth keeping:
+- **Query seven consecutive dates, never one.** A single date looks deterministic; the Batman
+  departure actually wandered 20:00–22:05 across the week, and the plan's assumed "20:00" was 20:35.
+- **Reverse origin/destination to get an arrivals board.** On this run, which morning arrival the
+  party took changed the shape of a whole day by two hours. That was the single highest-leverage
+  number in the flight work, and it came from querying the route backwards.
+
+**For Turkey specifically, the state's own endpoints beat maviapi for everything maviapi is used
+for here** — museum hours/prices/status, road distances, tolls, fuel. See the new
+`turkiye-resmi-kaynaklar.md`. maviapi's role on a Turkish trip is flight schedules and Tripadvisor
+ratings, nothing else.
+
+## Confirmed again 2026-09-18: `tripadvisor/search?q=` is dead, not flaky
+
+`GET /v1/sites/tripadvisor/search?q=<anything>` answers
+`{"error":"scrape_failed","message":"The upstream source could not be fetched"}`
+for every term tried. The consequence is concrete: `tools/tripadvisor.mjs`
+resolves **0 of 27** stops for a new trip, and would for any trip run today.
+Don't debug it — the tool is fine, the endpoint is gone. Note it and ship the
+trip without ratings rather than inventing them.

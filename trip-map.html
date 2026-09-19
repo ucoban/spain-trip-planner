@@ -12,11 +12,17 @@
 <script src="trips.js"></script>
 <script src="trip-italy.js"></script>
 <script src="trip-mallorca.js"></script>
+<script src="trip-guneydogu.js"></script>
 <script src="i18n.js"></script>
 <style>
   html, body { margin: 0; height: 100%; background: var(--color-bg); font-family: var(--font-body); }
   #map { position: absolute; inset: 0; }
-  .leaflet-tile { filter: sepia(.15) saturate(.88); }
+  /* OpenStreetMap's own raster style is louder than the basemap this map
+     used to ride on, so it is calmed here rather than swapped for a styled
+     one: a little sepia for the house warmth, then desaturated and lifted
+     until the sage drive lines, the dashed flights and the coloured pins are
+     the only saturated things on the page. */
+  .leaflet-tile { filter: sepia(.14) saturate(.6) brightness(1.07) contrast(.93); }
   .panel {
     position: absolute; top: 16px; left: 16px; z-index: 1000;
     background: var(--color-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
@@ -171,7 +177,10 @@
     '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round">' + ICONS[cat] + '</svg></div>';
 
   const legend = document.getElementById('legend');
-  Object.keys(CAT).forEach(cat => {
+  // Only the pin kinds this trip actually uses: a legend entry for "Boats &
+  // swims" on a week with neither is a line the map cannot back up.
+  const usedCats = new Set(G.spots.map(s => s[2]));
+  Object.keys(CAT).filter(c => usedCats.has(c)).forEach(cat => {
     const row = document.createElement('div');
     row.className = 'row';
     row.innerHTML = pinHTML(cat, true) + ' ' + CAT[cat][1];
@@ -182,8 +191,16 @@
   document.getElementById('legendWrap').open = !small;
   const map = L.map('map', { zoomControl: false });
   L.control.zoom({ position: small ? 'topright' : 'bottomright' }).addTo(map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 20
+  // CARTO's Voyager tiles were keyless for years and stopped being so: from
+  // 2026 every anonymous tile comes back stamped "API KEY REQUIRED" across
+  // the middle of it, which is a watermark in the image, not an error we
+  // could have caught. OpenStreetMap's own tile server needs no key and no
+  // account, and renders Turkish names with their diacritics — Şanlıurfa,
+  // not Sanliurfa, which the Esri basemaps get wrong. Its usage policy asks
+  // for ordinary browser traffic and no bulk downloading, which is all this
+  // page ever does; z19 is as deep as it goes, hence maxZoom.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors', maxZoom: 19
   }).addTo(map);
 
   const arc = (a, b, bend) => {

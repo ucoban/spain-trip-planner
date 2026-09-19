@@ -22,6 +22,14 @@
  * purpose, and a reader deciding what to drop on a hot afternoon deserves to
  * know which ones the crowd found underwhelming.
  *
+ * ⚠️ The search endpoint is dead (checked again 2026-09-18)
+ * --------------------------------------------------------
+ * `tripadvisor/search?q=` now answers `{"error":"scrape_failed"}` for every
+ * term, so this tool resolves 0 of N stops for any trip run today. The
+ * ratings already in ratings.js were harvested while it worked and are kept;
+ * a new trip simply gets none, which is the honest outcome rather than a
+ * fabricated one. Nothing here needs fixing until the endpoint comes back.
+ *
  * The wrong-place trap
  * -------------------
  * These endpoints answer an unresolvable name with a different place rather
@@ -30,7 +38,7 @@
  * the same name check the photographs do, and a stop that fails it gets no
  * rating rather than somebody else's.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { homedir } from 'node:os';
@@ -139,7 +147,9 @@ const queries = JSON.parse(readFileSync(join(ROOT, 'tools/photo-queries.json'), 
 delete queries._;
 
 global.window = { TRIPS: {} };
-for (const f of ['trip-italy.js', 'trip-mallorca.js']) {
+// Every registered trip, found rather than listed — a new trip-<id>.js used to
+// be rated only if somebody remembered to add it here.
+for (const f of readdirSync(ROOT).filter(n => /^trip-[a-z]+\.js$/.test(n))) {
   new Function('window', readFileSync(join(ROOT, f), 'utf8'))(window);
 }
 // España's itinerary lives in app.js rather than in a trip file.

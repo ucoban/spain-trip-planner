@@ -1,8 +1,8 @@
 # Playbook: ground transport + activities research
 
 Techniques proven on real trips. Paste this into the transport/activities
-agent's prompt. Last updated: 2026-08-16 (Mallorca; Sicily 2026-08-04 before
-that — Italy specifics kept where they generalise).
+agent's prompt. Last updated: 2026-09-18 (Güneydoğu/Türkiye; Gothenburg 2026-09-03; Mallorca 2026-08-16;
+Sicily 2026-08-04 — earlier specifics kept where they generalise).
 
 **Start with `maviapi.md`** for the two things it does well here:
 `thetrainline/fares` prices the UK rail leg to the airport without opening
@@ -171,3 +171,153 @@ travel dates to turn "book ahead" into a concrete sell-out finding;
 (6) local-language caveat sweep; (7) delegate breadth early to parallel
 subagents — but brief them with the fetchability map so they don't
 rediscover the same 403s, and be ready to backfill if one doesn't return.
+
+## Read the tour's own product page before describing it (Palermo, 2026-08-19)
+
+A tour listing from an API gives price, rating and title. It does **not** give
+the itinerary, and the itinerary is where the draft goes wrong. On the Palermo
+run a WebSearch summary confidently said the Zingaro/San Vito boat trip
+included "a light lunch on board with cunzato bread, wine, water and fruit" —
+that is a *different operator's* product from the same port. The actual page
+said four hours of free time in San Vito Lo Capo and no lunch at all. Had that
+gone in, the day's food line and the day's mood would both have been wrong.
+
+So: for any tour that becomes a whole day of the plan, open **that product
+page** and take the times, the pickup points, the stops and the inclusions
+from it. What it also hands over for free, and what no aggregator carries:
+the **cancellation policy** ("free cancellation up to 24 hours", "reserve now
+& pay later"), the **operator's name**, and recent dated reviews.
+
+GetYourGuide product pages **403 WebFetch** and return Cloudflare's error page
+on the free cloak tier. `cloak_scrape` with **`pro: true` and `proxy: true`**
+read it first try — that combination is the one to reach for on GYG, and the
+`evaluate` expression `document.body.innerText.slice(0,3500)` is enough; no
+selector hunting needed.
+
+## Events: two independent calendars, or it doesn't go in the plan
+
+This repo has already shipped three concerts that were not real. The cheap
+guard that worked: take the candidate list from an aggregator (Songkick), then
+confirm the exact dates against **the festival's or venue's own calendar**, and
+only write what both agree on. On the Palermo run both sources gave the same
+four Velodromo/Ippodromo dates — and the honest finding was that **none of them
+fell on a night we were free**. Write that up explicitly as a table with a
+"does it fit?" column; "there is nothing on" is a real answer that stops the
+user searching, and it is only credible if the checking is shown.
+
+## Additions from the Gothenburg run (2026-09-03) — Swedish operators
+
+- **Västtrafik publishes every timetable as an Azure-blob PDF.** Each line page
+  `https://www.vasttrafik.se/reseplanering/tidtabeller/linje/<lineId>/` links
+  `vtstorage002.blob.core.windows.net/vtstoragecontainer01/<line>__0__LINE__<from>__<to>__<guid>__.pdf`
+  (and `__STOP__` PDFs per stop, listed on the same page); `pdftotext -layout`
+  reads them cleanly, with validity dates in the filename. Line IDs follow
+  `90110145<line>00000` for trams (5 = `9011014500500000`, 11 =
+  `…501100000`), `9011014520500000` for bus X4, `9011014528100000` for boat
+  281. **Fares live in the board paper**
+  (`globalassets/…/nr-05-prisjustering-2026.pdf`, grep "Prislista") — the
+  ticket pages carry no price table. The journey planner needs an OAuth token:
+  don't bother. Tap-to-pay works on trams/buses/boats but **not on regional
+  trains** — a fact worth a line in every Swedish draft.
+- **Flygbussarna is DataDome-walled end to end** — 403 to curl, WebFetch and
+  even in-page `fetch` of its `/api/mobile/catalogue/*` from a real Chrome tab,
+  and Västtrafik's page for the line carries no timetable. Quote the fare from
+  the operator's landing page, the frequency from Swedavia, and say the
+  timetable must be checked in the app on the day. FlixBus's route page is open
+  and is the honest fallback.
+- **SJ fares render in headless Chrome**:
+  `https://www.sj.se/en/search-journey/choose-journey/<From>/<To>/YYYY-MM-DD`
+  with **Swedish station names** (`Köpenhamn H`, not `København H`); prices
+  appear ~5 s after "Loading price", so one `evaluate_script` with a 6–8 s
+  sleep grabbing lines matching `Departure time` returns every train with its
+  fare. Trainline renders the schedule but "can't sell" Öresundståg.
+- **Citybreak ticket shops hide prices behind a button.** Universeum's
+  `book.universeum.se` product page prints adult/child/senior prices only after
+  clicking "BOKA NU" in Chrome; the marketing site never shows them. Same
+  pattern likely for other Citybreak-hosted venues.
+- **Events, Swedish double-sourcing that worked**: gotevent.se venue pages
+  (Scandinavium/Ullevi) + Songkick metro page (Gothenburg is `34443`; `29357`
+  is Ambur, India — check the city in the title); Tickster venue listings for
+  club venues (Trädgår'n, Pustervik); gso.se paginates with `?offset=24/48`;
+  football fixtures from the clubs' own sites (ifkgoteborg.se, gais.se,
+  bkhacken.se/matcher) — the league aggregators were a year stale.
+- **Booking systems on Cloudflare (timecenter.se)** never clear the "Just a
+  moment" challenge headless — link the booking URL for the human, take the
+  rules from the municipality page, and say the live slot pattern is
+  unverifiable.
+- **Municipal free things have a release calendar.** Gothenburg's free public
+  sauna releases a month of slots on the third Monday of the previous month —
+  the date the household must act on. Always ask "when do slots open?" for
+  anything free and booked; it is the most urgent line in the checklist.
+- maviapi this run: `thetrainline/fares` returned empty for every Swedish
+  route (no advance inventory ≠ no service); `flightlist/search` missed the
+  direct Pegasus flight and showed only connections; `getyourguide/activities/
+  gothenburg-l479` (the real slug) was `scrape_failed`;
+  `tripadvisor/attractions?geo=189894` worked. airportinfo.live/flight/<no>
+  gives a flight's published schedule and punctuality when flightera/flightaware
+  403.
+- **Clock-change weeks**: check whether the trip straddles the DST change
+  (last Sunday of October in Europe) — sunset moves an hour earlier mid-trip,
+  which reorders outdoor days, and Västtrafik states night timetables are
+  pre-adjusted.
+
+
+## Additions from the Güneydoğu (Türkiye) run (2026-09-18) — a CAR trip, not public transport
+
+**Turkey-specific detail lives in `turkiye-resmi-kaynaklar.md`.** What generalises:
+
+### For a self-drive trip, the deliverable is a LEG TABLE, not a timetable
+Every leg with **km and a realistic seasonal drive time**, plus a **total for the whole trip** —
+because the total is what decides the rental's kilometre policy. On this run the route came to
+**~2,490 km over 8 days**, which fails *every* common daily-km cap (even 300 km/day falls short).
+**That single number was the most consequential output of the whole transport research.**
+Always compute it and lead with it.
+
+### Get distances from the national road authority, not a map API
+Most countries' road authorities publish official distance matrices. Turkey's KGM ships them as
+**downloadable spreadsheets** (province matrix and a 1,007,013-row district matrix). Authoritative,
+and it corrected a brief's wrong figure by 67 km — which changed a day's feasibility verdict.
+⚠️ **But cross-check anywhere the geography has changed**: a dam had drowned an old alignment, so
+the official figure was 18 km short and every pre-flood distance for that town was systematically wrong.
+
+### OSRM for *marginal* detour costs
+`router.project-osrm.org/route/v1/driving/LON,LAT;LON,LAT?overview=false&steps=true` — free, no key.
+**Multi-waypoint URLs give per-leg splits**, which is how you cost a detour as "+36 min" rather than
+as a total. That framing is what makes a detour decidable. ⚠️ Sanity-check each leg's implied speed;
+OSRM is right on trunk roads and badly wrong on minor access roads. ⚠️ python `urllib` gets
+`SSLV3_ALERT_HANDSHAKE_FAILURE` on that host — curl to a file.
+
+### Compute solar times; never search them
+~30 lines of NOAA matched `api.sunrise-sunset.org` to 2 minutes (`timeanddate` 403s everything).
+On this run the brief's assumed sunset was **20 minutes pessimistic**, and that alone changed
+whether a day worked. Add **~8–10 min per 2,000 m** of elevation for the visible sunset.
+Also check whether the country observes DST at all — Turkey is permanently UTC+3, so there is no
+clock-change week to plan around.
+
+### 🔴 Winter/mountain access is a SEASONAL question the ticketing system will not answer
+The headline sight of one day (a 2,150 m summit) is **snow-closed roughly December–March every
+year**, and the Ministry's own ticketing page showed it as **"Durum: AÇIK"** throughout — because
+that flag is administrative, not a condition report. The truth was in (a) free-text Turkish warning
+prose telling you to phone the museum directorate, and (b) **dated news wires reporting the annual
+road-clearing operation**, which named the exact date the road reopened (4 April).
+**For any high-altitude or seasonal site: find the season-opening news story from the previous
+spring. It is published every year and it is the most reliable answer available.**
+
+### Mountain passes: check the incident history, not just "is it open"
+A named pass on the route turned out not to be a *snow* risk at all — the authority keeps it open —
+but to have a monthly rhythm of **fog, rockfall and lorry rollovers**, including a **two-way closure
+from a rockfall** and planned intermittent closures for controlled rock-clearing. Query
+`<pass name>` + `kapandı` / `heyelan` / `sis` / `devrildi` + year. **The right output is "treat this
+65-minute leg as 65 not 52, and don't drive it in the dark" — not a binary open/closed.**
+
+### Prayer times are an opening-hours constraint
+For any trip with mosque visits: `api.aladhan.com` (Turkey: `method=13`, Diyanet). A major mosque is
+effectively shut to sightseers ~30–40 min either side of the midday and afternoon prayers, which in
+winter fall straight through the middle of the sightseeing block. Put the windows in the day plan.
+
+### Toll systems charge by station PAIR
+Exiting a motorway for a roadside sight and rejoining can cost **more** than the through-run
+(45+65 vs 73 on this route). Small money, but state it so a detour's real cost is honest.
+Electronic-only tolling (Turkey's HGS) means **a hire car's tag balance is the renter's problem** —
+an empty tag becomes a violation with a multiple-of-toll penalty. "Confirm the tag has balance at
+pickup" belongs in every self-drive checklist.

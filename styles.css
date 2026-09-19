@@ -53,6 +53,32 @@
   --color-accent-2-800: #3d472b;
   --color-accent-2-900: #272e1b;
 
+  /* Göteborg's ramp: the Kattegat in October. Named here because a Göteborg
+     draft already refers to it; that trip is not on the site yet, and when it
+     goes on it should not borrow Güneydoğu's colours. */
+  --color-accent-4: #3f6d94;
+  --color-accent-4-100: #eef4f9;
+  --color-accent-4-200: #d7e5f0;
+  --color-accent-4-300: #b3cde2;
+  --color-accent-4-400: #86adcd;
+  --color-accent-4-500: #5d8cb3;
+  --color-accent-4-600: #3f6d94;
+  --color-accent-4-700: #305676;
+  --color-accent-4-800: #24405a;
+  --color-accent-4-900: #17293a;
+
+  /* Güneydoğu's ramp: pomegranate and isot, against the black basalt. */
+  --color-accent-5: #a33f33;
+  --color-accent-5-100: #fdf0ec;
+  --color-accent-5-200: #f9dcd4;
+  --color-accent-5-300: #f0b8aa;
+  --color-accent-5-400: #e08d79;
+  --color-accent-5-500: #c4634f;
+  --color-accent-5-600: #a33f33;
+  --color-accent-5-700: #833026;
+  --color-accent-5-800: #61241c;
+  --color-accent-5-900: #3d1712;
+
   --font-heading: "Caprasimo", system-ui, sans-serif;
   --font-heading-weight: 400;
   --font-body: "Figtree", system-ui, sans-serif;

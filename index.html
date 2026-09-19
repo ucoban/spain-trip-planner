@@ -11,6 +11,7 @@
 <script src="trips.js"></script>
 <script src="trip-italy.js"></script>
 <script src="trip-mallorca.js"></script>
+<script src="trip-guneydogu.js"></script>
 <script src="i18n.js" defer></script>
 <!-- guide-data.js feeds places.js its dictionary: place name → Maps query -->
 <script src="guide-data.js" defer></script>
@@ -77,10 +78,8 @@
           <button type="button" class="btn btn-secondary" data-lang="en" lang="en" style="font-size:12px;padding:5px 12px">EN</button>
           <button type="button" class="btn btn-secondary" data-lang="tr" lang="tr" style="font-size:12px;padding:5px 12px">TR</button>
         </div>
-        <div role="group" aria-label="Show prices in" data-i18n-aria-label="pricesIn" style="display:flex;gap:4px">
-          <button type="button" class="btn btn-primary" data-currency="GBP" style="font-size:12px;padding:5px 12px">£</button>
-          <button type="button" class="btn btn-secondary" data-currency="EUR" style="font-size:12px;padding:5px 12px">€</button>
-        </div>
+        <!-- app.js fills this from the trip's own currencies; the default pair is £ and €. -->
+        <div id="currencyGroup" role="group" aria-label="Show prices in" data-i18n-aria-label="pricesIn" style="display:flex;gap:4px"></div>
       </div>
     </nav>
     <header data-r="hero" style="display:grid;grid-template-columns:1fr 236px;gap:44px;align-items:center;padding:52px 8px 36px">
@@ -100,7 +99,7 @@
     <div data-r="route" style="display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-bottom:40px">
       <div style="flex:1;min-width:180px;background:var(--color-neutral-100);border-radius:var(--radius-lg);padding:18px 22px">
         <div data-i18n="homeKicker" style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:6px">Home base</div>
-        <div style="font-family:var(--font-heading);font-size:20px"><a href="https://www.google.com/maps/search/?api=1&amp;query=Wigston%2C%20Leicestershire" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--color-neutral-500);text-underline-offset:3px">Leicester · Wigston</a></div>
+        <div style="font-family:var(--font-heading);font-size:20px"><a data-i18n="home" data-i18n-href="homeHref" href="https://www.google.com/maps/search/?api=1&amp;query=Wigston%2C%20Leicestershire" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--color-neutral-500);text-underline-offset:3px">Leicester · Wigston</a></div>
         <div data-i18n="homeNote" style="font-size:13px;color:var(--color-neutral-700);margin-top:4px">Kettle HQ, back by the 14th</div>
       </div>
       <div data-r="arrow" style="align-self:center;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-accent-700);padding:0 4px">
@@ -171,17 +170,17 @@
         <div class="card">
           <div class="card-kicker" data-i18n="travellersKicker">The travellers</div>
           <div style="display:flex;gap:12px;align-items:flex-start;margin-top:12px">
-            <div style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-900);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px;flex-shrink:0">I</div>
+            <div data-i18n="travellerAInitial" style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-900);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px;flex-shrink:0">I</div>
             <div>
-              <div style="font-weight:700;font-size:14.5px">Izem Çelik</div>
-              <div data-i18n="izemDesc" style="font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Architect. The Gaudí and Calatrava days are planned around her.</div>
+              <div data-i18n="travellerAName" style="font-weight:700;font-size:14.5px">Izem Çelik</div>
+              <div data-i18n="travellerADesc" style="font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Architect. The Gaudí and Calatrava days are planned around her.</div>
             </div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start;margin-top:14px">
-            <div style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-900);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px;flex-shrink:0">A</div>
+            <div data-i18n="travellerBInitial" style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-900);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:17px;flex-shrink:0">A</div>
             <div>
-              <div style="font-weight:700;font-size:14.5px">Ahmet Çelik</div>
-              <div data-i18n="ahmetDesc" style="font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Student. Carry the student ID everywhere: Picasso, the Oceanogràfic and half of València knock money off.</div>
+              <div data-i18n="travellerBName" style="font-weight:700;font-size:14.5px">Ahmet Çelik</div>
+              <div data-i18n="travellerBDesc" style="font-size:13px;line-height:1.5;color:var(--color-neutral-700)">Student. Carry the student ID everywhere: Picasso, the Oceanogràfic and half of València knock money off.</div>
             </div>
           </div>
         </div>

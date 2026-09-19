@@ -1,25 +1,45 @@
 # The Çelik plans
 
-Three holidays, one site. Opening it asks which — **España** (Barcelona and
-València, 8-14 August), **Sicilia** (Palermo and Taormina, 22-29 August) or
-**Mallorca** (one base at s'Arenal, 22-28 August) — and remembers the answer;
+Four holidays, one site. Opening it asks which — **España** (Barcelona and
+València, 8-14 August), **Sicilia** (Palermo and Taormina, 22-29 August),
+**Mallorca** (one base at s'Arenal, 22-28 August) or **Güneydoğu**
+(southeastern Türkiye by car, 5-12 December) — and remembers the answer;
 the chip in the nav switches between them later, and `?trip=italy` links
 straight to one. Everything below works the same whichever is showing: pick a
 day, filter it down to the boat trips or the swims, tick things off as they
 happen, and keep boarding passes and booking PDFs pinned to the stop they
-belong to. All three itineraries and their embedded tips are distilled from
+belong to. All four itineraries and their embedded tips are distilled from
 travel vlogs and blog articles — 29 vlogs and 22 articles for Spain, 16 and 16
-for Sicily, 20 and 22 for Mallorca — with routes, prices and warnings mined
-from transcripts, comment sections and pages. And none of it is fixed:
+for Sicily, 20 and 22 for Mallorca, 31 vlogs for Güneydoğu — with routes,
+prices and warnings mined from transcripts, comment sections and pages. And none of it is fixed:
 **Replan** in the day header turns the whole plan editable in place.
 
 Each trip keeps its own ticks, its own replanned itinerary and its own
-hotels; the travel wallet and the shared passphrase are common to all three.
+hotels; the travel wallet and the shared passphrase are common to all four.
 
 Mallorca is the odd one out in shape: a single base for the whole week rather
 than two, because the price table said so — one hotel with breakfast beat
 every split we costed, and the honest cost of that choice (the north of the
 island stops being reachable) is written into the plan rather than hidden.
+
+**Güneydoğu** breaks more of the mould than that, and the data says so instead
+of pretending otherwise. It is a self-drive — about 2,490 km — so the transit
+stops carry distance, driving time and the toll for the car rather than a fare
+each. The cast rotates: two travellers land on the 5th, two more on the 8th,
+one flies home out of Batman on the 9th and another out of Maraş on the 11th,
+so every day's words name who is actually in the car. Four of the eight nights
+are free (a friend's house in İslahiye), which is why only three hotels were
+ever researched. It is priced in lira and shown in euros at 55.9 ₺ with the
+lira figure kept in every line of prose, because that is what gets handed
+over. And because the 2023 earthquakes hit exactly this geography, current
+status *is* the research: the museum hours, closed days, tariffs and open/shut
+flags come from the ministry's own systems, the distances from the state road
+authority's official table, and the sunrise and sunset times were computed
+rather than searched. Four things in it are deliberately not what was asked
+for — Nemrut's summit is closed by snow, the Maraş evening flight goes to IST
+and not Sabiha Gökçen, the Monday as written needs seven hours of driving
+inside nine hours of light, and Turkish citizens can no longer buy single
+museum tickets at all — and each one is argued in the stop it changed.
 
 The plan picks a path; the **field guide** (`guide.html`) keeps the whole
 haul: every place the sources suggested (160, grouped by city, each linked
@@ -33,12 +53,18 @@ sources said lives in the stops' own tips instead.
 Booking.com search (2 adults, score 8+, £60-150 a night) boiled down to
 seven candidates per city, each plotted on the £100-150 budget band. The
 picks — HCC Taber and easyHotel Ciutat Vella for Spain, Eurostars Centrale
-Palace and B&B Al Sole di Sicilia for Sicily, tent Arenal for Mallorca — are
+Palace and B&B Al Sole di Sicilia for Sicily, tent Arenal for Mallorca, and
+the Ramada Plaza Mardin, Turistik Palas and Adıyaman Park for Güneydoğu — are
 check-in stops in the itinerary, lines in "Book before you fly", and bed-icon
 pins on the route map. Mallorca's search also ran on Airbnb in parallel, with
 no room-type filter, which is how the hotel it ended up recommending was found
 at all — Airbnb sells hotel rooms too, and filtering to entire homes hides
-them.
+them. Güneydoğu's ran on obilet and enuygun instead, which carry far better
+provincial Turkish inventory than Booking does, and it verified every hotel
+from two directions — a live dated price *and* a review from the same month —
+because the first pass turned up five hotels that are sold online and do not
+exist: one demolished in 2019, one now a wedding hall, one whose last
+advertised season was 2014.
 
 **Ask about the trip** (bottom right of the plan) is the shortcut through all
 of it: an assistant that has read the whole week, the field guide where there
@@ -63,6 +89,7 @@ eviction).
 | `trips.js` | The trip registry: which trips exist, which one is showing, the picker and the nav chip |
 | `trip-italy.js` | Sicilia, whole: skeleton, both languages, hotels, map geometry, place dictionary |
 | `trip-mallorca.js` | Mallorca, the same way — one base, seven days, both languages |
+| `trip-guneydogu.js` | Güneydoğu, the same way — eight days by car, a rotating cast, three hotels |
 | `index.html` | The page itself — nav, hero, route, embedded map, day view, sidebar |
 | `i18n.js` | Every user-facing string, per language (English and Turkish) |
 | `app.js` | Itinerary skeleton, tick/filter/day state, travel wallet, document preview |
