@@ -52,8 +52,10 @@ const SMALL = 320;   // the card thumbnail and the filmstrip
 const MAX_SHOTS = 6; // a gallery, not an archive
 
 // Where a place is most likely to have its own article: English first, then
-// the languages actually spoken where these trips go.
-const WIKIS = ['en', 'es', 'ca', 'it', 'de'];
+// the languages actually spoken where these trips go. Turkish is last and it
+// earns its place: English Wikipedia has no article for most of Yesemek,
+// Perre, Karakuş or the Adana museum, and Turkish has all four.
+const WIKIS = ['en', 'es', 'ca', 'it', 'de', 'tr'];
 
 // What a category holds besides photographs of the place.
 const NOT_A_PHOTO = /\.(svg|pdf|djvu|tiff?|ogv|webm|gif)$/i;

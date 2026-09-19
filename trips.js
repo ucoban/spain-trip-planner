@@ -1,4 +1,4 @@
-/* Two trips, one site.
+/* Four trips, one site.
  *
  * The site was built around one holiday; now it holds more than one, and the
  * reader picks which on the way in. Everything that makes a trip a trip —
@@ -57,6 +57,17 @@
       blurb: {
         en: 'Seven days from one bed: the 1912 railway over the mountains, a gorge reached only by boat, and sand at the front door.',
         tr: 'Tek yataktan yedi gün: dağların üstünden 1912 treni, yalnızca tekneyle varılan bir kanyon ve kapının önünde kum.'
+      },
+      guide: false
+    },
+    {
+      id: 'guneydogu', emoji: '🧿', hue: '--color-accent-5',
+      title: { en: 'Güneydoğu', tr: 'Güneydoğu' },
+      route: { en: 'Gaziantep → Mardin → Diyarbakır', tr: 'Gaziantep → Mardin → Diyarbakır' },
+      dates: { en: '5–12 December 2026', tr: '5–12 Aralık 2026' },
+      blurb: {
+        en: 'Eight days by car and a cast that changes: Göbeklitepe, Hasankeyf and Diyarbakır’s walls — with Nemrut’s summit under snow, and every closure checked.',
+        tr: 'Arabayla sekiz gün, değişen bir kadro: Göbeklitepe, Hasankeyf, Diyarbakır surları — Nemrut zirvesi karla kapalıyken, her kapalılık tek tek teyitli.'
       },
       guide: false
     }

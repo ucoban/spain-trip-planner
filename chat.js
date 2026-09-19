@@ -146,13 +146,13 @@
     const s = T.static;
     const head = [
       '=== THE TRIP ===',
-      s.h1 + '. ' + s.navDates + ' — ' + trip.days.length + ' days, two travellers, home in Wigston (Leicester, England).',
+      s.h1 + '. ' + s.navDates + ' — ' + trip.days.length + ' days.',
       s.heroText,
-      'Home base: Leicester · Wigston — ' + s.homeNote + '. ' + s.flightLabel + ' out, ' + s.trainLabel + ' between the bases.',
+      s.homeKicker + ': ' + s.homeNote + '. ' + s.flightLabel + ' out, ' + s.trainLabel + ' between the bases.',
       s.bcnKicker + ' ' + s.city1 + ' — ' + s.bcnNote + '. ' + s.vlcKicker + ' ' + s.city2 + ' — ' + s.vlcNote + '.',
       s.tagSea + '.',
-      'Izem Çelik — ' + s.izemDesc,
-      'Ahmet Çelik — ' + s.ahmetDesc,
+      s.travellerAName + ' — ' + s.travellerADesc,
+      s.travellerBName + ' — ' + s.travellerBDesc,
       'What the vlogs taught us: ' + s.vlogsText,
       'Every price in the plan below is per person in euros.',
       '',
@@ -182,9 +182,13 @@
     lines.push(window.I18N.lang === 'tr'
       ? 'The reader has the site in Turkish. Answer in Turkish.'
       : 'The reader has the site in English. Answer in English.');
-    lines.push(trip.currency === 'GBP'
-      ? 'Prices are showing in pounds on screen, converted at about £0.87 to the euro. Quote both if the number matters.'
-      : 'Prices are showing in euros on screen.');
+    // The plan above is in euros; the chips on screen may be in something
+    // else, and a reader asking "how much is that" means the number they see.
+    const shown = (trip.currencies || []).find(c => c.code === trip.currency);
+    lines.push(!shown || shown.rate === 1
+      ? 'Prices are showing in euros on screen.'
+      : 'Prices are showing on screen in ' + shown.code + ' (' + shown.sym + '), converted at about '
+        + shown.rate + ' to the euro. Quote both if the number matters.');
 
     const acts = trip.days.flatMap(d => d.acts);
     const ticked = acts.filter(a => a.done);

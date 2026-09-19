@@ -298,8 +298,8 @@ window.TRIPS.italy = {
         city2: 'Taormina · Giardini Naxos',
         city2Href: 'https://www.google.com/maps/search/?api=1&query=Giardini%20Naxos',
         mapIntro: 'Every stop, pinned — dashed lines are the flights out and home, solid sage the train across the island. Hover a pin for its name, tap for the when; the buttons zoom straight to a coast.',
-        izemDesc: 'Architect. The Palatine Chapel and the Greek theatre are the days planned around her.',
-        ahmetDesc: 'Student. Carry the student ID: the Teatro Antico and most state sites in Sicily are half price at 18-25.',
+        travellerADesc: 'Architect. The Palatine Chapel and the Greek theatre are the days planned around her.',
+        travellerBDesc: 'Student. Carry the student ID: the Teatro Antico and most state sites in Sicily are half price at 18-25.',
         vlogsKicker: 'What the vlogs taught us',
         vlogsText: 'Distilled from Sicily vlogs and articles, east and west: the Palatine Chapel’s royal apartments keep their own calendar, granita with brioche is breakfast and not dessert, a cannolo must be filled in front of you, bus tickets come from a tabacchi and get validated or cost €100, free beach strips fill by nine in August, Erice’s cable car shuts in strong wind, the Egadi calas are cut limestone and want water shoes, and Etna is cold at the top even in the last week of the month. Ionian sea: 27 °C. Pack water shoes, a fleece for the volcano, and cash for the markets and the marine reserve.'
       },
@@ -510,8 +510,8 @@ window.TRIPS.italy = {
         city2: 'Taormina · Giardini Naxos',
         city2Href: 'https://www.google.com/maps/search/?api=1&query=Giardini%20Naxos',
         mapIntro: 'Her durak haritada iğneli — kesikli çizgiler gidiş ve dönüş uçuşları, düz adaçayı yeşili adayı geçen tren. İmleci iğnenin üzerine getir adı, dokun zamanı çıksın; düğmeler doğruca o kıyıya yakınlaşır.',
-        izemDesc: 'Mimar. Palatina Şapeli ve antik tiyatro günleri onun için kuruldu.',
-        ahmetDesc: 'Öğrenci. Öğrenci kartını yanından ayırma: Teatro Antico ve Sicilya’daki devlet müzelerinin çoğu 18-25 yaş arasına yarı fiyat.',
+        travellerADesc: 'Mimar. Palatina Şapeli ve antik tiyatro günleri onun için kuruldu.',
+        travellerBDesc: 'Öğrenci. Öğrenci kartını yanından ayırma: Teatro Antico ve Sicilya’daki devlet müzelerinin çoğu 18-25 yaş arasına yarı fiyat.',
         vlogsKicker: 'Vlogların öğrettikleri',
         vlogsText: 'Doğusundan batısına Sicilya vlogları ve makalelerinden damıtıldı: Palatina Şapeli’nin kraliyet dairelerinin kendine has bir takvimi var, brioche’li granita tatlı değil kahvaltı, cannolo gözünün önünde doldurulmalı, otobüs bileti tabacchi’den alınır ve valide edilmezse 100 euro, ağustosta ücretsiz plaj şeridi dokuzda doluyor, Erice teleferiği sert rüzgârda kapanıyor, Egadi koyları kesme kalker — deniz ayakkabısı istiyor, Etna’nın tepesi ayın son haftasında bile soğuk. İyonya denizi: 27 °C. Deniz ayakkabısı, yanardağ için polar, pazarlar ve deniz rezervi ücreti için nakit koy çantaya.'
       },

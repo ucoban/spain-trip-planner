@@ -11,6 +11,7 @@
 <script src="trips.js"></script>
 <script src="trip-italy.js"></script>
 <script src="trip-mallorca.js"></script>
+<script src="trip-guneydogu.js"></script>
 <script src="i18n.js"></script>
 <script src="stays-data.js"></script>
 <style>
@@ -20,9 +21,9 @@
     *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
   }
 
-  /* — the budget band rail: £90 → £190, stripe marks £100-150 — */
+  /* — the budget band rail; its range and stripe come from the trip — */
   .s-meter { position: relative; height: 6px; border-radius: 999px; background: var(--color-neutral-300); margin-top: 10px; }
-  .s-meter .s-band { position: absolute; top: 0; bottom: 0; left: 10%; width: 50%; border-radius: 999px; background: var(--band-tint, var(--color-accent-200)); }
+  .s-meter .s-band { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--band-tint, var(--color-accent-200)); }
   .s-meter b { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; transform: translate(-50%, -50%); box-sizing: border-box; background: var(--color-bg); border: 2.5px solid var(--band-ink, var(--color-accent-600)); }
   .s-meter b.s-solid { background: var(--band-ink, var(--color-accent-600)); }
   .s-scale { display: flex; position: relative; height: 15px; font-size: 10.5px; font-weight: 700; color: var(--color-neutral-600); }
@@ -92,7 +93,8 @@
   // name them the same way in i18n (palTitle, palSub, whyCentrale…).
   const LOOK = [
     { tint: 'var(--color-accent-100)', band: 'var(--color-accent-200)', ink: 'var(--color-accent-600)' },
-    { tint: 'var(--color-accent-2-100)', band: 'var(--color-accent-2-200)', ink: 'var(--color-accent-2-600)' }
+    { tint: 'var(--color-accent-2-100)', band: 'var(--color-accent-2-200)', ink: 'var(--color-accent-2-600)' },
+    { tint: 'var(--color-accent-3-100)', band: 'var(--color-accent-3-200)', ink: 'var(--color-accent-3-600)' }
   ];
   const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
   const CITIES = window.STAYS.cities.map((city, i) => ({
@@ -122,31 +124,39 @@
   const score = x => num(x.toFixed(1));
   const count = x => x.toLocaleString(isTR ? 'tr-TR' : 'en-GB');
 
-  // The rail runs £90 → £190 so the £100-150 stripe sits inset and every
-  // quoted night (115-181) lands on it.
-  const pos = night => Math.min(98, Math.max(2, (night - 90))) + '%';
+  // The budget rail. España's numbers are the default — £90 → £190 with the
+  // £100-150 stripe inset — so its page is unchanged; a trip priced in another
+  // currency, for another party size, brings its own band in the data and its
+  // own two labels in i18n.
+  const BAND = window.STAYS.band || { lo: 90, hi: 190, stripe: [100, 150] };
+  const at = n => Math.max(0, Math.min(100, (n - BAND.lo) / (BAND.hi - BAND.lo) * 100));
+  const pos = night => Math.min(98, Math.max(2, at(night))) + '%';
   const meter = (city, s, solid) => el('div', { class: 's-meter', 'aria-hidden': 'true', style: '--band-tint:' + city.band + ';--band-ink:' + city.ink },
-    el('i', { class: 's-band' }),
+    el('i', { class: 's-band', style: 'left:' + at(BAND.stripe[0]) + '%;width:' + (at(BAND.stripe[1]) - at(BAND.stripe[0])) + '%' }),
     el('b', { class: solid ? 's-solid' : '', style: 'left:' + pos(s.night) }));
   const scale = () => el('div', { class: 's-scale', 'aria-hidden': 'true' },
-    el('span', { text: '£100', style: 'left:10%' }),
-    el('span', { text: '£150', style: 'left:60%' }));
+    el('span', { text: S.scaleLo, style: 'left:' + at(BAND.stripe[0]) + '%' }),
+    el('span', { text: S.scaleHi, style: 'left:' + at(BAND.stripe[1]) + '%' }));
 
   const chips = (s, opts) => {
-    const out = [
-      el('span', { class: 's-score', text: score(s.score) }),
-      el('span', { class: 's-chip', style: 'background:transparent;padding-inline:0;color:var(--color-neutral-600);font-weight:600', text: tpl(S.reviews, { n: count(s.rev) }) })
-    ];
+    // Not every market publishes a guest score. A hotel the search could not
+    // score gets no chip rather than a borrowed or invented number.
+    const out = [];
+    if (s.score != null) out.push(el('span', { class: 's-score', text: score(s.score) }));
+    if (s.rev != null) out.push(el('span', { class: 's-chip', style: 'background:transparent;padding-inline:0;color:var(--color-neutral-600);font-weight:600', text: tpl(S.reviews, { n: count(s.rev) }) }));
     if (s.loc != null) out.push(el('span', { class: 's-chip', text: tpl(S.locChip, { n: score(s.loc) }) }));
     // Only where the search actually recorded the bed configuration.
     if (S.beds[s.id]) out.push(el('span', { class: 's-chip', text: S.beds[s.id] }));
     if (s.cancel) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-2-100);color:var(--color-accent-2-900)', text: S.freeCancel }));
     if (s.payLater) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-2-100);color:var(--color-accent-2-900)', text: S.payLater }));
-    if (s.night > 150) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-200);color:var(--color-accent-900)', text: S.overBand }));
+    if (s.night != null && s.night > BAND.stripe[1]) out.push(el('span', { class: 's-chip', style: 'background:var(--color-accent-200);color:var(--color-accent-900)', text: S.overBand }));
     return out;
   };
 
-  const priceBlock = (city, s, solid) => el('div', { class: 's-price' },
+  const priceBlock = (city, s, solid) => s.night == null
+    ? el('div', { class: 's-price' },
+        el('div', { class: 's-night', style: 'color:var(--color-neutral-600)', text: S.noPrice || '—' }))
+    : el('div', { class: 's-price' },
     el('div', { style: 'display:flex;gap:8px;justify-content:flex-end;align-items:baseline;flex-wrap:wrap' },
       s.was && el('span', { text: tpl(S.was, { n: s.was }), style: 'font-size:12px;color:var(--color-neutral-600);text-decoration:line-through' }),
       el('span', { class: 's-night', text: tpl(S.perNight, { n: s.night }) })
@@ -180,7 +190,7 @@
         ),
         el('div', {},
           priceBlock(city, s, true),
-          el('a', { class: 'btn btn-primary btn-block', text: S.bookBtn, href: s.url + city.q, target: '_blank', rel: 'noopener', style: 'margin-top:14px' })
+          el('a', { class: 'btn btn-primary btn-block', text: S.bookBtn, href: city.search || (s.url + city.q), target: '_blank', rel: 'noopener', style: 'margin-top:14px' })
         )
       )
     );
@@ -203,7 +213,7 @@
       el('h2', { text: city.title(), style: 'font-family:var(--font-heading);font-weight:400;font-size:31px;margin:0 0 6px' }),
       el('p', { text: city.sub(), style: 'margin:0 0 16px;max-width:78ch;color:var(--color-neutral-700);font-size:14px;line-height:1.55' }),
       pickCard(city),
-      el('div', { class: 'card', style: 'margin-top:14px;padding:18px 26px' },
+      city.alts.length > 0 && el('div', { class: 'card', style: 'margin-top:14px;padding:18px 26px' },
         el('div', { class: 'card-kicker', text: S.altTitle, style: 'margin-bottom:6px' }),
         el('div', {}, city.alts.map(altRow(city)))
       )

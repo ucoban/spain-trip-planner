@@ -1,7 +1,7 @@
 # Playbook: stays research — Booking.com **and** Airbnb
 
 Techniques proven on real trips. Paste this into the stays agent's prompt.
-Last updated: 2026-08-16 (Mallorca trip; Sicily 2026-08-04 before that).
+Last updated: 2026-09-18 (Güneydoğu/Türkiye; Mallorca 2026-08-16; Sicily 2026-08-04).
 
 **Start with `maviapi.md`.** `booking/search?location=&checkin=&checkout=&adults=`
 returns name, URL, total price, stars, review score and review count in one
@@ -321,3 +321,122 @@ subsequent URL and re-run the same script. One search per base plus one per
 twin-town alternative, then the same loop over the Airbnb URLs, then open only
 the two picks' property pages to confirm rate + cancellation. Finish with the
 licensing and tourist-tax check via WebSearch.
+
+## Short-notice stays (< 1 week out) — what to change (Palermo, 2026-08-19)
+
+- **Re-price everything; don't reuse a shortlist from an earlier pass.** The
+  hotel the Sicily draft picked on 4 Aug at £120/night was €170/night on 19 Aug
+  for the same dates. Say the delta out loud in the draft — it is the clearest
+  evidence the numbers are current, and it justifies switching the pick.
+- **Free cancellation stops being the tiebreaker** and price/score take over,
+  because at three days out you are committing either way. Still surface which
+  candidates have it (one cloak read of the search URL tags the whole list),
+  and offer the best cancellable option as a named runner-up rather than the
+  headline.
+- **Watch for "Sign in for this members-only price".** Booking's search grid
+  shows a Genius/members rate that a signed-out booking won't get. Flag it on
+  any pick that carries it instead of quoting the number bare.
+- **Short-let licensing, Italy:** the national **CIN** code must appear on the
+  listing. Its absence is the concrete, checkable reason to prefer the hotel —
+  better than a vague "rentals can be risky".
+
+
+## Additions from the Güneydoğu (Türkiye) run (2026-09-18)
+
+### 🔴 The biggest lesson: an OTA listing is not evidence the hotel exists
+
+In a disaster-affected region, Booking/obilet/Agoda/Tripadvisor keep serving live-looking pages for
+hotels that are **gone**. Five found in one run, each with a bookable-looking page:
+a hotel **demolished in ~2019** (*"Otel yıkıldı, yerine bina ve dükkanlar yapıldı"* — not even
+disaster-related), one **closed and dropped from its own chain's site**, one **now a wedding hall**,
+one whose **last announced season was 2014** (no Google Maps entry at all), and one whose own
+reviews say it is still under repair with no breakfast, pool or spa.
+
+**So verify trading from two directions before a hotel reaches the draft:** a **live dated rate**
+*plus* a **same-month review**. Neither alone is enough.
+
+### ⭐ The single best technique of the run: query the review API for verified stay dates
+
+```
+POST https://www.obilet.com/json/otel/comments/{hotelId}      body: {}
+```
+Returns every review with both `commentDate` **and the verified `checkInDate` of the stay.**
+That is how *"does this hotel actually trade in December?"* got answered rather than inferred — one
+Kâhta hotel had a **verified stay on 9 December 2025**, the exact week being planned, and another
+had verified January stays. **Look for the equivalent endpoint on any national OTA**; a review feed
+that goes dark for three winter months is itself the finding (one hotel: Dec ×1, Jan ×0, Feb ×0).
+
+### National OTAs beat Booking.com outside the big cities
+
+In provincial Turkey, **obilet and enuygun showed materially better inventory than Booking and
+Etstur** — Booking returned **0** properties for a town where obilet sold three. Booking's Turkish
+domestic-booking situation makes it the wrong primary anywhere in Turkey. **Always find the
+country's own OTAs** and price the same hotel on each; and in provincial Turkey, **direct
+phone/WhatsApp booking is routinely cheaper than any platform.**
+
+**Dated-search URL patterns** (both sites' own date widgets are dead ends; these came from reading
+their JS URL builders):
+```
+obilet:   https://www.obilet.com/oteller/{slug}-{regionId}-{externalId}-{type}/{YYYYMMDD}-{YYYYMMDD}/{pax}
+enuygun:  https://www.enuygun.com/otel/arama/{slug}-{id}/?checkInDate=DD.MM.YYYY&checkOutDate=DD.MM.YYYY&roomDetail=2%7C1&p=search&country=TR
+```
+- obilet `pax`: **`3ad` = one room for 3**, `2ad_1ad` = two rooms. Small towns need `&locationLevel=5`.
+  Results load async over **20–40 s** — poll, don't just `waitFor`.
+- 🔴 enuygun `roomDetail` rooms are **pipe-separated (`%7C`)**. A **comma** means *child ages*, so
+  `roomDetail=2,1` silently returns "2 adults + 1 child" and wrong prices. `/otel/bolge/` ignores
+  all params. Smaller towns have no region of their own and sit inside the province behind a facet.
+
+### Room configuration can halve the bill — ask for it explicitly
+For a party of 3, **one triple room vs two rooms was ₺4,249 vs ₺8,234** at comparable hotels — a 2×
+difference that no "per night" comparison surfaces. **Always price the single-multi-bed-room option
+for odd-numbered parties**, and note which hotels have **no triple room at all** (one chain didn't,
+which silently forced the expensive shape).
+
+### A high score on few reviews is a rebuild artefact
+A hotel showing **8.7 from 6 reviews** on Booking read as a strong pick; **Google showed 4.8 from
+864**, which is the real signal. In a region where properties have been rebuilt and relisted,
+**Booking review counts reset while Google's survive.** Cross-check every pick against Google Maps
+and weight by review count, not by score.
+
+### Also worth keeping
+- **Parking is the deciding feature in an old town, not price.** In a hillside medina where the
+  alleys are pedestrian-and-donkey-only and no research pass could establish where a car actually
+  goes, "has its own otopark" was worth more than two points of review score.
+- **The cheap option is often cheap for a reason — read the recent reviews, not the average.** One
+  candidate recommended earlier in the same run had to be withdrawn: 5.3/10 on the national OTA,
+  *"temizlik sıfır, klima dahi yok"* (Sept 2026), no hot water and sockets pulled out of the wall
+  (Apr 2026). It also turned out to be a rural wedding venue.
+- Turkey has **no tourist tax**, but a **2% konaklama vergisi**, normally included in the quote.
+
+### 🔴 Radius padding: a "shortlist" that is entirely the wrong town
+
+The wrong-city trap has a second form that no name-check catches. Asked for **2 rooms** in a small
+district town, obilet **dropped the one hotel that actually matched** and returned **34 "results"**
+with its own disclaimer buried in the page: *"…ancak **<town> dışında yer alan tesisler de bu
+listeye dahil edilmiştir**."* The nearest was **69.7 km away**; every other one was 84–87 km away
+in the provincial capital. **Zero properties within 15 km.**
+
+A naive read produces a shortlist for Town A made entirely of hotels in City B — same failure as a
+mis-resolved location string, but by **radius** instead of by name, so the town's name still appears
+at the top of the page.
+**Defence: read the result's own distance field on every card, and read the page's disclaimer text.
+And when changing the pax/room parameters makes a matching hotel *disappear*, that is the tell** —
+re-run with the simpler room configuration before believing the town is empty.
+
+### Car hire, when the trip is a self-drive (same run)
+
+Three findings that generalise to any country's hire market:
+- 🔴 **Hire is billed in 24-hour blocks.** A 09:00 pickup with a 12:00 dropoff bills an **extra full
+  day** for three hours. Moving the dropoff two hours earlier saved **₺2,960** on a 5-day hire —
+  more than a tenth of the total. **Always check the return time against the block boundary**, and
+  against the actual departure-day schedule, before quoting a hire price.
+- **Included-km is usually per-day with a hard ceiling**, not "unlimited" — 500 km/day *and* a
+  4,000 km monthly cap, whichever binds first. Quote both. Publish the overage rate
+  (₺3.90–4.90/km here) so the risk is legible.
+- ❌ **Winter tyres are a paid extra almost everywhere, not standard**, and no major operator
+  publishes a price. Two things make it a real checklist item: operators fit them as standard only
+  in the cold-region offices (a city on the boundary gets four-season tyres and a charge), and
+  **stock runs out with the first snow warnings**. Get it on the reservation, not a verbal promise.
+- **Broker quotes vs operator estimates are different animals** — say which is which. A live broker
+  quote for the exact dates undercut the operator by ~25%, but the operator was the one with a
+  **published kilometre policy**, which on a long route is what you are actually buying.
