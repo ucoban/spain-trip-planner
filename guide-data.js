@@ -1,4 +1,4 @@
-/* España · the Çelik plan: field-guide skeleton, generated from the mined
+/* España · the Çoban plan: field-guide skeleton, generated from the mined
    dataset (29 vlogs, 22 blog articles). Ids, groups, counts and links only;
    every user-facing word lives in i18n.js under guide.*.
    m = how many vlogs mentioned the place (0 = blog pick). act = the

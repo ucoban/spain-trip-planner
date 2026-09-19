@@ -1,4 +1,4 @@
-/* Mallorca · the Çelik plan — the third trip, whole.
+/* Mallorca · the Çoban plan — the third trip, whole.
  *
  * Same shape as trip-italy.js: the skeleton is ids, times, categories and
  * per-person euros; the words live once per language; the map keeps only
@@ -271,13 +271,13 @@ window.TRIPS.mallorca = {
   // — the words —————————————————————————————————————————————————
   i18n: {
     en: {
-      htmlTitle: 'Mallorca · the Çelik plan',
+      htmlTitle: 'Mallorca · the Çoban plan',
       metaDesc: 'Seven days from one base: Palma, the Sóller railway, Sa Calobra and a beach at the front door, 22-28 August.',
       dows: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
       pill: '{dow} {dom}',
 
       static: {
-        brand: 'Mallorca · the Çelik plan',
+        brand: 'Mallorca · the Çoban plan',
         navDates: '22-28 Aug 2026',
         tagDays: '7 days',
         tagSiblings: '2 siblings',
@@ -460,13 +460,13 @@ window.TRIPS.mallorca = {
 
     // ————————————————————————————————————————————————————————— Türkçe —
     tr: {
-      htmlTitle: 'Mallorca · Çelik planı',
+      htmlTitle: 'Mallorca · Çoban planı',
       metaDesc: 'Tek üsten yedi gün: Palma, Sóller treni, Sa Calobra ve kapının önünde bir kumsal. 22-28 Ağustos.',
       dows: ['Cmt', 'Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum'],
       pill: '{dow} {dom}',
 
       static: {
-        brand: 'Mallorca · Çelik planı',
+        brand: 'Mallorca · Çoban planı',
         navDates: '22-28 Ağustos 2026',
         tagDays: '7 gün',
         tagSiblings: '2 kardeş',

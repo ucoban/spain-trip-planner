@@ -1,4 +1,4 @@
-/* Sicilia · the Çelik plan — the second trip, whole.
+/* Sicilia · the Çoban plan — the second trip, whole.
  *
  * España is baked into app.js / i18n.js / trip-map.html; this trip instead
  * registers itself here and those three files read it when it is the one
@@ -271,13 +271,13 @@ window.TRIPS.italy = {
   // — the words —————————————————————————————————————————————————
   i18n: {
     en: {
-      htmlTitle: 'Sicilia · the Çelik plan',
+      htmlTitle: 'Sicilia · the Çoban plan',
       metaDesc: 'Eight days, two siblings: Trapani, Palermo and Taormina, 22-29 August. Tick things off as you go.',
       dows: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       pill: '{dow} {dom}',
 
       static: {
-        brand: 'Sicilia · the Çelik plan',
+        brand: 'Sicilia · the Çoban plan',
         navDates: '22-29 Aug 2026',
         tagDays: '8 days',
         tagSiblings: '2 siblings',
@@ -483,13 +483,13 @@ window.TRIPS.italy = {
 
     // ————————————————————————————————————————————————————————— Türkçe —
     tr: {
-      htmlTitle: 'Sicilya · Çelik planı',
+      htmlTitle: 'Sicilya · Çoban planı',
       metaDesc: 'Sekiz gün, iki kardeş: Trapani, Palermo ve Taormina, 22-29 Ağustos. Yaptıkça işaretle.',
       dows: ['Cmt', 'Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
       pill: '{dom} {dow}',
 
       static: {
-        brand: 'Sicilya · Çelik planı',
+        brand: 'Sicilya · Çoban planı',
         navDates: '22-29 Ağustos 2026',
         tagDays: '8 gün',
         tagSiblings: '2 kardeş',

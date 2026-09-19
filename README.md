@@ -1,4 +1,4 @@
-# The Çelik plans
+# The Çoban plans
 
 Four holidays, one site. Opening it asks which — **España** (Barcelona and
 València, 8-14 August), **Sicilia** (Palermo and Taormina, 22-29 August),

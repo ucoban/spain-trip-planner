@@ -1,4 +1,4 @@
-/* España · the Çelik plan: Google Maps links for place references in prose.
+/* España · the Çoban plan: Google Maps links for place references in prose.
    One dictionary serves the whole site: the field guide's curated places
    (guide-data.js supplies name and search query) plus aliases for the
    spellings the itinerary text actually uses — Turkish included, since place

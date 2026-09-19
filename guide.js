@@ -1,4 +1,4 @@
-/* España · the Çelik plan: the field guide page.
+/* España · the Çoban plan: the field guide page.
    Renders every place and every tip mined from the vlogs and blogs
    (skeleton in guide-data.js, words in i18n.js under guide.*). */
 (() => {

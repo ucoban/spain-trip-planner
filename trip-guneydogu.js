@@ -1,4 +1,4 @@
-/* Güneydoğu · the Çelik plan — the fifth trip, whole.
+/* Güneydoğu · the Çoban plan — the fifth trip, whole.
  *
  * Same shape as trip-mallorca.js: the skeleton is ids, times, categories and
  * per-person money; the words live once per language; the map keeps only
@@ -430,13 +430,13 @@ window.TRIPS.guneydogu = {
   // — the words —————————————————————————————————————————————————
   i18n: {
     en: {
-      htmlTitle: 'Güneydoğu · the Çelik plan',
+      htmlTitle: 'Güneydoğu · the Çoban plan',
       metaDesc: 'Eight days by car through southeastern Türkiye, 5-12 December: Antep, Adana, Antakya, Göbeklitepe, Mardin, Hasankeyf, Diyarbakır and the lower Kommagene.',
       dows: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       pill: '{dow} {dom}',
 
       static: {
-        brand: 'Güneydoğu · the Çelik plan',
+        brand: 'Güneydoğu · the Çoban plan',
         navDates: '5-12 Dec 2026',
         tagDays: '8 days',
         tagSiblings: '4 travellers, rotating',
@@ -709,13 +709,13 @@ window.TRIPS.guneydogu = {
 
     // ————————————————————————————————————————————————————————— Türkçe —
     tr: {
-      htmlTitle: 'Güneydoğu · Çelik planı',
+      htmlTitle: 'Güneydoğu · Çoban planı',
       metaDesc: 'Arabayla sekiz gün, 5-12 Aralık: Antep, Adana, Antakya, Göbeklitepe, Mardin, Hasankeyf, Diyarbakır ve aşağı Kommagene.',
       dows: ['Cmt', 'Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
       pill: '{dow} {dom}',
 
       static: {
-        brand: 'Güneydoğu · Çelik planı',
+        brand: 'Güneydoğu · Çoban planı',
         navDates: '5-12 Aralık 2026',
         tagDays: '8 gün',
         tagSiblings: '4 kişi, değişken kadro',

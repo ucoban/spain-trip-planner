@@ -1,4 +1,4 @@
-/* España · the Çelik plan: where we sleep — the skeleton.
+/* España · the Çoban plan: where we sleep — the skeleton.
    Names, numbers and links from the Booking.com search (run live 2 Aug 2026,
    2 adults, 1 room, score 8+, £60-150/night, GBP). Every user-facing word
    lives in i18n.js under stays.*; stays.html adds the colours and renders it,

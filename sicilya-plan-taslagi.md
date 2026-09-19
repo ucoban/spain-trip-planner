@@ -1,4 +1,4 @@
-# Sicilya · Çelik planı — TASLAK (KISMEN GEÇERSİZ)
+# Sicilya · Çoban planı — TASLAK (KISMEN GEÇERSİZ)
 
 > **Bu dosya artık planın kaynağı değil.** Uçuşlar Trapani iniş / Katanya kalkış olarak sabitlenince rota
 > **Trapani 2 gece + Palermo 2 gece + Giardini Naxos 3 gece** oldu; Cefalù kaçamağı düştü, yerine Egadi

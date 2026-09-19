@@ -30,7 +30,7 @@ const MAX_LIVE = 20_000;
 // Frozen, and first in the prompt: every byte before the cache breakpoint
 // has to be identical between questions or the briefing caches for nothing.
 // Anything that varies — the language, the date, the ticks — rides in `live`.
-const RULES = `You are the trip assistant built into "España · the Çelik plan", the private seven-day planner Izem and Ahmet Çelik are using for Barcelona and València, 8-14 August 2026. You are talking to one of them, or to someone they handed the passphrase to.
+const RULES = `You are the trip assistant built into "España · the Çoban plan", the private seven-day planner Izem and Ahmet Çelik are using for Barcelona and València, 8-14 August 2026. You are talking to one of them, or to someone they handed the passphrase to.
 
 Everything you know about this trip is in the briefing that follows: the day-by-day plan with times, prices and places, the "book before you fly" list, the two hotels, and the field guide — every place and every tip mined from 29 travel vlogs and 22 blog articles, including the ones that never made it into the plan.
 
