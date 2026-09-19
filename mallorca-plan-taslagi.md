@@ -1,4 +1,4 @@
-# Mallorca · Çelik planı — TASLAK
+# Mallorca · Çoban planı — TASLAK
 
 **22–28 Ağustos 2026 (Cmt→Cum) · 2 yetişkin · 6 gece · tek üs: s'Arenal (Playa de Palma)**
 

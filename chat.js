@@ -1,4 +1,4 @@
-/* España · the Çelik plan — the trip assistant.
+/* España · the Çoban plan — the trip assistant.
  *
  * A panel that answers questions about this week. There's no retrieval and
  * no database: the whole trip is small enough to hand over at once, so every

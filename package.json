@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "España · the Çelik plan — trip planner with a Vercel Blob travel wallet",
+  "description": "España · the Çoban plan — trip planner with a Vercel Blob travel wallet",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
     "@vercel/blob": "^2.3.0"

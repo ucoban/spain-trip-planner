@@ -1,4 +1,4 @@
-/* España · the Çelik plan — every user-facing string, in every language.
+/* España · the Çoban plan — every user-facing string, in every language.
  *
  * The itinerary skeleton (ids, times, prices, coordinates) stays in app.js
  * and trip-map.html; the words live here, once per language. Adding a
@@ -16,13 +16,13 @@
 
     // ————————————————————————————————————————————————————————— English —
     en: {
-      htmlTitle: 'España · the Çelik plan',
+      htmlTitle: 'España · the Çoban plan',
       metaDesc: 'Seven days, two siblings: Barcelona and València, 8-14 August. Tick things off as you go.',
       dows: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
       pill: '{dow} {dom}',
 
       static: {
-        brand: 'España · the Çelik plan',
+        brand: 'España · the Çoban plan',
         navDates: '8-14 Aug 2026',
         pricesIn: 'Show prices in',
         langIn: 'Language',
@@ -714,13 +714,13 @@
 
     // ————————————————————————————————————————————————————————— Türkçe —
     tr: {
-      htmlTitle: 'España · Çelik planı',
+      htmlTitle: 'España · Çoban planı',
       metaDesc: 'Yedi gün, iki kardeş: Barcelona ve València, 8-14 Ağustos. Yaptıkça işaretle.',
       dows: ['Cmt', 'Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum'],
       pill: '{dom} {dow}',
 
       static: {
-        brand: 'España · Çelik planı',
+        brand: 'España · Çoban planı',
         navDates: '8-14 Ağu 2026',
         pricesIn: 'Fiyat birimi',
         langIn: 'Dil',

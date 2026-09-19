@@ -1,5 +1,5 @@
 /* Organic — design-system tokens and component classes. Source of truth for the site's look. */
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo:wght@400&family=Figtree:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;600;700&display=swap');
 
 :root {
   --color-bg: #f5ead8;
@@ -79,7 +79,12 @@
   --color-accent-5-800: #61241c;
   --color-accent-5-900: #3d1712;
 
-  --font-heading: "Caprasimo", system-ui, sans-serif;
+  /* Alfa Slab One rather than Caprasimo, which the headings wore until the
+     site became half Turkish: Caprasimo has ç, ı, ö and ü but no ş, ğ or İ,
+     so "Şanlıurfa", "Güneydoğu" and "İslahiye" each fell back to the system
+     font mid-word — one thin letter inside a fat display line. This one
+     carries the whole Turkish alphabet and the same poster weight. */
+  --font-heading: "Alfa Slab One", system-ui, sans-serif;
   --font-heading-weight: 400;
   --font-body: "Figtree", system-ui, sans-serif;
 

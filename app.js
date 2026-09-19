@@ -1,4 +1,4 @@
-/* España · the Çelik plan — itinerary state, wallet, replanning, rendering.
+/* España · the Çoban plan — itinerary state, wallet, replanning, rendering.
    Cheap per-device state (ticked moments, currency, language) lives in
    localStorage. What everyone must share — the documents and any replanned
    itinerary — lives behind /api in the private Blob store.
