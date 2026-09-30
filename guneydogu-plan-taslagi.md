@@ -27,8 +27,8 @@ aranmadı. Tahmin olanlar **"tahmini"** diye işaretli.
 >   açık çıkarsa Diyarbakır'ı 12:00'de bırakmak gerekir — kasımda 0416 216 29 29.
 > - **11 Ara:** Sakin Adıyaman sabahı, çıkış 12:00 (Önder 13:00 — o zaman Maraş Müzesi düşer), Maraş 14:10, Berk 18:45'te havalimanına (uçuşu 21:45, bilet bakılmadı).
 >   Önder'in "20–21 araç teslimi, akşam arkadaşa" versiyonu cumartesiyi arabasız bırakıyor ve faturayı düşürmüyor — plan aracı cumartesi 10:00'a kadar tutuyor (6.7).
-> - **Oteller:** 8 Ara Mardin Ramada Plaza ₺10.409 (aynı) · **9 Ara Batman — The Ancient Mesopotamia Hotel €115 ≈ ₺6.430** (yeni, bölüm 5) · 10 Ara Adıyaman Park ₺4.249 (aynı).
->   Üç gece **₺21.087**, ortak masraf ara toplamı **₺60.518** (eskisi 67.738).
+> - **Oteller:** 8 Ara Mardin Ramada Plaza ₺10.409 (aynı) · **9 Ara Batman — Atlıhan Park ₺5.289, obilet** (yeni, bölüm 5; Booking aynı yataklara €115–170 istiyor, oradan almayın) · 10 Ara Adıyaman Park ₺4.249 (aynı).
+>   Üç gece **₺19.947**, ortak masraf ara toplamı **₺59.378** (eskisi 67.738).
 
 ## 1. Özet
 
@@ -41,11 +41,11 @@ aranmadı. Tahmin olanlar **"tahmini"** diye işaretli.
   5 Mardin–Midyat–Hasankeyf–Batman · 6 Diyarbakır + Kommagene · 7 Adıyaman + Maraş · 8 Yesemek + veda.
 - **Araç:** 5 Ara alım **~₺23.700** (broker Mokka **₺18.125**) · 8 Ara alım **~₺14.800** (broker **₺11.517**).
   **500 km/gün, 4.000 km dahil, aşım ₺0.** ⚠️ **Kış lastiği standart değil, ücretli ek.** Yakıt ~₺15.341, geçiş ~₺390.
-- **Üç otel (toplam ₺21.087):** 8 Ara **Mardin — Ramada Plaza ₺10.409** (otoparkı olan tek seçenek) ·
-  9 Ara **Batman — The Ancient Mesopotamia Hotel €115 ≈ ₺6.430** (Booking 9,2 · Tripadvisor 4,6, merkez) ·
+- **Üç otel (toplam ₺19.947):** 8 Ara **Mardin — Ramada Plaza ₺10.409** (otoparkı olan tek seçenek) ·
+  9 Ara **Batman — Atlıhan Park Otel ₺5.289** (obilet, 3 kişi kahvaltı dahil, ücretsiz iptal, merkez) ·
   10 Ara **Adıyaman — Adıyaman Park ₺4.249** (üç kişilik oda, kahvaltı dahil, Google 4,8 / 864).
-- **Kaba toplam, uçak hariç:** Önder (8 gün) **~₺29.600** · Üsame (5 gün) **~₺23.100** ·
-  Eren (5 gün) **~₺23.500** · Berk (4 gün) **~₺19.100.** Ayrıntı bölüm 8'de.
+- **Kaba toplam, uçak hariç:** Önder (8 gün) **~₺29.200** · Üsame (5 gün) **~₺22.700** ·
+  Eren (5 gün) **~₺23.500** · Berk (4 gün) **~₺18.700.** Ayrıntı bölüm 8'de.
 - **Aralık bu rota için kötü değil, iyi.** Mardin'i 1 Aralık'ta çeken bir gezgin birebir şöyle diyor:
   *"buranın ruhunu hissetmek istiyorsanız kış aylarında gelin — kasım sonu olabilir, aralık olabilir."*
   Aynı bölgeyi yazın çeken üç ayrı kişi ise "asla yazın gelmeyin" diyor (Mardin'de 46 derece,
@@ -289,27 +289,30 @@ değil, ama bir tane var.** **Şanlıurfa'da kalmak tek çalışmayan seçenek: 
 Önder'in kararı: Eren'i havalimanına bıraktıktan sonra karanlıkta 98 km Diyarbakır'a gitmek yerine
 Batman'da yatılıyor, sabah 08:00'de Diyarbakır'a çıkılıyor. Batman eski mahallesi olmayan planlı bir
 petrol şehri; otelden beklenen havalimanına 6 km ve Diyarbakır yolunun üstünde bir yatak.
-**Booking bu gece için tam üç tesis satıyor**; Tripadvisor 13 otel biliyor ve en iyi puanlı ikisi
-sadece telefonla. Fiyatlar 30 Eylül 2026, Booking, 3 yetişkin 1 oda, 9→10 Aralık.
 
-| Otel | Toplam | Puan | Not |
-|---|---|---|---|
-| ⭐ **The Ancient Mesopotamia Hotel** | **€115 ≈ ₺6.430** | Booking **9,2** / 7 · TA **4,6** / 35 (#2/13) | Diyarbakır Cad. 170, merkeze 0,8 km, **çıkış yolunun üstünde**. [Booking](https://www.booking.com/hotel/tr/mesopotamia.html) · 0488 212 24 34 |
-| Real Konak Hotel | ~$96'dan, **online yok** | TA **4,6** / 78 (**#1/13**) | GAP Mah., Batman Park AVM yanı; ücretsiz otopark, spa. **Sadece telefon: 0488 214 00 08** |
-| Hotel Izgi Turhan | €124 | Booking 8,0 / 16 · Google 3,9 | Turgut Özal Blv. 260, havalimanına 3 km. [Booking](https://www.booking.com/hotel/tr/izgi-turhan.html) |
-| Ramada Plaza by Wyndham Batman | €170 | Booking 8,7 / 54 | Gültepe, Demokrasi Blv. — Booking "merkeze 7 km" diyor; şehirdeki tek zincir. [Booking](https://www.booking.com/hotel/tr/ramada-plaza-by-wyndham-batman.html) |
-| Atlıhanpark Otel | ~$77'den, online yok | TA 4,7 / 21 | Atatürk Blv. 143, merkez. Telefon 0488 214 44 25 |
+🔴 **Booking'den değil obilet'ten ayırtın.** Aynı yataklar Booking'de €115–170 (6.430–9.500₺), obilet'te
+**5.289–8.375₺**. Aşağıdaki fiyatlar **obilet, 30 Eylül 2026, 9→10 Aralık, üç kişilik tek oda, kahvaltı dahil.**
+[Tarihli obilet araması ↗](https://www.obilet.com/oteller/batman-sehir-merkezi-418-53554-2/20261209-20261210/3ad?isCityCenter=1&locationLevel=5)
 
-[Tarihli Booking araması ↗](https://www.booking.com/searchresults.html?ss=Batman%2C+T%C3%BCrkiye&checkin=2026-12-09&checkout=2026-12-10&group_adults=3&no_rooms=1&group_children=0&selected_currency=EUR)
+| Otel | Adres | ₺ / gece (3 kişi) | Puan | Not |
+|---|---|---|---|---|
+| ⭐ **Atlıhan Park Otel** | Atatürk Blv. No: 143/B, Ziya Gökalp Mah. — merkez | **5.289** | obilet 8,3 (10+) · TA 4,7 / 21 (#3) | **En ucuz + tek ücretsiz iptal.** Spa, resepsiyon, engelli erişimi. 0488 214 44 25 |
+| Hotel Izgi Turhan | Turgut Özal Blv. No: 260 | 5.401 | obilet 8,3 (5+) · Google 3,9 | Havalimanına 3 km, otopark |
+| Bozooğulları Hotel | Turgut Özal Blv. | 5.465 | obilet 7,9 (40+) · TA 4,0 / 16 | Ucuzların en çok yorumlananı; otopark, restoran |
+| The Ancient Mesopotamia Hotel | Diyarbakır Cad. No: 170, Ziya Gökalp Mah. | 5.514 | obilet 8,2 (10+) · TA 4,6 / 35 (#2) | Havuz, spa, otopark — en donanımlısı; Booking'de €115 = 6.430₺ istiyordu. 0488 212 24 34 |
+| Mesa Hotel | Ahmet Arif Blv. No: 141, Şafak Mah. | 5.885 | obilet 9,0 (5+) · **TA 2,7 / 18** | Büyük örneklem TA — okumadan ayırtmayın |
+| Grand Hasankeyf Otel | Atatürk Blv. No: 155 | 5.963 | obilet 9,2 (5+) · TA 4,2 / 29 | Hamam, spa; Atlıhan'ın bitişiği. 0488 212 45 66 |
+| Grand White Hotel | Cumhuriyet Blv. No: 21, Meydan Mah. | 6.540 | 1 yorum | — |
+| Ramada Plaza by Wyndham Batman | Demokrasi Blv. No: 68, Gültepe | 8.375 | obilet 8,8 (100+) | Tek zincir; merkeze 6,4 km. Marka için +3.000₺ |
+| Real Konak Hotel | 2519. Sk. No: 98, GAP Mah. (Batman Park AVM yanı) | müsait değil | **TA #1** 4,6 / 78 | obilet "müsaitlik yok", Booking'de yok. Denemek için 0488 214 00 08 |
 
-💡 *Yerine geçtiği Diyarbakır gecesi (Turistik Palas, 3 kişi ₺13.649) ile fark **~₺7.200**.
-Diyarbakır'ın "araba nereye" derdi Batman'da yok — hepsinin otoparkı var, sokakta da yer var.*
-⚠️ *Batman kimsenin vlog çektiği bir şehir değil: bu listede aynı aya ait yorum teyidi yok, o yüzden
-arayıp odayı teyit edin. Ücretsiz iptal koşulu Booking'de oda tipine göre değişiyor, rezervasyonda bakın.*
+💡 *Fiyat-performans: **Atlıhan Park** — en ucuz, ücretsiz iptal, merkez, Tripadvisor'da 13 otelin üçüncüsü.
+Havuz/otopark önemliyse 225₺ farkla Mesopotamia. Yerine geçtiği Diyarbakır gecesinden (Turistik Palas 13.649₺) **8.360₺ ucuz.***
+⚠️ *Batman kimsenin vlog çektiği bir şehir değil: aynı aya ait yorum teyidi yok; arayıp odayı teyit edin. Taşrada telefonla doğrudan çoğu zaman obilet'ten de ucuz.*
 
 **Akşam yemeği (Tripadvisor Batman, 30 Eyl):** **Çömce Et Lokantası ve Künefe Salonu** (4,1 / 119,
-Diyarbakır Cad. 32 — otele 300 m) · **Meşhur Ciğerci Çavuş** (4,9 / 28, Güney Blv. Yeni Hal girişi) ·
-**Xalo Hayran Ciğer Salonu** (4,2 / 96) · tatlı için **Diyarbakır Kadayıfçısı** (4,8 / 18, aynı cadde).
+Diyarbakır Cad. 32) · **Meşhur Ciğerci Çavuş** (4,9 / 28, Güney Blv. Yeni Hal girişi, 0488 213 88 31) ·
+**Xalo Hayran Ciğer Salonu** (4,2 / 96, Yeni Mah. 1008. Sk. 15) · tatlı için **Diyarbakır Kadayıfçısı** (4,8 / 18, Turgut Özal Blv. 249/B).
 
 ### 10 Aralık Perşembe — Adıyaman, 3 kişi · **en ucuz gece**
 
@@ -747,8 +750,8 @@ Midyat→Hasankeyf 41/41 dk · Hasankeyf→Batman Havalimanı **57/58 dk** · Ha
 | **18:30** | **Havalimanı. Eren'i bırak** (PC 2371, 20:35) | | | |
 | | ⚠️ *Küçük havalimanı, 2 saat pay bol. Araç iade masaları ve kapı kapanışı **araştırılamadı** — Pegasus'un sayfaları JS ile geliyor ve her URL 404 verdi.* | | | |
 | 18:45 | **Batman merkeze** — ~6 km *(Önder: "7pm BAL çıkış, Batman'a giriş")* | yol | — | 12 dk |
-| 19:15 | **Batman akşam kebabı** — Çömce Et Lokantası (otele 300 m) veya Meşhur Ciğerci Çavuş; bkz. bölüm 5 | yemek | ~300₺ | 75 dk |
-| **20:30** | **Batman, The Ancient Mesopotamia Hotel** | | | |
+| 19:15 | **Batman akşam kebabı** — Çömce Et Lokantası veya Meşhur Ciğerci Çavuş; bkz. bölüm 5 | yemek | ~300₺ | 75 dk |
+| **20:30** | **Batman, Atlıhan Park Otel** (obilet 5.289₺, 3 kişi) | | | |
 
 > ## Hasankeyf: "45 dakikalık fotoğraf molası" değil — ama arabayla gelenler için
 > Eski şehir 2020'de Ilısu barajıyla sular altında kaldı. **Ama kale tarafı hiç su almadı** ve
@@ -1062,9 +1065,9 @@ masraflar, sonra kişi başı payı var.
 | **Yakıt** — 2.490 km, benzin | **15.341** | 18 Eyl 2026 pompa fiyatları; aralıkta değişir |
 | **Geçiş ücretleri + HGS** | **390** | Rotanın çoğu ücretsiz bölünmüş yol |
 | **Konaklama — 8 Ara, Mardin** (Ramada Plaza, 4 kişi) | **10.409** | Viranşehir alternatifi: fiyat alınamadı |
-| **Konaklama — 9 Ara, Batman** (The Ancient Mesopotamia, 3 kişi) | **6.430** | €115, Booking 30 Eyl; Diyarbakır gecesi yerine (28 Eyl) |
+| **Konaklama — 9 Ara, Batman** (Atlıhan Park, 1 oda 3 kişi, kahvaltı) | **5.289** | obilet 30 Eyl, ücretsiz iptal; Diyarbakır gecesi yerine (28 Eyl) |
 | **Konaklama — 10 Ara, Adıyaman** (Adıyaman Park, 1 triple) | **4.249** | Kahvaltı dahil |
-| **ARA TOPLAM** | **60.518** | *(eskisi 67.738 — Batman gecesi 7.219 ucuz)* |
+| **ARA TOPLAM** | **59.378** | *(eskisi 67.738 — Batman gecesi 8.360 ucuz)* |
 
 ### Kişi başı masraflar
 
@@ -1079,9 +1082,9 @@ masraflar, sonra kişi başı payı var.
 
 | Kim | Kaç gün | Ortak paydan payı *(tahmini)* | Kişisel | **Toplam ₺** |
 |---|---|---|---|---|
-| **Önder** | 8 gün (5–12 Ara) | ~17.600 | ~12.000 | **~29.600** |
-| **Üsame** | 5 gün (8–12 Ara) | ~14.600 | ~8.500 | **~23.100** |
-| **Berk** | 4 gün (8–11 Ara) | ~12.100 | ~7.000 | **~19.100** |
+| **Önder** | 8 gün (5–12 Ara) | ~17.200 | ~12.000 | **~29.200** |
+| **Üsame** | 5 gün (8–12 Ara) | ~14.200 | ~8.500 | **~22.700** |
+| **Berk** | 4 gün (8–11 Ara) | ~11.700 | ~7.000 | **~18.700** |
 | **Eren** | 5 gün (5–9 Ara) | ~16.000 | ~7.500 | **~23.500** |
 
 **Uçak biletleri hariç** (istendiği gibi bakılmadı) ve İslahiye'deki dört gece ücretsiz.

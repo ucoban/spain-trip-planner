@@ -54,7 +54,7 @@ Booking.com search (2 adults, score 8+, £60-150 a night) boiled down to
 seven candidates per city, each plotted on the £100-150 budget band. The
 picks — HCC Taber and easyHotel Ciutat Vella for Spain, Eurostars Centrale
 Palace and B&B Al Sole di Sicilia for Sicily, tent Arenal for Mallorca, and
-the Ramada Plaza Mardin, the Ancient Mesopotamia in Batman and Adıyaman Park
+the Ramada Plaza Mardin, Atlıhan Park in Batman and Adıyaman Park
 for Güneydoğu — are
 check-in stops in the itinerary, lines in "Book before you fly", and bed-icon
 pins on the route map. Mallorca's search also ran on Airbnb in parallel, with
