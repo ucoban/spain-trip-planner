@@ -18,6 +18,18 @@ aranmadı. Tahmin olanlar **"tahmini"** diye işaretli.
 
 ---
 
+> ### 🔁 28 Eylül güncellemesi — Önder'in takvimi işlendi
+> Önder'in 28 Eylül mesajı dört günü değiştirdi; aşağıda hepsi işlenmiş hâlde, gün gün saatler de yenilendi.
+> - **8 Ara:** Berk 09:00'da iniyor (08:25 değil), en geç 10:00 çıkış, 12:00 Urfa. **Viranşehir kesin düştü, gece Mardin.**
+> - **9 Ara:** Eren'i bıraktıktan sonra Diyarbakır'a 98 km karanlık yol yok — **gece Batman**, kebap Batman'da. Turistik Palas planda değil.
+>   ⚠️ Önder Hasankeyf'i 16:00–17:00'ye koyuyor; gişe 16:30'da kapanıyor, o yüzden plan Hasankeyf'i 15:25'te tutuyor.
+> - **10 Ara:** Batman'dan çıkış. Önder 09:00 diyor; plan **08:00** — çünkü Cendere ve Karakuş 16:35'te kararıyor. **Nemrut TBC**: kapalı (bkz. 6.6);
+>   açık çıkarsa Diyarbakır'ı 12:00'de bırakmak gerekir — kasımda 0416 216 29 29.
+> - **11 Ara:** Sakin Adıyaman sabahı, çıkış 12:00 (Önder 13:00 — o zaman Maraş Müzesi düşer), Maraş 14:10, Berk 18:45'te havalimanına (uçuşu 21:45, bilet bakılmadı).
+>   Önder'in "20–21 araç teslimi, akşam arkadaşa" versiyonu cumartesiyi arabasız bırakıyor ve faturayı düşürmüyor — plan aracı cumartesi 10:00'a kadar tutuyor (6.7).
+> - **Oteller:** 8 Ara Mardin Ramada Plaza ₺10.409 (aynı) · **9 Ara Batman — The Ancient Mesopotamia Hotel €115 ≈ ₺6.430** (yeni, bölüm 5) · 10 Ara Adıyaman Park ₺4.249 (aynı).
+>   Üç gece **₺21.087**, ortak masraf ara toplamı **₺60.518** (eskisi 67.738).
+
 ## 1. Özet
 
 - **Rota:** Antep → (İslahiye üssü: Adana, Antakya–İskenderun) → Şanlıurfa/Göbeklitepe →
@@ -29,11 +41,11 @@ aranmadı. Tahmin olanlar **"tahmini"** diye işaretli.
   5 Mardin–Midyat–Hasankeyf–Batman · 6 Diyarbakır + Kommagene · 7 Adıyaman + Maraş · 8 Yesemek + veda.
 - **Araç:** 5 Ara alım **~₺23.700** (broker Mokka **₺18.125**) · 8 Ara alım **~₺14.800** (broker **₺11.517**).
   **500 km/gün, 4.000 km dahil, aşım ₺0.** ⚠️ **Kış lastiği standart değil, ücretli ek.** Yakıt ~₺15.341, geçiş ~₺390.
-- **Üç otel (toplam ₺28.307):** 8 Ara **Mardin — Ramada Plaza ₺10.409** (otoparkı olan tek seçenek) ·
-  9 Ara **Diyarbakır — Turistik Palas ₺13.649** (garaj + vale) ·
+- **Üç otel (toplam ₺21.087):** 8 Ara **Mardin — Ramada Plaza ₺10.409** (otoparkı olan tek seçenek) ·
+  9 Ara **Batman — The Ancient Mesopotamia Hotel €115 ≈ ₺6.430** (Booking 9,2 · Tripadvisor 4,6, merkez) ·
   10 Ara **Adıyaman — Adıyaman Park ₺4.249** (üç kişilik oda, kahvaltı dahil, Google 4,8 / 864).
-- **Kaba toplam, uçak hariç:** Önder (8 gün) **~₺32.000** · Üsame (5 gün) **~₺25.500** ·
-  Eren (5 gün) **~₺23.500** · Berk (4 gün) **~₺21.500.** Ayrıntı bölüm 8'de.
+- **Kaba toplam, uçak hariç:** Önder (8 gün) **~₺29.600** · Üsame (5 gün) **~₺23.100** ·
+  Eren (5 gün) **~₺23.500** · Berk (4 gün) **~₺19.100.** Ayrıntı bölüm 8'de.
 - **Aralık bu rota için kötü değil, iyi.** Mardin'i 1 Aralık'ta çeken bir gezgin birebir şöyle diyor:
   *"buranın ruhunu hissetmek istiyorsanız kış aylarında gelin — kasım sonu olabilir, aralık olabilir."*
   Aynı bölgeyi yazın çeken üç ayrı kişi ise "asla yazın gelmeyin" diyor (Mardin'de 46 derece,
@@ -49,8 +61,8 @@ aranmadı. Tahmin olanlar **"tahmini"** diye işaretli.
 | 5 Ara Cmt | ✅ gelir 08:00 | ✅ gelir 08:00 | — | — | İslahiye, Ozan Kağan'ın evi |
 | 6 Ara Paz | ✅ | ✅ | — | — | İslahiye |
 | 7 Ara Pzt | ✅ | ✅ | — | — | İslahiye |
-| 8 Ara Sal | ✅ | ✅ | ✅ gelir sabah | ✅ gelir sabah | **Mardin önerilir** *(planda Viranşehir — bkz. 6.4)* |
-| 9 Ara Çar | ✅ | ✅ **gider 20:35** | ✅ | ✅ | Diyarbakır |
+| 8 Ara Sal | ✅ | ✅ | ✅ gelir 09:00 | ✅ gelir 09:00 | **Mardin** *(Viranşehir düştü — Önder, 28 Eyl)* |
+| 9 Ara Çar | ✅ | ✅ **gider 20:35** | ✅ | ✅ | **Batman** *(Diyarbakır yerine — Önder, 28 Eyl)* |
 | 10 Ara Per | ✅ | — | ✅ | ✅ | Adıyaman *(veya Kâhta)* |
 | 11 Ara Cum | ✅ | — | ✅ **gider 20:50** | ✅ | İslahiye |
 | 12 Ara Cmt | ✅ **gider** | — | — | ✅ **gider 15:15** | — |
@@ -272,14 +284,32 @@ değil, ama bir tane var.** **Şanlıurfa'da kalmak tek çalışmayan seçenek: 
 > 84–87 km uzakta Şanlıurfa'da. 15 km içinde sıfır tesis.** O sayfayı dikkatsiz okuyan biri,
 > tamamı Şanlıurfa otellerinden oluşan bir "Viranşehir listesi" çıkarırdı.
 
-### 9 Aralık Çarşamba — Diyarbakır, 3 kişi
+### 9 Aralık Çarşamba — Batman, 3 kişi · *(28 Eylül: Diyarbakır yerine)*
 
-| Otel | Toplam ₺ | Not |
-|---|---|---|
-| ⭐ **Turistik Palas** | **13.649** | **Kapalı garaj + vale** — 2025'te yeniden yapılmış |
+Önder'in kararı: Eren'i havalimanına bıraktıktan sonra karanlıkta 98 km Diyarbakır'a gitmek yerine
+Batman'da yatılıyor, sabah 08:00'de Diyarbakır'a çıkılıyor. Batman eski mahallesi olmayan planlı bir
+petrol şehri; otelden beklenen havalimanına 6 km ve Diyarbakır yolunun üstünde bir yatak.
+**Booking bu gece için tam üç tesis satıyor**; Tripadvisor 13 otel biliyor ve en iyi puanlı ikisi
+sadece telefonla. Fiyatlar 30 Eylül 2026, Booking, 3 yetişkin 1 oda, 9→10 Aralık.
 
-💡 *Diyarbakır'da merkezdeki her şey yürünüyor (tek istisna On Gözlü Köprü), o yüzden otelin
-konumundan çok **arabayı güvenle bırakabilmek** önemli.*
+| Otel | Toplam | Puan | Not |
+|---|---|---|---|
+| ⭐ **The Ancient Mesopotamia Hotel** | **€115 ≈ ₺6.430** | Booking **9,2** / 7 · TA **4,6** / 35 (#2/13) | Diyarbakır Cad. 170, merkeze 0,8 km, **çıkış yolunun üstünde**. [Booking](https://www.booking.com/hotel/tr/mesopotamia.html) · 0488 212 24 34 |
+| Real Konak Hotel | ~$96'dan, **online yok** | TA **4,6** / 78 (**#1/13**) | GAP Mah., Batman Park AVM yanı; ücretsiz otopark, spa. **Sadece telefon: 0488 214 00 08** |
+| Hotel Izgi Turhan | €124 | Booking 8,0 / 16 · Google 3,9 | Turgut Özal Blv. 260, havalimanına 3 km. [Booking](https://www.booking.com/hotel/tr/izgi-turhan.html) |
+| Ramada Plaza by Wyndham Batman | €170 | Booking 8,7 / 54 | Gültepe, Demokrasi Blv. — Booking "merkeze 7 km" diyor; şehirdeki tek zincir. [Booking](https://www.booking.com/hotel/tr/ramada-plaza-by-wyndham-batman.html) |
+| Atlıhanpark Otel | ~$77'den, online yok | TA 4,7 / 21 | Atatürk Blv. 143, merkez. Telefon 0488 214 44 25 |
+
+[Tarihli Booking araması ↗](https://www.booking.com/searchresults.html?ss=Batman%2C+T%C3%BCrkiye&checkin=2026-12-09&checkout=2026-12-10&group_adults=3&no_rooms=1&group_children=0&selected_currency=EUR)
+
+💡 *Yerine geçtiği Diyarbakır gecesi (Turistik Palas, 3 kişi ₺13.649) ile fark **~₺7.200**.
+Diyarbakır'ın "araba nereye" derdi Batman'da yok — hepsinin otoparkı var, sokakta da yer var.*
+⚠️ *Batman kimsenin vlog çektiği bir şehir değil: bu listede aynı aya ait yorum teyidi yok, o yüzden
+arayıp odayı teyit edin. Ücretsiz iptal koşulu Booking'de oda tipine göre değişiyor, rezervasyonda bakın.*
+
+**Akşam yemeği (Tripadvisor Batman, 30 Eyl):** **Çömce Et Lokantası ve Künefe Salonu** (4,1 / 119,
+Diyarbakır Cad. 32 — otele 300 m) · **Meşhur Ciğerci Çavuş** (4,9 / 28, Güney Blv. Yeni Hal girişi) ·
+**Xalo Hayran Ciğer Salonu** (4,2 / 96) · tatlı için **Diyarbakır Kadayıfçısı** (4,8 / 18, aynı cadde).
 
 ### 10 Aralık Perşembe — Adıyaman, 3 kişi · **en ucuz gece**
 
@@ -587,12 +617,12 @@ bakımlı ve temiz yer"* (kaleye giriş kısıtlı). **45–60 dk, az kullanıla
 
 ---
 
-### 6.4 · 8 Aralık Salı — Antep → Göbeklitepe → Şanlıurfa → Viranşehir
-**Berk + Üsame sabah iner · kadro 4 kişi olur · araç kiralanır**
+### 6.4 · 8 Aralık Salı — Antep → Göbeklitepe → Şanlıurfa → Mardin
+**Berk + Üsame 09:00'da iner · kadro 4 kişi olur · araç kiralanır · gece Mardin (Viranşehir düştü — Önder, 28 Eyl)**
 🌅 Güneş 07:26 · 🌇 Batış 17:07 · Karanlık 17:36
 
 > ## Sorunuzun cevabı: otele kaçta varılır?
-> **Muhtemel 08:25 inişiyle Viranşehir'de ~19:15.** Ama bu **hangi uçağa binildiğine** çok bağlı —
+> **Önder'in verdiği 09:00 inişiyle Mardin'de ~20:30.** *(Tablo eski üç senaryoyu tutuyor; geçerli sütun 09:00.)* Bu **hangi uçağa binildiğine** çok bağlı —
 > erken iniş iki saate kadar kazandırıyor:
 >
 > | | 06:50 iniş | **08:25 iniş** | 09:00 iniş |
@@ -613,26 +643,25 @@ bakımlı ve temiz yer"* (kaleye giriş kısıtlı). **45–60 dk, az kullanıla
 
 | Saat | Ne | Kategori | ₺ / kişi | Süre |
 |---|---|---|---|---|
-| ~08:25 | **Berk + Üsame GZT'ye iner.** Önder ve Eren aracı almış, kapıda | yol | — | |
-| 08:50 | **GZT → Şanlıurfa** 157 km, O-52 otoyol | yol | geçiş **102₺** *(araç)* | ~2s00 |
-| 10:50 | Göbeklitepe sapağı — **şehre girmeden** | yol | — | 30 dk |
-| **11:20** | ⭐ **GÖBEKLİTEPE** | müze | **€20 / Müzekart** | **90 dk** |
+| 09:00 | **Berk + Üsame GZT'ye iner.** Önder ve Eren aracı almış, kapıda | yol | — | |
+| 09:50 | **GZT → Şanlıurfa** 157 km, O-52 otoyol | yol | geçiş **102₺** *(araç)* | ~2s00 |
+| **11:50** | ⭐ **GÖBEKLİTEPE** | müze | **€20 / Müzekart** | **90 dk** |
 | | ✅ ***Açık. Her gün açık, kapalı günü yok.*** Kış dönemi (24 Ekim–1 Nisan) **08:30–17:00, gişe 16:30.** ⚠️ *Bir kaynak kışın 17:30/17:00 diyor — **muhafazakâr olanı al, 16:30'a kadar gişede ol.*** | | | |
 | | 💡 *Ziyaretçi karşılama merkezinde ücretsiz otopark, oradan kazı alanına **sürekli ring servisi.** ⚠️ Servisin kışın çalıştığı, ücreti ve sıklığı **doğrulanamadı — gişede sor.*** | | | |
 | | 💡 ***Önce canlandırma merkezini yapın** (sinevizyon), sonra yukarı çıkın. ⚠️ **Canlandırma Merkezi ayrı biletli: €3** — ama Müzekart'a dahil.* | | | |
 | | 🔴 *Sırt üzerinde, **hiç siperlik yok.** Aralıkta Urfa 4–13 °C, günlerin ~%19'u yağışlı, rüzgâr ~12 km/s. **Mont ve rüzgârlık şart.*** | | | |
 | | ⚠️ *Erişim yolunda çalışma var ve yüzey bozuk — **yavaş git.*** | | | |
-| 13:25 | **Öğle: Urfa ciğeri veya kebap** | yemek | ~300–400₺ | 60 dk |
+| 13:35 | **Öğle: Urfa ciğeri veya kebap** | yemek | ~300–400₺ | 60 dk |
 | | 💡 *Ciğer Urfa'da bir **05:00 kahvaltısıdır**, öğle yemeği değil — öğlen gidersen kebap iste. **Zırh kebabı** (İstanbul'un "Urfa kebap" dediği acısız olan) buranın işi. Yerler: Şehr-i Urfa (4,7/100) · Hanehan (4,8/70, kalabalığa uygun) · Astarte (4,9/48, Balıklıgöl'e 500 m).* | | | |
-| **14:25** | ⭐ **ŞANLIURFA ARKEOLOJİ MÜZESİ + HALEPLİBAHÇE MOZAİK MÜZESİ** | müze | **€10 kombine / Müzekart** | **105 dk** |
+| **14:35** | ⭐ **ŞANLIURFA ARKEOLOJİ MÜZESİ + HALEPLİBAHÇE MOZAİK MÜZESİ** | müze | **€10 kombine / Müzekart** | **105 dk** |
 | | ⭐ *Tek biletle iki müze, binalar 150–200 m arayla. Urfa Adamı (Balıklıgöl heykeli) ve Amazon mozaikleri burada. Bir gezgin: **"belki de hayatımda gezdiğim en iyi arkeoloji müzesi"** — bol vakit ayırın, çok büyük. Her gün açık.* | | | |
 | | ✅ ***Panik yanlış alarmdı.** DÖSİM tarifesindeki "ŞANLIURFA E MOZAİK MÜZESİ — KAPALI" satırı bozuk bir eski kayıt (adındaki fazladan "E"ye dikkat), ve Arkeoloji Müzesi için tarifede **hiç satır yok.** İki müzenin de kendi Bakanlık sayfası **"Durum: Ziyarete açıktır"** diyor ve tek kombine e-bilet mozaik müzesinin kendi kodu altında. **Açık.*** | | | |
-| 16:10 | **Balıklıgöl + Ayn Zeliha + Mevlid-i Halil Dergâhı** | gezi | ücretsiz | 60 dk |
+| 16:15 | **Balıklıgöl + Ayn Zeliha + Mevlid-i Halil Dergâhı** | gezi | ücretsiz | 60 dk |
 | | 💡 *Sadece havuzu değil, **bahçenin tamamını** yürüyün. Geç öğleden sonra en iyi saati. Dergâh'ta kıyafet kuralı geçerli ve namaz saatlerinde kalabalık.* | | | |
-| 17:10 | **Gümrük Hanı'nda menengiç kahvesi** — 08:00–20:00, ücretsiz giriş | yemek | ~100₺ | 40 dk |
+| 17:15 | **Gümrük Hanı'nda menengiç kahvesi** — 08:00–20:00, ücretsiz giriş | yemek | ~100₺ | 40 dk |
 | 17:50 | Çarşı (Sipahi Pazarı, Bedesten) — **salı günü tamamen açık** | gezi | — | 30 dk |
-| 18:20 | **Viranşehir'e yol** — 94 km | yol | — | ~70 dk |
-| **~19:30** | **Viranşehir, otel** | | | |
+| 18:30 | **Mardin'e yol** — 185 km *(Önder: "2,5 saat yol")* | yol | — | ~2s00 |
+| **~20:30** | **Mardin, Ramada Plaza** | | | |
 
 **🔴 Bu gün kapalı olanlar — ikisi de planı sadeleştiriyor:**
 - **HARRAN ÖRENYERİ KAPALI.** Bakanlık sayfasında birebir: *"Deprem Sebebi ile Ziyarete Kapalı."*
@@ -674,8 +703,8 @@ mayıs sonunda bitiyor**, aralıkta yok.)*
 
 ---
 
-### 6.5 · 9 Aralık Çarşamba — Mardin → Midyat → Hasankeyf → Batman → Diyarbakır
-**4 kişi · Eren 20:35'te Batman'dan uçuyor · Önder, Berk, Üsame Diyarbakır'a devam**
+### 6.5 · 9 Aralık Çarşamba — Mardin → Midyat → Hasankeyf → Batman
+**4 kişi · Eren 20:35'te Batman'dan uçuyor · Önder, Berk, Üsame Batman'da yatıyor (28 Eyl: Diyarbakır yerine)**
 🌅 Güneş 07:19 · 🌇 Batış Mardin 16:59 / Batman 16:55 · Karanlık 17:28
 
 > **✅ İyi haber: bu gün sandığımdan rahat.** Uçak 20:00 değil **20:35**, ve batış 16:40 değil
@@ -683,8 +712,12 @@ mayıs sonunda bitiyor**, aralıkta yok.)*
 > **Hasankeyf'in 16:30 gişesi.**
 
 **Sürüş (OSRM, gerçek yol geometrisi):** Viranşehir→Mardin 99 km/1s12 · Mardin→Midyat 67/58 dk ·
-Midyat→Hasankeyf 41/41 dk · Hasankeyf→Batman Havalimanı **57/58 dk** · Havalimanı→Diyarbakır 98/1s19.
-**Havalimanına kadar 264 km / 3s49; toplam 362 km / 5s08.**
+Midyat→Hasankeyf 41/41 dk · Hasankeyf→Batman Havalimanı **57/58 dk** · Havalimanı→Batman merkez ~6 km/12 dk.
+**Havalimanına kadar 264 km / 3s49; toplam ~270 km / 4s00** *(Diyarbakır'a 98 km'lik gece ayağı 10'una, sabaha kaydı).*
+
+> ⚠️ **Önder'in takvimi:** Mardin 09–12, Midyat 13–15, Hasankeyf 16–17, havalimanı 18:00. Hasankeyf'in gişesi
+> **16:30'da kapanıyor**; 16:00 varış kaleyi kaçırtır. O yüzden aşağıdaki tablo Hasankeyf'i 15:25'te tutuyor ve
+> havalimanına yine ~18:30'da varıyor — Önder'in "safe time"ı korunuyor.
 
 > 🔴 **Mesafe uyarısı:** KGM'nin "Hasankeyf–Batman Havalimanı 39 km" değeri **yanlış** — Ilısu
 > barajı eski güzergâhı sular altında bıraktı, yol artık "Eski D955" üzerinden dolaşıyor.
@@ -713,8 +746,9 @@ Midyat→Hasankeyf 41/41 dk · Hasankeyf→Batman Havalimanı **57/58 dk** · Ha
 | **17:30** | **Batman Havalimanı'na yol** — 57 km | yol | — | 58 dk |
 | **18:30** | **Havalimanı. Eren'i bırak** (PC 2371, 20:35) | | | |
 | | ⚠️ *Küçük havalimanı, 2 saat pay bol. Araç iade masaları ve kapı kapanışı **araştırılamadı** — Pegasus'un sayfaları JS ile geliyor ve her URL 404 verdi.* | | | |
-| 18:45 | **Diyarbakır'a yol** — 98 km, karanlıkta | yol | — | 1s19 |
-| **20:05** | **Diyarbakır, otel** | | | |
+| 18:45 | **Batman merkeze** — ~6 km *(Önder: "7pm BAL çıkış, Batman'a giriş")* | yol | — | 12 dk |
+| 19:15 | **Batman akşam kebabı** — Çömce Et Lokantası (otele 300 m) veya Meşhur Ciğerci Çavuş; bkz. bölüm 5 | yemek | ~300₺ | 75 dk |
+| **20:30** | **Batman, The Ancient Mesopotamia Hotel** | | | |
 
 > ## Hasankeyf: "45 dakikalık fotoğraf molası" değil — ama arabayla gelenler için
 > Eski şehir 2020'de Ilısu barajıyla sular altında kaldı. **Ama kale tarafı hiç su almadı** ve
@@ -749,8 +783,12 @@ yıllarda Hercai'nin yaptığı gibi.*
 
 ---
 
-### 6.6 · 10 Aralık Perşembe — Diyarbakır + Kommagene → Adıyaman
-**3 kişi: Önder, Berk, Üsame**
+### 6.6 · 10 Aralık Perşembe — Batman → Diyarbakır + Kommagene → Adıyaman
+**3 kişi: Önder, Berk, Üsame · Batman'dan 08:00 çıkış**
+
+> ⚠️ **Önder 09:00 çıkış / 11:00 Diyarbakır diyor.** Plan bir saat erken çıkıyor: Adıyaman'da güneş **16:35**'te batıyor ve Cendere
+> ile Karakuş öğleden sonranın işi — Batman'da bir saat geç, Kommagene vadisinde bir saat karanlık. **Nemrut TBC**'nin cevabı aşağıda
+> (kapalı); kasımda 0416 216 29 29'dan açık çıkarsa Diyarbakır 12:00'de bırakılır, zirve 16:30, ve iniş karanlıkta olur.
 🌅 Güneş 07:24 · 🌇 Batış Diyarbakır 17:00 / Nemrut 17:06 · Karanlık 17:29
 
 > ## 🔴 NEMRUT ZİRVESİ ARALIKTA KAPALI. Günün manşeti yok — yeniden kuruldu.
@@ -789,23 +827,25 @@ yıllarda Hercai'nin yaptığı gibi.*
 
 | Saat | Ne | Kategori | ₺ / kişi | Süre |
 |---|---|---|---|---|
-| 07:45 | **Hasan Paşa Hanı'nda Diyarbakır kahvaltısı** | yemek | ~600₺ *(bir kişilik iki kişiye yetiyor)* | 60 dk |
+| 08:00 | **Batman → Diyarbakır** — ~100 km, D-360, Silvan üzerinden. **Depoyu Batman'da doldur** (Önder: "benzin vs. ıvır zıvır") | yol | — | ~1s20 |
+| 09:20 | **Hasan Paşa Hanı'nda Diyarbakır kahvaltısı** | yemek | ~600₺ *(bir kişilik iki kişiye yetiyor)* | 60 dk |
 | | ⚠️ *Han'ın kafelerinin deprem sonrası işleyiş durumu **doğrulanamadı**, 2025–26 fiyatı yok. Alternatif: **Kahvaltıcı Edip.*** | | | |
-| 08:45 | **SUR YÜRÜYÜŞÜ** — Dağkapı → Ulu Camii → Dört Ayaklı Minare → Surp Giragos → Mardinkapı / Keçi Burcu | gezi | ücretsiz | **2s30** |
+| 10:10 | **SUR YÜRÜYÜŞÜ** — Dağkapı → Ulu Camii → Dört Ayaklı Minare → Surp Giragos → Mardinkapı / Keçi Burcu | gezi | ücretsiz | **2s00** |
 | | ⚠️ 🔴 ***Bu yürüyüşün hangi kısımlarının açık olduğu doğrulanamadı.** 2015–16 Sur olaylarındaki yıkım (Alipaşa, Lalebey, Savaş, Cevatpaşa, Fatihpaşa, Hasırlı) artı 2023 deprem hasarı, sur içinin büyük bölümünü **çitli kamulaştırma/şantiye alanı** yapmış durumda. Hangi sokakların açık olduğuna dair tarihli kaynak bulunamadı. **Rotayı makul ama teyitsiz kabul edin ve yerinde esneyin.*** | | | |
 | | ⚠️ *Surp Giragos Ermeni Kilisesi Ekim 2022'de restorasyon sonrası açıldı — **güncel ziyaret saatleri teyitsiz.** Türkiye'deki Ermeni kiliseleri genelde sadece ayin saatlerinde veya randevuyla açık. **Aranmalı.*** | | | |
 | | 💡 *Merkezdeki her şey yürünüyor — **tek istisna On Gözlü Köprü, 10 dk araba.*** | | | |
 | | 💡 *Mar Petyun Keldani Kilisesi **20₺.*** | | | |
-| 11:15 | **Diyarbakır Arkeoloji Müzesi** (İçkale) *(vakit varsa)* | müze | €3 / Müzekart | 45 dk |
+| 12:10 | **Diyarbakır Arkeoloji Müzesi** (İçkale) *(vakit varsa)* | müze | €3 / Müzekart | 40 dk |
+| 12:50 | **Öğlen ciğer** — Ciğerci Remzi / Neşet, 4 şiş ~420₺ (aşağıda) | yemek | ~420₺ | 45 dk |
 | | ⚠️ *Bakanlık notu: **"TEMATİK TEŞHİR SALONU GEÇİCİ SÜRE İLE ZİYARETE KAPATILMIŞTIR."** Pazartesi kapalı — perşembe temiz.* | | | |
-| **13:00** | 🔴 **DİYARBAKIR'DAN ÇIKIŞ** → Kâhta 163 km | yol | — | **2s16** |
-| **15:30** | **KÂHTA — aşağı Kommagene** | | | |
-| 15:40 | **CENDERE KÖPRÜSÜ** — Roma köprüsü, Kâhta'ya ~20 km | gezi | **ücretsiz** | 30 dk |
+| **13:35** | 🔴 **DİYARBAKIR'DAN ÇIKIŞ** → Kâhta 163 km | yol | — | **2s16** |
+| **15:50** | **KÂHTA — aşağı Kommagene** | | | |
+| 15:55 | **CENDERE KÖPRÜSÜ** — Roma köprüsü, Kâhta'ya ~20 km | gezi | **ücretsiz** | 30 dk |
 | | 💡 *Artık **yaya** — yanına yeni köprü yapılmış. Alacakaranlıkta fotojenik.* | | | |
-| 16:20 | **KARAKUŞ TÜMÜLÜSÜ** | gezi | **ücretsiz** | 25 dk |
+| 16:25 | **KARAKUŞ TÜMÜLÜSÜ** | gezi | **ücretsiz** | 25 dk |
 | | 💡 *Otoparktan **750 m / 8 dk** yürüyüş.* | | | |
-| 17:00 | **Adıyaman'a yol** — 34 km | yol | — | 37 dk |
-| **17:40** | **Adıyaman, otel** | | | |
+| 16:55 | **Adıyaman'a yol** — 34 km | yol | — | 37 dk |
+| **17:35** | **Adıyaman, otel** | | | |
 | | 🔴 ***Kâhta'da gece benzin istasyonları kapanıyor** — "adamlar akşam olmuş diye kapatmış gitmişler." **Karanlıktan önce depoyu doldurun.*** | | | |
 
 **🔴 Aralık alternatifi olarak aşağı Kommagene gerçekten toplamı tutuyor** — hepsi düşük rakımda,
@@ -852,7 +892,12 @@ pazar kapalı** — perşembe sorun yok.*
 ---
 
 ### 6.7 · 11 Aralık Cuma — Adıyaman → Kahramanmaraş
-**3 kişi · Berk akşam uçuyor · Önder + Üsame İslahiye'ye devam**
+**3 kişi · Berk akşam uçuyor (Önder: 21:45, 19:00 havalimanı) · Önder + Üsame İslahiye'ye devam**
+
+> **Önder'in takvimi:** Adıyaman 13:00'e kadar, Maraş 15:00–18:00, Berk 19:00 havalimanı, sonra bir saat daha yol, 20–21 araç teslimi,
+> akşam arkadaşta. Plan iki yerde ayrılıyor: **çıkış 12:00** (13:00 olursa Maraş Müzesi'nin 16:30 gişesi düşer — kale, çarşı, dondurma
+> yine sığar), ve **araç cumartesiye kadar kalıyor** — cuma 21:00 teslimi Yesemek'i ve cumartesi havalimanı yolunu arabasız bırakıyor,
+> faturayı da düşürmüyor (salı 09:00 → cuma 21:00 yine dört 24 saatlik blok, cumartesi 10:00 iadesiyle aynı; bkz. bölüm 4).
 🌅 Güneş 07:32 · 🌇 Batış Adıyaman 17:08 / Maraş 17:14 · Karanlık 17:43
 
 > **🔴 Bu günün sorunu, korkulanın tam tersi.** Geriye doğru hesap: TK 2207 20:50 → Maraş
@@ -863,28 +908,28 @@ pazar kapalı** — perşembe sorun yok.*
 
 | Saat | Ne | Kategori | ₺ / kişi | Süre |
 |---|---|---|---|---|
-| 08:30 | **PERRE ANTİK KENTİ** — Adıyaman merkeze 5 km kuzeyde | gezi | €3 / **Müzekart** | 50 dk |
+| 09:00 | **PERRE ANTİK KENTİ** — Adıyaman merkeze 5 km kuzeyde | gezi | €3 / **Müzekart** | 50 dk |
 | | ✅ *Durum: Açık, **her gün açık**, 08:00–17:30. 2025'te 5,8 milyon ₺ kazı/koruma ödeneği ayrılmış.* | | | |
-| 09:30 | **Musalla Camii** — restore edilip yeniden açıldı | gezi | ücretsiz | 20 dk |
+| 10:10 | **Musalla Camii** — restore edilip yeniden açıldı | gezi | ücretsiz | 20 dk |
 | | ✅ *Euronews Türkçe, **4 Eylül 2026**: Bakan Ersoy'un katıldığı törenlerle Merkez **Musalla Camii**, Besni **Kurşunlu Camii** ve **Abuzer Gaffari Mescidi ve Türbesi** yeniden hizmete girdi (kubbe, minare, kurşun kaplama).* | | | |
-| 10:00 | **Adıyaman çiğköftesi** — sokakta, lavaşa sarılı | yemek | ~50–100₺ | 30 dk |
+| 10:45 | **Kahvaltı + Adıyaman çiğköftesi** — önce oturarak kahvaltı, sonra sokakta, lavaşa sarılı | yemek | ~150₺ | 75 dk |
 | | ⭐ *"Burada her yerde çiğköfteci var, herkes onu lavaşa alıp gidiyor" — bir gezginin **10/10** verdiği tek şey. **Çiğköfteci İbo**, Atatürk Bulvarı, Şahinbey Çarşısı 28.* | | | |
 | | *Diğer isimler (⚠️ 2025 fiyatları, bugün çok daha yüksek): **Meşhur Kebab Salonu Hasan Usta**, Gölbaşı Cd. 1 · **Adıyaman Sofrası (Muzaffer Şef)**, Gölbaşı Cd. 58/A — Adıyaman kavurma · **Güloğlu Pastanesi**, Gölbaşı Cd. 104 · **Kayadibi Restaurant**, Kâhta.* | | | |
-| **10:45** | **Kahramanmaraş'a yol** — 162 km, D-360, Gölbaşı → Türkoğlu | yol | — | **2s10** |
+| **12:00** | **Kahramanmaraş'a yol** — 162 km, D-360, Gölbaşı → Türkoğlu | yol | — | **2s10** |
 | | 💡 *Vakit boldur — **Gölbaşı** (Adıyaman'a 63 km, yol üstünde) mola/öğle için mantıklı bir yer.* | | | |
-| **13:00** | **KAHRAMANMARAŞ KALESİ** | gezi | *(ücret yayınlanmadı)* | 75 dk |
+| **14:10** | **KAHRAMANMARAŞ KALESİ** | gezi | *(ücret yayınlanmadı)* | 65 dk |
 | | 🟢 ***16 Eylül 2026'da yeniden açıldı*** — bu araştırmadan **iki gün önce.** Bakan Ersoy ve Başkan Görgel'in katıldığı törenle. Çöken güneybatı surları özgün tekniğiyle yeniden örülmüş, zemin güçlendirilmiş, **hasarlı ziyaretçi merkezinin yerine yenisi yapılmış**, yürüyüş yolları düzenlenmiş, içinde **Kırkaltı Cafe** var. **Şehrin artık en güçlü durağı burası.** | | | |
-| 14:30 | **Kahramanmaraş Müzesi** | müze | €3 / **Müzekart** | 60 dk |
+| 15:15 | **Kahramanmaraş Müzesi** | müze | €3 / **Müzekart** | 50 dk |
 | | ✅ *Durum: Açık, **her gün açık**, 08:00–17:00, gişe 16:30. Azerbaycan Bulvarı 35. **Deprem üssü olan ilde açık olan tek devlet müzesi** — ve iyi bir müze (Maraş stelleri, Domuztepe buluntuları).* | | | |
-| 15:40 | **TARİHİ KAPALI ÇARŞI + Semerciler + Bakırcılar Sokağı** | gezi | — | 75 dk |
+| 16:05 | **TARİHİ KAPALI ÇARŞI + Semerciler + Bakırcılar Sokağı** | gezi | — | 55 dk |
 | | ⚠️ *Yeniden açıldığına dair olumlu haberler var ama **ne kadarının fiilen çalıştığı doğrulanamadı.** ⚠️ Ayrıca dikkat: "bakırcılar çarşısı yeniden açıldı" aramalarının çoğu **Malatya** ile ilgili, Maraş'la değil.* | | | |
 | | ⚠️ ***Kuyumcular pazar kapalı*** — cuma sorun değil. | | | |
 | **17:00** | ⭐ **MARAŞ DONDURMASI — Emek Pastanesi**, Kapalı Çarşı | yemek | **~30₺/top** | 40 dk |
 | | ⭐ *Üç kuşak, ~100 yıllık tarif, yerinde dövülüyor. **Eylül 2026 fiyatları** (bu rapordaki en taze veri): bir top dondurma **30₺**, meyan şerbeti **30₺**, çörek **20₺**, Şam tatlısı **40₺**. Bir gezgin 200₺'ye bunların hepsini yiyip 60₺ artırmış.* | | | |
 | | 💡 *Diğerleri: **Hacı Mehmet Can**, Yaşar Usta. Et için **Hacı Milcan**. **Lahmacuncu İsmet Usta** (Yazı girişi) — bir Maraşlı: "Lahmacun yiyecekseniz tek adres orası."* | | | |
 | | 💡 *Alınacaklar: **tarhana cipsi** (yoğurt + dövme + kekik + badem, salkımda güneşte kurutulmuş), frik, Maraş peyniri, narçiçeği, acı biber — **Semerciler Çarşısı**.* | | | |
-| 17:45 | **Akşam yemeği** — Koç Kebap (Adana dürüm) veya çarşı | yemek | ~250–350₺ | 70 dk |
-| **19:00** | **Berk'i ayır.** ⚠️ **Karar bölüm 3'te:** Maraş havalimanı (TK 2207 → **IST**) mı, yoksa Antep'e birlikte gelip GZT→SAW mı? | | | |
+| 17:40 | **Akşam yemeği** — Koç Kebap (Adana dürüm) veya çarşı | yemek | ~250–350₺ | 65 dk |
+| **18:45** | **Berk'i ayır** — merkezden çık, 19:00 havalimanı (Önder: uçuş 21:45; bilet bakılmadı, hangi İstanbul havalimanı olduğu bilette). ⚠️ Eylül araştırması: KCM'den akşam SAW uçuşu yok, TK 2207 20:50 → **IST**; bkz. bölüm 3 | | | |
 | | *Maraş seçilirse: havalimanı merkeze **5 km**, 15 dk sürüş, 60 dk check-in → **merkezden 19:35'te çık.*** | | | |
 | 19:15 | **İslahiye'ye yol** — 69 km, O-52 | yol | geçiş ~45₺ | ~60 dk |
 | **20:20** | **İslahiye** | | | |
@@ -1017,9 +1062,9 @@ masraflar, sonra kişi başı payı var.
 | **Yakıt** — 2.490 km, benzin | **15.341** | 18 Eyl 2026 pompa fiyatları; aralıkta değişir |
 | **Geçiş ücretleri + HGS** | **390** | Rotanın çoğu ücretsiz bölünmüş yol |
 | **Konaklama — 8 Ara, Mardin** (Ramada Plaza, 4 kişi) | **10.409** | Viranşehir alternatifi: fiyat alınamadı |
-| **Konaklama — 9 Ara, Diyarbakır** (Turistik Palas, 3 kişi) | **13.649** | Garaj + vale |
+| **Konaklama — 9 Ara, Batman** (The Ancient Mesopotamia, 3 kişi) | **6.430** | €115, Booking 30 Eyl; Diyarbakır gecesi yerine (28 Eyl) |
 | **Konaklama — 10 Ara, Adıyaman** (Adıyaman Park, 1 triple) | **4.249** | Kahvaltı dahil |
-| **ARA TOPLAM** | **67.738** | |
+| **ARA TOPLAM** | **60.518** | *(eskisi 67.738 — Batman gecesi 7.219 ucuz)* |
 
 ### Kişi başı masraflar
 
@@ -1034,9 +1079,9 @@ masraflar, sonra kişi başı payı var.
 
 | Kim | Kaç gün | Ortak paydan payı *(tahmini)* | Kişisel | **Toplam ₺** |
 |---|---|---|---|---|
-| **Önder** | 8 gün (5–12 Ara) | ~20.000 | ~12.000 | **~32.000** |
-| **Üsame** | 5 gün (8–12 Ara) | ~17.000 | ~8.500 | **~25.500** |
-| **Berk** | 4 gün (8–11 Ara) | ~14.500 | ~7.000 | **~21.500** |
+| **Önder** | 8 gün (5–12 Ara) | ~17.600 | ~12.000 | **~29.600** |
+| **Üsame** | 5 gün (8–12 Ara) | ~14.600 | ~8.500 | **~23.100** |
+| **Berk** | 4 gün (8–11 Ara) | ~12.100 | ~7.000 | **~19.100** |
 | **Eren** | 5 gün (5–9 Ara) | ~16.000 | ~7.500 | **~23.500** |
 
 **Uçak biletleri hariç** (istendiği gibi bakılmadı) ve İslahiye'deki dört gece ücretsiz.
